@@ -1,6 +1,6 @@
 <?php 
 
-Class quiz_data extends CI_Model
+Class Quiz_data extends CI_Model
 {
 public function __construct()
 {

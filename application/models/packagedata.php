@@ -1,6 +1,6 @@
 <?php
 
-Class packagedata extends CI_Model
+Class Packagedata extends CI_Model
 {
 var $table = 'lms_package_module';
   var $column = array('m_id','Name'); //set column field database for order and search

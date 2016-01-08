@@ -1,6 +1,6 @@
 <?php
 
-Class delete_course extends CI_Model
+Class Delete_course extends CI_Model
 {
 
 function delete_data($id)

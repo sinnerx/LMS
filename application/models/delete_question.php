@@ -1,6 +1,6 @@
 <?php
 
-Class delete_question extends CI_Model
+Class Delete_question extends CI_Model
 {
 
 function delete_data($q_id)

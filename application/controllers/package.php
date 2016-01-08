@@ -1,7 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 
-class package extends CI_Controller {
+class Package extends CI_Controller {
 
   public function __construct()
   {

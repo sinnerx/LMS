@@ -1,6 +1,6 @@
 <?php
 
-Class questiondata extends CI_Model
+Class Questiondata extends CI_Model
 {
   var $table = 'lms_questions_bank';
   var $column = array('q_id','q_text','type'); //set column field database for order and search

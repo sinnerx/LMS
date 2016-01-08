@@ -1,6 +1,6 @@
 <?php
 
-Class delete_package extends CI_Model
+Class Delete_package extends CI_Model
 {
 
 function delete_data($m_id)

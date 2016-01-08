@@ -6,7 +6,7 @@ defined ('BASEPATH') OR exit ('No direct access allowed!');
  * and open the template in the editor.
  */
 
-class template_model extends CI_Model {
+class Template_model extends CI_Model {
     
     //construct
     public function __construct() {

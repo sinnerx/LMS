@@ -1,6 +1,6 @@
 <?php 
 
-Class package_data extends CI_Model
+Class Package_data extends CI_Model
 {
 
  public function packages()
