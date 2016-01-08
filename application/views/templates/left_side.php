@@ -443,6 +443,16 @@
                           </a>
                         </li>
                       </ul>
+                      </ul>
+                       <ul class="nav dk">
+                        <li >
+                          <a href="<?php echo base_url(); ?>quizs" class="auto">                                                        
+                            <i class="i i-dot"></i>
+
+                            <span>Manage Quizs</span>
+                          </a>
+                        </li>
+                      </ul>
 
              
                    
