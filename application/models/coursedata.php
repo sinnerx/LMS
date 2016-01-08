@@ -1,6 +1,6 @@
 <?php
 
-Class coursedata extends CI_Model
+Class Coursedata extends CI_Model
 {
  var $table = 'lms_course';
   var $column = array('id','courseID','Topics','Descr'); //set column field database for order and search

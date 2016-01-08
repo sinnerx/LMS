@@ -1,6 +1,6 @@
 <?php 
 
-Class questions_data extends CI_Model
+Class Questions_data extends CI_Model
 {
 
  public function questions($data)

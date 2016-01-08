@@ -1,6 +1,6 @@
 <?php 
 
-Class courses_data extends CI_Model
+Class Courses_data extends CI_Model
 {
 
  public function courses()
