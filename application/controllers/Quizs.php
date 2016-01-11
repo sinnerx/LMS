@@ -2,26 +2,26 @@
 
 class Quizs extends CI_Controller {
 
-	public function __construct()
-  {
-    parent::__construct();
-    //$this->load->model('quiz_data');
- 	$this->load->helper('form');
-        $this->load->helper('url');
-  }
-	public function index(){
-	$this->load->database();
-	$this->load->helper(array('date','url'));
-	// Get the id of the last question
-	$res = $this->db->
-		   select_min('q_id')->
-		   get('lms_questions_bank')->
-		   result_array();
-
-	$q_id = $res[0]['q_id'];
-		
-	$this->show($q_id);
-  }
+	public function __construct(){
+		    parent::__construct();
+		    //$this->load->model('quiz_data');
+		 	$this->load->helper('form');
+		        $this->load->helper('url');
+		  }
+  
+	  public function index(){
+		$this->load->database();
+		$this->load->helper(array('date','url'));
+		// Get the id of the last question
+		$res = $this->db->
+			   select_min('q_id')->
+			   get('lms_questions_bank')->
+			   result_array();
+	
+		$q_id = $res[0]['q_id'];
+			
+		$this->show($q_id);
+	  }
 
 	public function show($q_id = -1){
 
