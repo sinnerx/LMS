@@ -19,8 +19,8 @@
                             <label class="col-sm-2 control-label">Course</label>
                             <div class="col-md-4">
                             <?php
-                            $query = "SELECT * FROM lms_course"; $result = mysql_query($query) or die(mysql_error());  ?> 
-                            <select name="id" class="form-control m-b"><option>Select one </option><?php while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) { ?> 
+                            $query = "SELECT * FROM lms_course"; $result = mysqli_query($query) or die(mysqli_error());  ?> 
+                            <select name="id" class="form-control m-b"><option>Select one </option><?php while ($line = mysqli_fetch_array($result, MYSQL_ASSOC)) { ?> 
                             <option value=" <?php echo $line['id'];?> "> <?php echo $line['Topics'];?></option> <?php } ?>
                             </select>
                             </div>

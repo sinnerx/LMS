@@ -19,8 +19,8 @@
                       <label class="col-sm-2 control-label">Package</label>
                       <div class="col-md-5">
                         <?php
-                            $query = "SELECT * FROM lms_package_module"; $result = mysql_query($query); ?> 
-                        <select style="width:260px" name="m_id" class="form-control m-b" ><option>Select one </option><?php while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) { ?> 
+                            $query = "SELECT * FROM lms_package_module"; $result = mysqli_query($query); ?> 
+                        <select style="width:260px" name="m_id" class="form-control m-b" ><option>Select one </option><?php while ($line = mysqli_fetch_array($result, MYSQL_ASSOC)) { ?> 
                           
                           <option value="<?php echo $line['m_id'];?> "> <?php echo $line['Name'];?></option> <?php } ?>
                        </select>
