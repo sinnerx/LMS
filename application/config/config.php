@@ -23,7 +23,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://cloud.fulkrum.net/labs/iris/lms/';
+//$config['base_url'] = 'http://cloud.fulkrum.net/labs/iris/lms/';
+$config['base_url'] = 'http://localhost/digitalgaia/iris/lms/';
+
 
 /*
 |--------------------------------------------------------------------------
