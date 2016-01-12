@@ -202,6 +202,7 @@ function index()
         'userLevel' => $userLevel,
         'message' => 'My Message'
     );
+     $data['groups'] = $this->courses_data->getAllGroups();
     $data['page_title'] = 'Learning Management System';
     $data['nav_title'] = 'Course';
     $data['nav_subtitle'] = 'New Course';

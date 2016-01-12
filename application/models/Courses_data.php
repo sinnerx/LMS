@@ -17,6 +17,18 @@ Class Courses_data extends CI_Model
 return false;
  }
 
+ public function getAllGroups()
+    {
+      
+
+        $query = $this->db->query('SELECT *  FROM lms_package_module');
+
+
+        return $query->result();
+
+        //echo 'Total Results: ' . $query->num_rows();
+    }
+
   public function courses_report()
   {
       $query = $this->db->get('lms_course');

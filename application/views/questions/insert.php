@@ -18,11 +18,19 @@
            
                             <label class="col-sm-2 control-label">Course</label>
                             <div class="col-md-4">
+                            <select name="id" class="form-control m-b"><option>Select one </option>
                             <?php
-                            $query = "SELECT * FROM lms_course"; $result = mysqli_query($query) or die(mysqli_error());  ?> 
-                            <select name="id" class="form-control m-b"><option>Select one </option><?php while ($line = mysqli_fetch_array($result, MYSQL_ASSOC)) { ?> 
-                            <option value=" <?php echo $line['id'];?> "> <?php echo $line['Topics'];?></option> <?php } ?>
+
+
+                              foreach($groups as $row)
+                            { 
+                              echo '<option value="'.$row->id.'">'.$row->Topics.'</option>';
+                            }
+                            ?>
                             </select>
+                           
+
+
                             </div>
                             </div>
                         

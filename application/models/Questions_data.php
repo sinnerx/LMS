@@ -70,6 +70,18 @@ Class Questions_data extends CI_Model
     
   }
 
+public function getAllGroups()
+    {
+      
+
+        $query = $this->db->query('SELECT *  FROM lms_course');
+
+
+        return $query->result();
+
+        //echo 'Total Results: ' . $query->num_rows();
+    }
+
   public function questions_report()
   {
       $query = $this->db->get('lms_questions_bank');

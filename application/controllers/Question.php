@@ -197,7 +197,7 @@ function index()
         'userLevel' => $userLevel,
         'message' => 'My Message'
     );
-
+    $data['groups'] = $this->questions_data->getAllGroups();
     $data['page_title'] = 'Monte Carlo';
     $data['nav_title'] = 'Question';
     $data['nav_subtitle'] = 'New Question';
