@@ -354,6 +354,7 @@ function index()
       // If has id and go to single view
       $data['groups'] = $this->courses_data->getAllGroups();
       $data['course'] = $this->coursedata->id($id);
+     // $data['package'] = $this->coursedata->ids($id);
 
       $data['page_title'] = 'Monte Carlo';
       $data['nav_title'] = 'Course';
@@ -434,7 +435,7 @@ function delete($id)
        $this->load->view('templates/header', $data);
        $this->load->view('templates/left_side', $data);
        $this->load->view('templates/content_header', $data);
-       redirect ( base_url().'index.php/course');
+       redirect ( base_url().'course');
        $this->load->view('templates/footer');
 
       }

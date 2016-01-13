@@ -24,7 +24,7 @@
         
  <br />
         
-        <a href="<?php echo base_url(); ?>course/insert/"><button class="btn btn-success" type="submit"><i class="glyphicon glyphicon-plus"></i> Add Course</button></a>
+        <a href="<?php echo base_url(); ?>course/insert/"><button class="btn btn-success" type="submit"><i class="glyphicon glyphicon-plus"></i> Add Module</button></a>
         <button class="btn btn-default" onclick="reload_table()"><i class="glyphicon glyphicon-refresh"></i> Reload</button>
         <br />
         <br />
@@ -32,8 +32,8 @@
             <thead>
                 <tr>
                     <th> ID</th>
-                    <th>Course ID</th>
-                    <th>Topics</th>
+                    <th>Module ID</th>
+                    <th>Module Name</th>
                     <th>Description</th>
                     
                     <th>Action</th>

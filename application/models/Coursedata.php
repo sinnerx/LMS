@@ -31,6 +31,15 @@ Class Coursedata extends CI_Model
       return $query->row_array();
   }
 
+  public function ids($id)
+  { 
+    $this->db->select('lms_package_module.Name,lms_course.Topics,course.id,lms_course.courseID,lms_course.Descr,course.m_id');
+    $this->db->from('lms_course');
+    $this->db->join('lms_package_module','lms_package_module.m_id = lms_course.m_id'); 
+    $query = $this->db->get();
+    return $query->result_array();
+  }
+
 
   private function _get_datatables_query()
   {

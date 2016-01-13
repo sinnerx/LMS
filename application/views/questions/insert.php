@@ -16,7 +16,7 @@
                     <form class="form-horizontal" data-validate="parsley" method="post" action="<?php echo base_url() ?>question/questions_data">
                     <div class="form-group">
            
-                            <label class="col-sm-2 control-label">Course</label>
+                            <label class="col-sm-2 control-label">Module Name</label>
                             <div class="col-md-4">
                             <select name="id" data-required="true" class="form-control m-b"><option value="">Select one </option>
                             <?php

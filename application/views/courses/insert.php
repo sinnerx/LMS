@@ -33,14 +33,14 @@
                     </div>
                     
                      <div class="line line-dashed b-b line-lg pull-in"></div>
-                      <label class="col-sm-2 control-label">Course ID</label>
+                      <label class="col-sm-2 control-label">Module ID</label>
                       <div class="col-md-5">
                         <input type="text" name="courseID" id="courseID" class="form-control" data-required="true"/>
                       </div>
                     </div>
                     <div class="line line-dashed b-b line-lg pull-in"></div>
                     <div class="form-group">
-                      <label class="col-sm-2 control-label">Topic</label>
+                      <label class="col-sm-2 control-label">Module Name</label>
                       <div class="col-md-5">
                         <input type="text" name="Topics" id="Topics" class="form-control" data-required="true"/>
                       </div>

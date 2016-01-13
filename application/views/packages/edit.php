@@ -39,7 +39,7 @@
                                       <!--  <input type="text" name="dt_update" class="form-control pull-right" id="datetimepicker1" data-date-format="YYYY-MM-DD HH:mm:ss" <?php if ($dd_report['dt_update'] != '0000-00-00 00:00:00') { ?> value="<?php echo $dd_report['dt_update']; ?>" <?php } ?>/>
                                     </div><!-- /.input group -->
                                     <div class="doc-buttons">
-                     <button type="submit" class="btn btn-sm btn-default">Submit</button>
+                     <button type="submit" class="btn btn-sm btn-default">Update</button>
                      <a href="javascript:window.history.go(-1);" class="btn btn-sm btn-default">Cancel</a></div>
     
 

@@ -44,7 +44,7 @@
 
 
                                <div class="form-group">
-                               <label class="col-sm-2 control-label">Course ID</label>
+                               <label class="col-sm-2 control-label">Module ID</label>
                                <div class="col-md-5">
                                <input type="text" name="id" class="form-control" value="<?php echo $question['courseID']; ?>-<?php echo $question['Topics']; ?>"disabled>
                                </div>
