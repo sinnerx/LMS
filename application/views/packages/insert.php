@@ -13,7 +13,7 @@
                 </header>
                   
                      <div class="panel-body">
-                    <form class="form-horizontal" method="post" action="<?php echo base_url() ?>package/package_data">
+                    <form class="form-horizontal" data-validate="parsley" method="post" action="<?php echo base_url() ?>package/package_data">
                     <div class="form-group">
              
                           
@@ -22,7 +22,7 @@
                             <div class="form-group">
                             <label class="col-sm-2 control-label">Package Name</label>
                             <div class="col-md-5">
-                            <input type="text" name="Name" id="Name" class="form-control" />
+                            <input type="text" data-required="true" name="Name" id="Name" class="form-control" />
                             </div>
                             </div>
 

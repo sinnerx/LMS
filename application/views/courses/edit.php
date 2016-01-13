@@ -22,7 +22,7 @@
                 <?php echo $nav_subtitle;?>
                 </header>
                 <div class="panel-body">
-                <form class="form-horizontal" method="post" action="<?php echo base_url() ?>index.php/course/Update_course">
+                <form class="form-horizontal" method="post" data-validate="parsley" action="<?php echo base_url() ?>index.php/course/Update_course">
                   <div class="form-group">
                   <input type="hidden" name="id" id="id" value="<?php echo $course['id']; ?> ">
                   <label class="col-sm-2 control-label">Course ID</label>
@@ -55,7 +55,7 @@
                       <label class="col-sm-2 control-label">Package</label>
                       <div class="col-md-5">
                        
-                        <select style="width:260px" name="m_id" class="form-control m-b" > <option>Select One</option> 
+                        <select style="width:260px" data-required="true" name="m_id" class="form-control m-b" > <option value="">Select One</option> 
                         <?php 
 
                         foreach($groups as $row)
