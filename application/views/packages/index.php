@@ -1,7 +1,7 @@
 
 <html lang="en" class="app">
 <?php
-if($_SESSION['userLevel'] != 99){
+if($_SESSION['userLevel'] != 2){
        
       header("location: ./");
      
