@@ -9,13 +9,15 @@
         <a class="btn btn-link visible-xs" data-toggle="dropdown" data-target=".user">
           <i class="fa fa-cog"></i>
         </a>
-      </div>     
-      <ul class="nav navbar-nav hidden-xs"></ul>
-      <form class="navbar-form navbar-left input-s-lg m-t m-l-n-xs hidden-xs" role="search">
-        <div class="form-group">
-         
-        </div>
-      </form>
+      </div>   
+      <ul class="nav navbar-nav hidden-xs">
+       <li>
+         <a href="../dashboard"  style="border-left:1px dashed #CECECE;">
+         <span class="btn btn-s-md btn-success">Go to Pi1m</span>
+         </a>
+       </li>
+      </ul>
+    
       <ul class="nav navbar-nav navbar-right m-n hidden-xs nav-user user">
 
         <li class="dropdown">
@@ -59,6 +61,7 @@
               <div class=slim-scroll data-height=auto data-disable-fade-out=true data-distance=0 data-size=10px data-railOpacity=0.2>
                 <div class="clearfix wrapper dk nav-user hidden-xs">
         <div class="dropdown">
+          <br/>
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             <span class="thumb avatar pull-left m-r">                        
               <img src="<?php echo base_url(); ?>assets/images/a0.png" class="dker">

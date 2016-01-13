@@ -55,11 +55,13 @@
                       <label class="col-sm-2 control-label">Package</label>
                       <div class="col-md-5">
                        
-                        <select style="width:260px" name="m_id" class="form-control m-b" ><option>Select one </option>;
+                        <select style="width:260px" name="m_id" class="form-control m-b" > <option>Select One</option> 
                         <?php 
 
                         foreach($groups as $row)
                          { 
+
+                       
                         echo '<option value="'.$row->m_id.'">'.$row->Name.'</option>';
                           }
                            ?>

@@ -11,14 +11,14 @@
                  Add New Course
                 </header>
                 <div class="panel-body">
-                  <form class="form-horizontal" method="post" action="<?php echo base_url() ?>index.php/course/courses_data">
+                  <form class="form-horizontal" method="post" data-validate="parsley" action="<?php echo base_url() ?>index.php/course/courses_data">
                     <div class="form-group">
 
 
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Package</label>
                       <div class="col-md-5">
-                        <select style="width:260px" name="m_id" class="form-control m-b" ><option>Select one </option>;
+                        <select data-required="true" style="width:260px" name="m_id" class="form-control m-b"><option value="">Select one </option>;
                         <?php 
 
             foreach($groups as $row)
@@ -35,14 +35,14 @@
                      <div class="line line-dashed b-b line-lg pull-in"></div>
                       <label class="col-sm-2 control-label">Course ID</label>
                       <div class="col-md-5">
-                        <input type="text" name="courseID" id="courseID" class="form-control"/>
+                        <input type="text" name="courseID" id="courseID" class="form-control" data-required="true"/>
                       </div>
                     </div>
                     <div class="line line-dashed b-b line-lg pull-in"></div>
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Topic</label>
                       <div class="col-md-5">
-                        <input type="text" name="Topics" id="Topics" class="form-control"/>
+                        <input type="text" name="Topics" id="Topics" class="form-control" data-required="true"/>
                       </div>
                     </div>
                      <div class="line line-dashed b-b line-lg pull-in"></div>

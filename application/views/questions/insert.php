@@ -13,12 +13,12 @@
                 </header>
                   
                      <div class="panel-body">
-                    <form class="form-horizontal" method="post" action="<?php echo base_url() ?>index.php/question/questions_data">
+                    <form class="form-horizontal" data-validate="parsley" method="post" action="<?php echo base_url() ?>question/questions_data">
                     <div class="form-group">
            
                             <label class="col-sm-2 control-label">Course</label>
                             <div class="col-md-4">
-                            <select name="id" class="form-control m-b"><option>Select one </option>
+                            <select name="id" data-required="true" class="form-control m-b"><option value="">Select one </option>
                             <?php
 
 
@@ -39,7 +39,7 @@
                             <label class="col-sm-2 control-label">Type</label>
                             <div class="col-md-4">
                             <select name="type" class="form-control m-b">
-                            <option>Select one </option>
+                            <option value="">Select one </option>
                             <option value="Easy">Easy</option>
                             <option value="Intermidiate">Intermidiate</option>
                             <option value="Hard">Hard</option>

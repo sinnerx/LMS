@@ -64,10 +64,9 @@
                             <label class="col-sm-2 control-label">Type</label>
                             <div class="col-md-4">
                             <select name="type" class="form-control m-b">
-                            <option>Select one </option>
-                            <option value="Easy">Easy</option>
-                            <option value="Intermidiate">Intermidiate</option>
-                            <option value="Hard">Hard</option>
+                            <option <?php echo ($question['type']=='Easy')?'selected="selected"':''; ?>>Easy</option>
+                            <option <?php echo ($question['type']=='Intermidiate')?'selected="selected"':''; ?>>Intermidiate</option>
+                            <option <?php echo ($question['type']=='Hard')?'selected="selected"':''; ?>>Hard</option>
                             </select>
                             </div>
                             </div>

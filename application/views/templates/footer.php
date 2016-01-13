@@ -38,6 +38,11 @@
 
   <script src="<?php echo base_url(); ?>assets/js/chosen/chosen.jquery.min.js"></script>
   <script src="<?php echo base_url(); ?>assets/js/app.plugin.js"></script>
+   <script src="js/slimscroll/jquery.slimscroll.min.js"></script>
+  <!-- parsley -->
+<script src="<?php echo base_url(); ?>assets/js/parsley/parsley.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/parsley/parsley.extend.js"></script>
+  <script src="<?php echo base_url(); ?>assets/js/app.plugin.js"></script>
 
   
 <!--untuk pagination-->
@@ -295,6 +300,11 @@ $(document).ready(function(){
 
 
 </script>
+<script>
+// $(function(){
+//        $("input").prop('required',true);
+// });
+// </script>
 <script>
 $(function() {
     var $Answer = Yes;
