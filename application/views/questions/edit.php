@@ -59,14 +59,25 @@
                                </div> 
 
                                
-
                                <div class="line line-dashed b-b line-lg pull-in"></div>
+                            <div class="form-group">
+                            <label class="col-sm-2 control-label">Type</label>
+                            <div class="col-md-4">
+                            <select name="type" class="form-control m-b">
+                            <option>Select one </option>
+                            <option value="Easy">Easy</option>
+                            <option value="Intermidiate">Intermidiate</option>
+                            <option value="Hard">Hard</option>
+                            </select>
+                            </div>
+                            </div>
+                              <!--  <div class="line line-dashed b-b line-lg pull-in"></div>
                                <div class="form-group">
                                <label class="col-sm-2 control-label">Type</label>
                                <div class="col-md-5">
                                <input type="text" name="type" class="form-control" value="<?php echo $question['type']; ?>">
                                </div><!-- /.box-body -->
-                               </div><!-- /.box -->
+                              <!--  </div> --><!-- /.box -->
 
                               <?php foreach ($answer as $y):{?>
                                <div class="line line-dashed b-b line-lg pull-in"></div>

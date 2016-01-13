@@ -352,6 +352,7 @@ function index()
         'message' => 'My Message'
     );
       // If has id and go to single view
+      $data['groups'] = $this->courses_data->getAllGroups();
       $data['course'] = $this->coursedata->id($id);
 
       $data['page_title'] = 'Monte Carlo';
