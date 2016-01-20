@@ -16,7 +16,7 @@
                       </a>
                       <ul class="nav dk">
                         <li >
-                          <a href="<?php echo base_url(); ?>package" class="auto">                                                        
+                          <a href="<?php echo base_url(); ?>packages/landing" class="auto">                                                        
                             <i class="i i-dot"></i>
 
                             <span>Manage Package</span>
@@ -34,14 +34,14 @@
                         <!--<b class="badge bg-danger pull-right">4</b>-->
                         <i class="i i-stack icon">
                         </i>
-                        <span class="font-bold">Module</span>
+                        <span class="font-bold">Quiz</span>
                       </a>
                         <ul class="nav dk">
                           <li >
-                          <a href="<?php echo base_url(); ?>course" class="auto">                                                        
+                          <a href="<?php echo base_url(); ?>quizs" class="auto">                                                        
                             <i class="i i-dot"></i>
 
-                            <span>Manage Module</span>
+                            <span>Take Quiz</span>
                           </a>
                    
                         </ul>
@@ -55,36 +55,19 @@
                         <!--<b class="badge bg-danger pull-right">4</b>-->
                         <i class="i i-stack icon">
                         </i>
-                        <span class="font-bold">Question</span>
+                        <span class="font-bold">Certificate</span>
                       </a>
                         <ul class="nav dk">
                           <li >
                           <a href="<?php echo base_url(); ?>question" class="auto">                                                        
                             <i class="i i-dot"></i>
 
-                            <span>Manage Question</span>
+                            <span>Cert</span>
                           </a>
                         </li>
-                    </ul>
-                      <li>
-                        <a href="#" class="auto">
-                        <span class="pull-right text-muted">
-                          <i class="i i-circle-sm-o text"></i>
-                          <i class="i i-circle-sm text-active"></i>
-                        </span>
-                        <!--<b class="badge bg-danger pull-right">4</b>-->
-                        <i class="i i-stack icon">
-                        </i>
-                        <span class="font-bold">Report</span>
-                      </a>
-                        <ul class="nav dk">
-                          <li >
-                          <a href="#" class="auto">                                                        
-                            <i class="i i-dot"></i>
-
-                            <span>Manage Report</span>
-                          </a>
-                        </li>
+                        
+                        
+                        </ul>
                    
                   </ul>
                 </nav>

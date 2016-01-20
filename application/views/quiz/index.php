@@ -111,14 +111,16 @@ document.getElementById('form-horizontal').submit();
 
                         ?>
 
-              <form method="POST" name="form-horizontal" class="form-horizontal" id="form-horizontal" action="<?php echo base_url() ?>index.php/quizs/quiz_data">
+              <form method="POST" name="form-horizontal" class="form-horizontal" id="form-horizontal" action="<?php echo base_url() ?>quizs/quiz_data">
             <div class="form-group">
             <div class="col-sm-10">
             <CENTER><label><?php echo $q_text?></label></CENTER>
             <input type="hidden" name="q_id" id="q_id" value="<?php echo $q_id?>">
+            <input type="hidden" name="id" id="id" value="<?php echo $id?>">
             <input type="hidden" name="next" id="next" value="<?php echo $next?>">
             <input type="hidden" name="questionNumber" value="<?php echo $questionNumber?>" />
             <input type="hidden" name="correct" value="<?php echo $correct?>" />
+            <input type="hidden" name="userid" value="<?php echo $userid?>" />
            
           
             <?php foreach ($answers as $ans): ?>
@@ -142,5 +144,6 @@ document.getElementById('form-horizontal').submit();
 
            &nbsp; &nbsp; &nbsp; 
            &nbsp; &nbsp; &nbsp; <a onclick="javascript:sbtform();"   class="btn btn-info" style="cursor:pointer;">Save & Next</a>
-           
+            <a onclick=""   class="btn btn-info" style="cursor:pointer;">Finish</a>
+</form>           
 </html>

@@ -6,7 +6,8 @@ class Quizs extends CI_Controller {
 		    parent::__construct();
 		    //$this->load->model('quiz_data');
 		 	$this->load->helper('form');
-		        $this->load->helper('url');
+		    $this->load->helper('url');
+		    $this->load->model('template_model');
 		  }
   
 	  public function index(){
@@ -24,6 +25,22 @@ class Quizs extends CI_Controller {
 	  }
 
 	public function show($q_id = -1){
+  $this->load->library( 'nativesession' );
+  $this->load->helper('url');   
+
+        //Read the username from session
+        
+  $userid = $this->nativesession->get( 'userid' );
+  $userLevel = $this->nativesession->get( 'userLevel' );
+
+      
+    $data = array(
+        'userid' => $userid,
+        'userLevel' => $userLevel,
+        'message' => 'My Message'
+    );
+
+
 
 	$data['page_title'] = 'Monte Carlo';
    	$data['nav_title'] = 'Quiz';
@@ -36,9 +53,10 @@ class Quizs extends CI_Controller {
 		// Select the question
 	 $this->load->view('templates/head', $data);
      $this->load->view('templates/header', $data);
-     $this->load->view('templates/left_side', $data);
+     $this->load->view('templates/left_side_manager', $data);
      $this->load->view('templates/content_header', $data);
      $this->load->view('templates/footer');
+      
 
      $q = $this->db->
 				where(array('q_id'=>$q_id))->
@@ -48,6 +66,7 @@ class Quizs extends CI_Controller {
 	if(empty($q)){
 			// Show an error page
 	show_404();
+		 
 	
 	}
 				
@@ -106,10 +125,12 @@ class Quizs extends CI_Controller {
 		$this->load->view('quiz/index',array(
 			'q_text'	=> $q[0]['q_text'],
 			'correct'   => $q[0]['correct'],
+			'id'   		=> $q[0]['id'],
 			'answers'	=> $a,
 			'previous'	=> $prev,
 			'next'		=> $next,
 			'q_id'		=> $q_id,
+
 			'questionNumber' => $questionNumber
 		));
 
@@ -117,13 +138,10 @@ class Quizs extends CI_Controller {
 
 	}
 
-	function quiz_data() 
+public	function quiz_data() 
   {
 $this->load->helper('url');
 $this->load->database();
-
-
-                        /*PHP code to handle the question*/
                        
 
 if(!isset($_POST['questionNumber']))
@@ -133,29 +151,36 @@ $a_id= $this->input->post('a_id');
 $q_id= $this->input->post('q_id');
 $correct= $this->input->post('correct');
 
-   if($questionNumber!=-1)
-    {
-   if (!isset($_POST['a_id']))
-    {
-    }else
-    {
-    $optionChoose=$_POST['a_id'];
-    print_r($optionChoose);
 
 
+    $optionChoose=$a_id;
+    //print_r($a_id);
 
 	$correctOption = $correct;
-	print_r($correctOption);
+	//print_r($correctOption);
 
     $marks=0;
     if($optionChoose==$correctOption)
     $marks=1;
     else 
-    $marks=0;				
+    $marks=0;	
+	
 
-                                   // $studentId=$_SESSION['student_id'];
-    print_r($marks);                               // $sql1 = "select result from student where student_id='$studentId' ";
-                                   // $result1 = mysqli_query($con,$sql1);
+	 $data = array(
+        'marks' => $marks,
+        );
+
+    $data = array(
+    'q_id' => $this->input->post('q_id'),
+    'a_id' => $this->input->post('a_id'),
+    'marks' => $marks,
+    'userid'=> $this->input->post('userid'),
+    'id'=> $this->input->post('id'),
+    
+     );
+  $this->db->insert('lms_question_user',$data);			
+
+                                  
                                    // //$result1=mysql_query("select result from student where student_id='$studentId' ");
                                    // while($row = mysqli_fetch_array($result1,MYSQLI_ASSOC))
                                    // {                        
@@ -166,38 +191,34 @@ $correct= $this->input->post('correct');
                                    //      //mysqli_query($con,"update student set result = $marks  where student_id='$studentId' ");												
                                    //  }				
                                 //echo "OPTION CHOOSED was $optionChoose";
-                             }
-                        }
+                        //      }
+                        // }
 
 
 
-        if(isset($_POST['submitPaper']))
-                            header("location:result.php");
+        // if(isset($_POST['submitPaper']))
+        //                     header("location:result.php");
 
-                        $questionNumber=$questionNumber+1;
+        //                 $questionNumber=$questionNumber+1;
 
-                        if($questionNumber>=10)
-                            header("location:result.php");
-
-
-                        $displayNumber= $questionNumber+1;             
+        //                 if($questionNumber>=10)
+        //                     header("location:result.php");
 
 
+        //                 $displayNumber= $questionNumber+1;             
 
 
 
-    // $data = array(
-    // 'q_id' => $this->input->post('q_id'),
-    // 'a_id' => $this->input->post('a_id'),
+
+
+    $data = array(
+    'q_id' => $this->input->post('q_id'),
+    'a_id' => $this->input->post('a_id'),
     
-    //  );
-    $search_query = $this->input->post('next');
-
-  
-     //$this->db->insert('user_answer',$data);
-      //redirect('/quizs/show/$next', 'refresh');
-
-    redirect(base_url().'index.php/quizs/show/'.$search_query,'refresh');
+     );
+   $search_query = $this->input->post('next');
+   $this->db->insert('lms_user_answer',$data);
+   redirect(base_url().'quizs/show/'.$search_query,'refresh');
      
   
 }
