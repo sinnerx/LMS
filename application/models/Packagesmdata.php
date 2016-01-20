@@ -2,9 +2,9 @@
 
 Class Packagesmdata extends CI_Model
 {
-var $table = 'lms_package_module';
-  var $column = array('m_id','Name'); //set column field database for order and search
-  var $order = array('m_id' => 'asc');
+var $table = 'lms_package';
+  var $column = array('packageid','name'); //set column field database for order and search
+  var $order = array('packageid' => 'asc');
   public function __construct()
   {
         parent::__construct();
@@ -17,16 +17,16 @@ var $table = 'lms_package_module';
   public function package()
   {
     
-      $query = $this->db->get('lms_package_module');
+      $query = $this->db->get('lms_package');
       return $query->result_array();
   }
 
 
 
-  public function m_id($m_id)
+  public function packageid($packageid)
   { 
    
-     $query = $this->db->get_where('lms_package_module',array('m_id' => $m_id));
+     $query = $this->db->get_where('lms_package',array('packageid' => $packageid));
       return $query->row_array();
   }
 
@@ -92,10 +92,10 @@ var $table = 'lms_package_module';
     return $this->db->count_all_results();
   }
 
-  public function get_by_id($m_id)
+  public function get_by_id($packageid)
   {
     $this->db->from($this->table);
-    $this->db->where('m_id',$m_id);
+    $this->db->where('packageid',$packageid);
     $query = $this->db->get();
 
     return $query->row();
@@ -113,9 +113,9 @@ var $table = 'lms_package_module';
     return $this->db->affected_rows();
   }
 
-  public function delete_by_id($m_id)
+  public function delete_by_id($packageid)
   {
-    $this->db->where('m_id', $m_id);
+    $this->db->where('packageid', $packageid);
     $this->db->delete($this->table);
   }
 

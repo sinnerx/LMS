@@ -6,14 +6,14 @@ Class Courses_data extends CI_Model
  public function courses()
  {
   $data=array(
-    'courseID'=>$this->input->post('courseID'),
-    'Topics'=>$this->input->post('Topics'),
-    'Descr'=>$this->input->post('Descr'),
+    'code'=>$this->input->post('code'),
+    'name'=>$this->input->post('name'),
+    'description'=>$this->input->post('description'),
   
-     'm_id'=>$this->input->post('m_id'),
+     'packageid'=>$this->input->post('packageid'),
   );
 
-  $this->db->insert('lms_course',$data);
+  $this->db->insert('lms_module',$data);
 return false;
  }
 
@@ -21,7 +21,7 @@ return false;
     {
       
 
-        $query = $this->db->query('SELECT *  FROM lms_package_module');
+        $query = $this->db->query('SELECT *  FROM lms_package');
 
 
         return $query->result();
@@ -31,7 +31,7 @@ return false;
 
   public function courses_report()
   {
-      $query = $this->db->get('lms_course');
+      $query = $this->db->get('lms_module');
       return $query->result_array();
   }
 }

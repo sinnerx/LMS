@@ -23,8 +23,8 @@
                 <table  class="table table-striped table-bordered table-condensed" >
                     <thead>
                     <th>S No</th>
-                    <th>Full Name</th>
-                    <th>User Name</th>
+                    <th>Full name</th>
+                    <th>User name</th>
                     </thead>
                     <tbody>
                         <?php

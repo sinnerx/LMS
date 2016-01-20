@@ -6,17 +6,17 @@ Class Package_data extends CI_Model
  public function packages()
  {
   $data=array(
-    'm_id'=>$this->input->post('m_id'),
-    'Name'=>$this->input->post('Name'),
+    'packageid'=>$this->input->post('packageid'),
+    'name'=>$this->input->post('name'),
 );
 
-  $this->db->insert('lms_package_module',$data);
+  $this->db->insert('lms_package',$data);
 
  }
 
   public function package_report()
   {
-      $query = $this->db->get('lms_package_module');
+      $query = $this->db->get('lms_package');
       return $query->result_array();
   }
 }

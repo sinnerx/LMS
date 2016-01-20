@@ -3,12 +3,12 @@
 Class Delete_package extends CI_Model
 {
 
-function delete_data($m_id)
+function delete_data($packageid)
 {
 	 $this->load->database();
 
-$this->db->where('m_id', $m_id);
-    $this->db->delete('lms_package_module');
+$this->db->where('packageid', $packageid);
+    $this->db->delete('lms_package');
 }
 
  

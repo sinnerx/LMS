@@ -97,13 +97,13 @@ public function ajax_list()
         {
         $no++;
         $row = array();
-       // $row[] = $package->m_id;
-        $row[] = $package->Name;
+       // $row[] = $package->packageid;
+        $row[] = $package->name;
     
    
 
       //add html for action
-       $row[] = '<a href="../courses/index/'."".$package->m_id."".'"><i class="i i-checked"></i>enter</a> &nbsp;';
+       $row[] = '<a href="../courses/index/'."".$package->packageid."".'"><i class="i i-checked"></i>enter</a> &nbsp;';
     
        $data[] = $row;
        }
@@ -120,9 +120,9 @@ public function ajax_list()
 
 
 
-  public function ajax_edit($m_id)
+  public function ajax_edit($packageid)
   {
-     $data = $this->packagesmdata->get_by_id($m_id);
+     $data = $this->packagesmdata->get_by_id($packageid);
     //$data->dob = ($data->dob == '0000-00-00') ? '' : $data->dob; // if 0000-00-00 set tu empty for datepicker compatibility
     echo json_encode($data);
   }
@@ -146,19 +146,19 @@ public function ajax_list()
   {
     $this->_validate();
     $data = array(
-        'm_id' => $this->input->post('m_id'),
-        'Name' => $this->input->post('Name'),
+        'packageid' => $this->input->post('packageid'),
+        'name' => $this->input->post('name'),
         
         //'address' => $this->input->post('address'),
         //'dob' => $this->input->post('dob'),
       );
-    $this->packagesmdata->update(array('m_id' => $this->input->post('m_id')), $data);
+    $this->packagesmdata->update(array('packageid' => $this->input->post('packageid')), $data);
     echo json_encode(array("status" => TRUE));
   }
 
-  public function ajax_delete($m_id)
+  public function ajax_delete($packageid)
   {
-    $this->packagesmdata->delete_by_id($m_id);
+    $this->packagesmdata->delete_by_id($packageid);
     echo json_encode(array("status" => TRUE));
   }
 
@@ -248,7 +248,7 @@ public function ajax_list()
     
  
 
-  function view($m_id)
+  function view($packageid)
   { 
     $this->load->library( 'nativesession' );
   $this->load->helper('url');   
@@ -264,10 +264,10 @@ public function ajax_list()
         'userLevel' => $userLevel,
         'message' => 'My Message'
     );
-    if ($m_id !== null){
+    if ($packageid !== null){
 
       // If has id and go to single view
-      $data['question'] = $this->packagesmdata->m_id($m_id);
+      $data['question'] = $this->packagesmdata->packageid($packageid);
       $data['page_title'] = 'Monte Carlo';
       $data['nav_title'] = 'package';
       $data['nav_subtitle'] = 'package Details';
@@ -325,8 +325,8 @@ function packagesm_data()
         'message' => 'My Message'
     );
     $data = array(
-    'm_id' => $this->input->post('m_id'),
-    'Name' => $this->input->post('Name'),
+    'packageid' => $this->input->post('packageid'),
+    'name' => $this->input->post('name'),
      );
        
     $this->packagesm_data->packages($data);
@@ -357,9 +357,9 @@ function packagesm_data()
 
 
 
-function edit($m_id)
+function edit($packageid)
   { 
-    if ($m_id !== null){
+    if ($packageid !== null){
       $this->load->library( 'nativesession' );
   $this->load->helper('url');   
 
@@ -376,7 +376,7 @@ function edit($m_id)
     );
 
       // If has id and go to single view
-      $data['package'] = $this->packagedata->m_id($m_id);
+      $data['package'] = $this->packagedata->packageid($packageid);
 
       $data['page_title'] = 'Monte Carlo';
       $data['nav_title'] = 'package';
@@ -417,7 +417,7 @@ function edit($m_id)
   }
 
 
-function delete($m_id)
+function delete($packageid)
   { 
     $this->load->library( 'nativesession' );
   $this->load->helper('url');   
@@ -433,10 +433,10 @@ function delete($m_id)
         'userLevel' => $userLevel,
         'message' => 'My Message'
     );
-    if ($m_id !== null){
+    if ($packageid !== null){
 
       // If has id and go to single view
-      $data['package'] = $this->delete_package->delete_data($m_id);
+      $data['package'] = $this->delete_package->delete_data($packageid);
 
       $data['page_title'] = 'Monte Carlo';
       $data['nav_title'] = 'package';
@@ -495,17 +495,17 @@ function delete($m_id)
         'userLevel' => $userLevel,
         'message' => 'My Message'
     );
-    $m_id = $this->input->post('m_id');
-    $Name = $this->input->post('Name');
+    $packageid = $this->input->post('packageid');
+    $name = $this->input->post('name');
   
     
     $data = array(
-      'm_id' => $this->input->post('m_id'),
-      'Name' => $this->input->post('Name'),
+      'packageid' => $this->input->post('packageid'),
+      'name' => $this->input->post('name'),
 
       );
 
-    $this->Update_package->update_pac($m_id,$data);
+    $this->Update_package->update_pac($packageid,$data);
    
 
       $data['page_title'] = 'Monte Carlo';
@@ -522,11 +522,11 @@ function delete($m_id)
       redirect ( base_url().'index.php/package');
       $this->load->view('templates/footer');
     
-     //redirect('package/view/'.$m_id, 'refresh');
+     //redirect('package/view/'.$packageid, 'refresh');
     }
    }
      
-    function delete_package($m_id)
+    function delete_package($packageid)
     {
       $this->load->library( 'nativesession' );
   $this->load->helper('url');   
@@ -542,7 +542,7 @@ function delete($m_id)
         'userLevel' => $userLevel,
         'message' => 'My Message'
     );
-    $delete=$this->delete_package->delete_data($m_id);
+    $delete=$this->delete_package->delete_data($packageid);
     //$this->display();
     }
   

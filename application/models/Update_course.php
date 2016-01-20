@@ -8,7 +8,7 @@ Class Update_course extends CI_Model
  
 //$id=$_GET['id'];
     $this->db->where('id', $id);
-    $this->db->update('lms_course', $data);  
+    $this->db->update('lms_module', $data);  
     print_r($data);
  }
 

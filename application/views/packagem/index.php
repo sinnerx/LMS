@@ -35,7 +35,7 @@
             <thead>
                 <tr>
                    
-                    <th>Package Name</th>
+                    <th>Package name</th>
                     <th>Action</th>
                     
                 </tr>
@@ -121,7 +121,7 @@ function add_person()
     $('.modal-title').text('Add Question'); // Set Title to Bootstrap modal title
 }
 
-function edit_person(m_id)
+function edit_person(packageid)
 {
     save_method = 'update';
     $('#form')[0].reset(); // reset form on modals
@@ -130,15 +130,15 @@ function edit_person(m_id)
 
     //Ajax Load data from ajax
     $.ajax({
-        url : "<?php echo site_url('packages/ajax_edit/')?>/" + m_id,
+        url : "<?php echo site_url('packages/ajax_edit/')?>/" + packageid,
         type: "GET",
         dataType: "JSON",
         success: function(data)
         {
 
            
-            $('[name="m_id"]').val(data.m_id);
-            $('[name="Name"]').val(data.Name);
+            $('[name="packageid"]').val(data.packageid);
+            $('[name="name"]').val(data.name);
             //$('[name="type"]').val(data.type);
             /*$('[name="gender"]').val(data.gender);
             $('[name="address"]').val(data.address);
@@ -208,13 +208,13 @@ function save()
     });
 }
 
-function delete_person(m_id)
+function delete_person(packageid)
 {
     if(confirm('Are you sure delete this data?'))
     {
         // ajax delete data to database
         $.ajax({
-            url : "<?php echo site_url('package/ajax_delete')?>/"+m_id,
+            url : "<?php echo site_url('package/ajax_delete')?>/"+packageid,
             type: "POST",
             dataType: "JSON",
             success: function(data)
@@ -249,9 +249,9 @@ function delete_person(m_id)
                             <label class="col-sm-2 control-label">Course</label>
                             <div class="col-md-4">
                             <?php
-                            $query = "SELECT * FROM lms_course"; $result = mysql_query($query); ?> 
+                            $query = "SELECT * FROM lms_module"; $result = mysql_query($query); ?> 
                             <select name="id" class="form-control m-b"><?php while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) { ?> 
-                            <option value=" <?php echo $line['id'];?> "> <?php echo $line['Topics'];?></option> <?php } ?>
+                            <option value=" <?php echo $line['id'];?> "> <?php echo $line['name'];?></option> <?php } ?>
                             </select>
                             </div>
                             </div>

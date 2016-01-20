@@ -20,9 +20,9 @@
 
                             <div class="line line-dashed b-b line-lg pull-in"></div>
                             <div class="form-group">
-                            <label class="col-sm-2 control-label">Package Name</label>
+                            <label class="col-sm-2 control-label">Package name</label>
                             <div class="col-md-5">
-                            <input type="text" data-required="true" name="Name" id="Name" class="form-control" />
+                            <input type="text" data-required="true" name="name" id="name" class="form-control" />
                             </div>
                             </div>
 

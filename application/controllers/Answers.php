@@ -22,7 +22,7 @@ class Answers extends CI_Controller {
 		
 		// Adding validation rules.
 		
-		// $this->form_validation->set_rules('name', 'Name', 'required|min_length[2]|max_length[32]');
+		// $this->form_validation->set_rules('name', 'name', 'required|min_length[2]|max_length[32]');
 		// $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
 		// $this->form_validation->set_rules('answer', 'Answer', 'required|min_length[5]|max_length[255]');
 				

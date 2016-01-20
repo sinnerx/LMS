@@ -3,10 +3,10 @@
 Class Update_package extends CI_Model
 {
 
- function update_pac($m_id,$data)
+ function update_pac($packageid,$data)
  {
-    $this->db->where('m_id', $m_id);
-    $this->db->update('package_module', $data); 
+    $this->db->where('packageid', $packageid);
+    $this->db->update('lms_package', $data); 
 if($data == true )
             {
             echo "<script> alert('Success')</script>";

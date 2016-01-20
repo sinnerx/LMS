@@ -255,9 +255,9 @@ function delete_person(q_id)
                             <label class="col-sm-2 control-label">Course</label>
                             <div class="col-md-4">
                             <?php
-                            $query = "SELECT * FROM lms_course"; $result = mysql_query($query); ?> 
+                            $query = "SELECT * FROM lms_module"; $result = mysql_query($query); ?> 
                             <select name="id" class="form-control m-b"><?php while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) { ?> 
-                            <option value=" <?php echo $line['id'];?> "> <?php echo $line['Topics'];?></option> <?php } ?>
+                            <option value=" <?php echo $line['id'];?> "> <?php echo $line['name'];?></option> <?php } ?>
                             </select>
                             </div>
                             </div>

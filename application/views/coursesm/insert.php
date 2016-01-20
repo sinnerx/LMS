@@ -18,12 +18,12 @@
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Package</label>
                       <div class="col-md-5">
-                        <select data-required="true" style="width:260px" name="m_id" class="form-control m-b"><option value="">Select one </option>;
+                        <select data-required="true" style="width:260px" name="packageid" class="form-control m-b"><option value="">Select one </option>;
                         <?php 
 
             foreach($groups as $row)
             { 
-              echo '<option value="'.$row->m_id.'">'.$row->Name.'</option>';
+              echo '<option value="'.$row->packageid.'">'.$row->name.'</option>';
             }
             ?>
             </select>
@@ -35,21 +35,21 @@
                      <div class="line line-dashed b-b line-lg pull-in"></div>
                       <label class="col-sm-2 control-label">Module ID</label>
                       <div class="col-md-5">
-                        <input type="text" name="courseID" id="courseID" class="form-control" data-required="true"/>
+                        <input type="text" name="code" id="code" class="form-control" data-required="true"/>
                       </div>
                     </div>
                     <div class="line line-dashed b-b line-lg pull-in"></div>
                     <div class="form-group">
-                      <label class="col-sm-2 control-label">Module Name</label>
+                      <label class="col-sm-2 control-label">Module name</label>
                       <div class="col-md-5">
-                        <input type="text" name="Topics" id="Topics" class="form-control" data-required="true"/>
+                        <input type="text" name="name" id="name" class="form-control" data-required="true"/>
                       </div>
                     </div>
                      <div class="line line-dashed b-b line-lg pull-in"></div>
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Description</label>
                       <div class="col-md-5">
-                        <input type="text" name="Descr" id="Descr" class="form-control"/>
+                        <input type="text" name="description" id="description" class="form-control"/>
                         
                       </div>
                     </div>

@@ -9,10 +9,10 @@
                     <h3 class="box-title"><?php echo $nav_subtitle; ?></h3>
                 </div><!-- /.box-header -->
                 <div class="box-body table-responsive no-padding">
-                    <table class="table table-hover"><td><a class="fa fa-edit" href="http://localhost/montecarlo/index.php/package/edit/<?php echo $package['m_id']; ?>"></a></td>
+                    <table class="table table-hover"><td><a class="fa fa-edit" href="http://localhost/montecarlo/index.php/package/edit/<?php echo $package['packageid']; ?>"></a></td>
                         <tr>
-                            <th>Package Name</th>
-                            <td><?php echo $package['Name']; ?></td>
+                            <th>Package name</th>
+                            <td><?php echo $package['name']; ?></td>
 
                         </tr>
 

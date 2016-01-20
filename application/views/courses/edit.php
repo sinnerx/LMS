@@ -27,18 +27,18 @@
                   <input type="hidden" name="id" id="id" value="<?php echo $course['id']; ?> ">
                   <label class="col-sm-2 control-label">Module ID</label>
                   <div class="col-md-5">
-                  <input type="text" name="courseID" id="courseID" value="<?php echo $course['courseID']; ?>" class="form-control">
+                  <input type="text" name="code" id="code" value="<?php echo $course['code']; ?>" class="form-control">
                   </div>
                   </div>
                         <!--- wsig-->
 
 
-                          <input type="hidden" name="m_id" id="m_id" value="<?php echo $course['m_id']; ?>" class="form-control">
+                          <input type="hidden" name="packageid" id="packageid" value="<?php echo $course['packageid']; ?>" class="form-control">
                     <div class="line line-dashed b-b line-lg pull-in"></div>
                     <div class="form-group">
-                      <label class="col-sm-2 control-label">Module Name</label>
+                      <label class="col-sm-2 control-label">Module name</label>
                       <div class="col-md-5">
-                        <input type="text" name="Topics" id="Topics" value="<?php echo $course['Topics']; ?>"  class="form-control">
+                        <input type="text" name="name" id="name" value="<?php echo $course['name']; ?>"  class="form-control">
                         
                       </div>
                     </div>
@@ -46,7 +46,7 @@
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Description</label>
                       <div class="col-md-5">
-                        <input type="text" name="Descr" id="Descr" value="<?php echo $course['Descr']; ?>" class="form-control">
+                        <input type="text" name="description" id="description" value="<?php echo $course['description']; ?>" class="form-control">
                         
                       </div>
                     </div>
@@ -55,14 +55,14 @@
                       <label class="col-sm-2 control-label">Package</label>
                       <div class="col-md-5">
                        
-                        <select style="width:260px" data-required="true" name="m_id" class="form-control m-b" > <option value="">Select One</option> 
+                        <select style="width:260px" data-required="true" name="packageid" class="form-control m-b" > <option value="">Select One</option> 
                         <?php 
 
                         foreach($groups as $row)
                          { 
 
                        
-                        echo '<option value="'.$row->m_id.'">'.$row->Name.'</option>';
+                        echo '<option value="'.$row->packageid.'">'.$row->name.'</option>';
                           }
                            ?>
                        </select>

@@ -14,7 +14,7 @@
                         <tr>
                             <th>User ID</th>
                             <td><?php echo $user['id_user']; ?></td>
-                            <th>Name</th>
+                            <th>name</th>
                             <td><?php echo ucwords($user['nm_user']); ?></td>
                             <td><a class="fa fa-edit" href=""></a></td>
                         </tr>

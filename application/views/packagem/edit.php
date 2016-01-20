@@ -16,7 +16,7 @@
 
                 <form method="post" action="<?php echo base_url() ?>index.php/package/Update_package">
                     <div class="form-group">
-                              <input type="hidden" name="m_id" id="m_id" value="<?php echo $package['m_id']; ?>" />
+                              <input type="hidden" name="packageid" id="packageid" value="<?php echo $package['packageid']; ?>" />
                             <!--    <input type="hidden" name="no_pictures" id="no_pictures" value="<?php echo $dd_report['no_pictures']; ?>" />-->
                                
                          
@@ -26,7 +26,7 @@
                         <div class="box-body table-responsive no-padding">
                               <label class="col-sm-2 control-label">Course</label>
                                <div class="col-sm-10">
-                               <input type="text" name="Name" class="form-control" value="<?php echo $package['Name']; ?>">
+                               <input type="text" name="name" class="form-control" value="<?php echo $package['name']; ?>">
                                </div>
                                </div>
                                 

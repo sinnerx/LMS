@@ -69,9 +69,9 @@ function index()
       $no++;
       $row = array();
       $row[] = $course->id;
-      $row[] = $course->courseID;
-      $row[] = $course->Topics;
-      $row[] = $course->Descr;
+      $row[] = $course->code;
+      $row[] = $course->name;
+      $row[] = $course->description;
       // $row[] = $person->address;
       // $row[] = $person->dob;
 
@@ -306,11 +306,11 @@ function index()
         'message' => 'My Message'
     );
     $data = array(
-    'courseID' => $this->input->post('courseID'),
-    'Topics' => $this->input->post('Topics'),
-    'Descr' => $this->input->post('Descr'),
-    'm_id' => $this->input->post('m_id'),
-    'Name' => $this->input->post('Name')
+    'code' => $this->input->post('code'),
+    'name' => $this->input->post('name'),
+    'description' => $this->input->post('description'),
+    'packageid' => $this->input->post('packageid'),
+    'name' => $this->input->post('name')
      );
     $this->courses_data->courses($data);
     // If has id and go to single view
@@ -476,17 +476,17 @@ function delete($id)
     );
 
     $id = $this->input->post('id');
-    $courseID = $this->input->post('courseID');
-    $m_id = $this->input->post('m_id');
-    $Topics = $this->input->post('Topics');
-    $Descr = $this->input->post('Descr');
+    $code = $this->input->post('code');
+    $packageid = $this->input->post('packageid');
+    $name = $this->input->post('name');
+    $description = $this->input->post('description');
     
     $data = array(
     'id' => $this->input->post('id'),
-    'courseID' => $this->input->post('courseID'),
-    'm_id' => $this->input->post('m_id'),
-    'Topics' => $this->input->post('Topics'),
-    'Descr' => $this->input->post('Descr'),
+    'code' => $this->input->post('code'),
+    'packageid' => $this->input->post('packageid'),
+    'name' => $this->input->post('name'),
+    'description' => $this->input->post('description'),
     );
 
     $this->Update_course->update_cou($id,$data);

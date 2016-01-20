@@ -2,8 +2,8 @@
 
 Class Coursedata extends CI_Model
 {
- var $table = 'lms_course';
-  var $column = array('id','courseID','Topics','Descr'); //set column field database for order and search
+ var $table = 'lms_module';
+  var $column = array('id','code','name','description'); //set column field database for order and search
   var $order = array('id' => 'asc');
   public function __construct()
   {
@@ -15,9 +15,9 @@ Class Coursedata extends CI_Model
   public function course()
   {
 
-    $this->db->select('lms_package_module.Name,lms_course.Topics,course.id,lms_course.courseID,lms_course.Descr,course.m_id');
-    $this->db->from('lms_course');
-    $this->db->join('lms_package_module','lms_package_module.m_id = lms_course.m_id'); 
+    $this->db->select('lms_package.name,lms_module.name,course.id,lms_module.code,lms_module.description,course.packageid');
+    $this->db->from('lms_module');
+    $this->db->join('lms_package','lms_package.packageid = lms_module.packageid'); 
     $query = $this->db->get();
     return $query->result_array();
       //$query = $this->db->get('course');
@@ -27,15 +27,15 @@ Class Coursedata extends CI_Model
 
   public function id($id)
   {
-      $query = $this->db->get_where('lms_course',array('id' => $id));
+      $query = $this->db->get_where('lms_module',array('id' => $id));
       return $query->row_array();
   }
 
   public function ids($id)
   { 
-    $this->db->select('lms_package_module.Name,lms_course.Topics,course.id,lms_course.courseID,lms_course.Descr,course.m_id');
-    $this->db->from('lms_course');
-    $this->db->join('lms_package_module','lms_package_module.m_id = lms_course.m_id'); 
+    $this->db->select('lms_package.name,lms_module.name,course.id,lms_module.code,lms_module.description,course.packageid');
+    $this->db->from('lms_module');
+    $this->db->join('lms_package','lms_package.packageid = lms_module.packageid'); 
     $query = $this->db->get();
     return $query->result_array();
   }

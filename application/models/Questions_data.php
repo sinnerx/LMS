@@ -74,7 +74,7 @@ public function getAllGroups()
     {
       
 
-        $query = $this->db->query('SELECT *  FROM lms_course');
+        $query = $this->db->query('SELECT *  FROM lms_module');
 
 
         return $query->result();

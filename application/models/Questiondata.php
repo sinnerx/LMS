@@ -17,9 +17,9 @@ Class Questiondata extends CI_Model
   public function question() //index view
   {
     
-    $this->db->select('lms_questions_bank.q_text,lms_questions_bank.type,lms_course.Topics,lms_course.courseID,lms_questions_bank.q_id');
+    $this->db->select('lms_questions_bank.q_text,lms_questions_bank.type,lms_module.name,lms_module.code,lms_questions_bank.q_id');
     $this->db->from('lms_questions_bank');
-    $this->db->join('lms_course','lms_questions_bank.id = lms_course.id'); 
+    $this->db->join('lms_module','lms_questions_bank.id = lms_module.id'); 
     $query = $this->db->get();
     return $query->result_array();
 
@@ -34,7 +34,7 @@ Class Questiondata extends CI_Model
        
     $this->db->select('*');
     $this->db->from('lms_questions_bank','lms_questions_bank.q_id = lms_answer.q_id');
-    $this->db->join('lms_course','lms_course.id = lms_questions_bank.id');
+    $this->db->join('lms_module','lms_module.id = lms_questions_bank.id');
    // $this->db->join('answer','answer.q_id = questions_bank.q_id'); 
     $this->db->where('lms_questions_bank.q_id',$q_id);
     $query = $this->db->get();
@@ -46,7 +46,7 @@ public function q_ids($q_id)
     
 $this->db->select('*');
     $this->db->from('lms_questions_bank','lms_questions_bank.q_id = lms_answer.q_id');
-    $this->db->join('lms_course','lms_course.id = lms_questions_bank.id');
+    $this->db->join('lms_module','lms_module.id = lms_questions_bank.id');
     $this->db->join('lms_answer','lms_answer.q_id = lms_questions_bank.q_id'); 
     $this->db->where('lms_questions_bank.q_id',$q_id);
     $query = $this->db->get();

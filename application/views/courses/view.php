@@ -14,15 +14,15 @@
                     <table class="table table-hover"><td><a class="fa fa-edit" href="http://localhost/montecarlo/index.php/course/edit/<?php echo $course['id']; ?>"></a></td>
                         <tr>
                             <th>Course ID</th>
-                            <td><?php echo $course['courseID']; ?></td>
+                            <td><?php echo $course['code']; ?></td>
                               <tr>
                             <th>Topic</th>
-                            <td><?php echo $course['Topics']; ?></td>
+                            <td><?php echo $course['name']; ?></td>
 
                         </tr>
 
                             <th>Description</th>
-                            <td><?php echo ucwords($course['Descr']); ?></td>
+                            <td><?php echo ucwords($course['description']); ?></td>
                             
 
                         </tr>

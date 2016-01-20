@@ -11,7 +11,7 @@
                 <div class="box-body table-responsive no-padding">
                     <table class="table table-hover"><td><a class="fa fa-edit" href="http://localhost/montecarlo/index.php/answer/edit/<?php echo $answer['a_id']; ?>"></a></td>
                         <tr>
-                            <th>Package Name</th>
+                            <th>Package name</th>
                             <td><?php echo $package['a_text']; ?></td>
 
                         </tr>
