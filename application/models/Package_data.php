@@ -19,5 +19,9 @@ Class Package_data extends CI_Model
       $query = $this->db->get('lms_package');
       return $query->result_array();
   }
+
+
+
+  
 }
 ?>

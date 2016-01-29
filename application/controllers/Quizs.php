@@ -8,10 +8,16 @@ class Quizs extends CI_Controller {
 		 	$this->load->helper('form');
 		    $this->load->helper('url');
 		    $this->load->model('template_model');
+		
 		  }
   
 	  public function index(){
 		$this->load->database();
+		$data['sessionid'] = $this->input->post('sessionid'); 
+   	  
+   	   $_SESSION['sessionid'] = $data['sessionid'];
+
+		
 		$this->load->helper(array('date','url'));
 		// Get the id of the last question
 		$res = $this->db->
@@ -24,7 +30,7 @@ class Quizs extends CI_Controller {
 		$this->show($q_id);
 	  }
 
-	public function show($q_id = -1){
+  public function show($q_id = -1){
   $this->load->library( 'nativesession' );
   $this->load->helper('url');   
 
@@ -32,7 +38,9 @@ class Quizs extends CI_Controller {
         
   $userid = $this->nativesession->get( 'userid' );
   $userLevel = $this->nativesession->get( 'userLevel' );
-
+  //$data['sessionid'] = $this->input->post('sessionid');
+  //$sessionid = $this->input->post('sessionid');
+  $sessionid=$_SESSION['sessionid'];
       
     $data = array(
         'userid' => $userid,
@@ -65,7 +73,7 @@ class Quizs extends CI_Controller {
 
 	if(empty($q)){
 			// Show an error page
-	show_404();
+	 redirect('/quizs/result/', 'refresh');
 		 
 	
 	}
@@ -115,22 +123,19 @@ class Quizs extends CI_Controller {
 		$_POST['questionNumber'] = '-1';
 		$questionNumber=$_POST['questionNumber'];
         $questionNumber=$questionNumber+1;
-
         if($questionNumber>=10)
         header("location:result.php");
-
-
-        $displayNumber= $questionNumber+1;     
+    	$displayNumber= $questionNumber+1;     
 
 		$this->load->view('quiz/index',array(
 			'q_text'	=> $q[0]['q_text'],
 			'correct'   => $q[0]['correct'],
 			'id'   		=> $q[0]['id'],
+			'sessionid' => $sessionid,
 			'answers'	=> $a,
 			'previous'	=> $prev,
 			'next'		=> $next,
 			'q_id'		=> $q_id,
-
 			'questionNumber' => $questionNumber
 		));
 
@@ -150,15 +155,12 @@ $questionNumber=$_POST['questionNumber'];
 $a_id= $this->input->post('a_id');
 $q_id= $this->input->post('q_id');
 $correct= $this->input->post('correct');
+$sessionid= $this->input->post('sessionid');
 
 
 
     $optionChoose=$a_id;
-    //print_r($a_id);
-
 	$correctOption = $correct;
-	//print_r($correctOption);
-
     $marks=0;
     if($optionChoose==$correctOption)
     $marks=1;
@@ -173,44 +175,13 @@ $correct= $this->input->post('correct');
     $data = array(
     'q_id' => $this->input->post('q_id'),
     'a_id' => $this->input->post('a_id'),
+    'sessionid' =>$this->input->post('sessionid'),
     'marks' => $marks,
     'userid'=> $this->input->post('userid'),
     'id'=> $this->input->post('id'),
     
      );
-  $this->db->insert('lms_question_user',$data);			
-
-                                  
-                                   // //$result1=mysql_query("select result from student where student_id='$studentId' ");
-                                   // while($row = mysqli_fetch_array($result1,MYSQLI_ASSOC))
-                                   // {                        
-                                   //      $marks=$marks+$row['result'] ;
-                                   //      //echo "MARKS="+$marks;	
-                                   //      $sql4 = "update student set result = $marks  where student_id='$studentId' ";
-                                   //      $result4 = mysqli_query($con,$sql4);
-                                   //      //mysqli_query($con,"update student set result = $marks  where student_id='$studentId' ");												
-                                   //  }				
-                                //echo "OPTION CHOOSED was $optionChoose";
-                        //      }
-                        // }
-
-
-
-        // if(isset($_POST['submitPaper']))
-        //                     header("location:result.php");
-
-        //                 $questionNumber=$questionNumber+1;
-
-        //                 if($questionNumber>=10)
-        //                     header("location:result.php");
-
-
-        //                 $displayNumber= $questionNumber+1;             
-
-
-
-
-
+  	$this->db->insert('lms_question_user',$data);			
     $data = array(
     'q_id' => $this->input->post('q_id'),
     'a_id' => $this->input->post('a_id'),
@@ -218,11 +189,121 @@ $correct= $this->input->post('correct');
      );
    $search_query = $this->input->post('next');
    $this->db->insert('lms_user_answer',$data);
+
    redirect(base_url().'quizs/show/'.$search_query,'refresh');
-     
-  
+   $data['id'] = $this->input->post('id');
+   $data['sessionid'] = $this->input->post('sessionid'); 
+   print_r($id);
+
 }
 
+public function result()
+{
 
 
+	$this->load->library( 'nativesession' );
+    $this->load->helper('url');   
+	$userid = $this->nativesession->get( 'userid' );
+    $userLevel = $this->nativesession->get( 'userLevel' );
+
+      
+    $data = array(
+        'userid' => $userid,
+        'userLevel' => $userLevel,
+        'message' => 'My Message'
+    );
+
+
+
+	$data['page_title'] = 'Monte Carlo';
+   	$data['nav_title'] = 'Quiz';
+    $data['nav_subtitle'] = 'Quiz List';
+    $data['home'] = 'Home';
+
+	$this->load->database();
+	$this->load->helper(array('date','url'));
+
+	
+		
+		// Select the question
+	 $this->load->view('templates/head', $data);
+     $this->load->view('templates/header', $data);
+     $this->load->view('templates/left_side_manager', $data);
+     
+     $this->load->view('templates/content_header', $data);
+     $this->load->view('templates/footer');
+
+	$count = $this->db->where("marks","1")->count_all_results("lms_question_user");
+	$m= ($count/20)*100;
+
+	if ($m  >= 50 || $m==50){
+		$status='Pass';
+	}
+
+	else
+	{
+		$status='Fail';
+	}
+
+	$data = array(
+	        'result' => $m,
+	        );
+
+	    $data = array(
+	    'result' => $m,
+	    'status'=>$status,
+	    'userid'=> $userid,
+	    //'packageid' => $id,	    
+	     );
+	  $this->db->insert('lms_result',$data);
+
+	   
+	//print_r($count);
+	print_r($m);
+	$data['m'] = $m;
+	$data['status'] = $status;
+	$this->load->view('quiz/result', $data);
+
+	}
+
+
+
+
+	public function enter()
+	{
+
+  $this->load->library( 'nativesession' );
+  $this->load->helper('url');
+  $userid = $this->nativesession->get( 'userid' );
+  $userLevel = $this->nativesession->get( 'userLevel' );
+
+  $data = array(
+        'userid' => $userid,
+        'userLevel' => $userLevel,
+        'message' => 'My Message'
+    );
+
+      
+      $data['page_title'] = 'Monte Carlo';
+      $data['nav_title'] = 'Question';
+      $data['nav_subtitle'] = 'Question Details';
+      $data['home'] = 'Home';
+
+      $this->load->helper('url');
+
+   	   //session_start();
+   	   //$sessionid=$_SESSION['sessionid'];
+       $this->load->view('templates/head', $data);
+       $this->load->view('templates/header', $data);
+       $this->load->view('templates/left_side_manager', $data);
+       $this->load->view('templates/content_header', $data);
+       $this->load->view('quiz/enter', $data);
+       $this->load->view('templates/footer');
+
+      
+	}
+
+
+
+	
 }

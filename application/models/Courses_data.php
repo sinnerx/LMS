@@ -9,8 +9,6 @@ Class Courses_data extends CI_Model
     'code'=>$this->input->post('code'),
     'name'=>$this->input->post('name'),
     'description'=>$this->input->post('description'),
-  
-     'packageid'=>$this->input->post('packageid'),
   );
 
   $this->db->insert('lms_module',$data);

@@ -3,14 +3,14 @@
                   <!--<div class="text-muted text-sm hidden-nav-xs padder m-t-sm m-b-sm">Start</div>-->
                   <ul class="nav nav-main" data-ride="collapse">
                     
-                    <li >
+                   <!--  <li >
                       <a href="#" class="auto">
                         <span class="pull-right text-muted">
                           <i class="i i-circle-sm-o text"></i>
                           <i class="i i-circle-sm text-active"></i>
-                        </span>
+                        </span> -->
                         <!--<b class="badge bg-danger pull-right">4</b>-->
-                        <i class="i i-stack icon">
+                        <!-- <i class="i i-stack icon">
                         </i>
                         <span class="font-bold">Package</span>
                       </a>
@@ -24,7 +24,7 @@
                         </li>
                                                 
                       </ul>
-                    </li>
+                    </li> -->
                     <li>
                         <a href="#" class="auto">
                         <span class="pull-right text-muted">
@@ -38,7 +38,7 @@
                       </a>
                         <ul class="nav dk">
                           <li >
-                          <a href="<?php echo base_url(); ?>quizs" class="auto">                                                        
+                          <a href="<?php echo base_url(); ?>quizs/enter" class="auto">                                                        
                             <i class="i i-dot"></i>
 
                             <span>Take Quiz</span>

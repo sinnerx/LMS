@@ -230,7 +230,7 @@ function index()
   function view($q_id)
   { 
     if ($q_id !== null){
-      $this->load->library( 'nativesession' );
+  $this->load->library( 'nativesession' );
   $this->load->helper('url');
   $userid = $this->nativesession->get( 'userid' );
   $userLevel = $this->nativesession->get( 'userLevel' );
@@ -318,26 +318,26 @@ function questions_data()
        $this->load->view('templates/header', $data);
        $this->load->view('templates/left_side', $data);
        $this->load->view('templates/content_header', $data);
-       redirect ( base_url().'index.php/question');
+       redirect ( base_url().'question');
        $this->load->view('templates/footer');
     
     }
 
 
 
-function edit($q_id)
-  { 
-    if ($q_id !== null){
+    function edit($q_id)
+      { 
+        if ($q_id !== null){
       $userid = $this->nativesession->get( 'userid' );
-  $userLevel = $this->nativesession->get( 'userLevel' );
-  $correct = $this->input->post('correct');
-
-    $data= array(
+      $userLevel = $this->nativesession->get( 'userLevel' );
+      $correct = $this->input->post('correct');
+  
+      $data= array(
       'userid' => $userid,
-        'userLevel' => $userLevel,
+      'userLevel' => $userLevel,
         //'correct' =>$correct,
-       'question' => $this->questiondata->q_id($q_id),
-        'answer' => $this->questiondata->q_ids($q_id)
+      'question' => $this->questiondata->q_id($q_id),
+      'answer' => $this->questiondata->q_ids($q_id)
         );
 
       //$data['answer'] = $this->questiondata->q_ids($q_id);
@@ -347,19 +347,8 @@ function edit($q_id)
       $data['nav_subtitle'] = 'Question Details';
       $data['home'] = 'Home';
 
-     $this->load->helper('url');
+      $this->load->helper('url');
  
-     
-      // If has id and go to single view
-      
-
-      /*if($this->session->userdata('logged_in'))
-      {
-       $session_data = $this->session->userdata('logged_in');
-
-       $data['username'] = $session_data['username'];*/
-
-       // view template
        $this->load->view('templates/head', $data);
        $this->load->view('templates/header', $data);
        $this->load->view('templates/left_side', $data);
@@ -369,19 +358,11 @@ function edit($q_id)
        $this->load->view('templates/footer');
 
       }
-     /* else
-      {
-       //If no session, redirect to login page
-       redirect('login', 'refresh');
-      }
-
-    } */
+     
      else {
-      
-
       $data['question'] = $this->questiondata->question();
       $userid = $this->nativesession->get( 'userid' );
-  $userLevel = $this->nativesession->get( 'userLevel' );
+      $userLevel = $this->nativesession->get( 'userLevel' );
       $this->load->view('questions/index', $data);
 
     }
@@ -549,7 +530,7 @@ function delete($q_id)
       // $this->load->view('templates/header', $data);
       // $this->load->view('templates/left_side', $data);
       // $this->load->view('templates/content_header', $data);
-      redirect ( base_url().'index.php/question');
+      redirect ( base_url().'question');
      // $this->load->view('templates/footer');
 //     //$this->Update_question->update_que($q_id,$data);
 //     //redirect('question/view/'.$q_id, 'refresh');

@@ -1,16 +1,16 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 
-class Package extends CI_Controller {
+class Module extends CI_Controller {
 
   public function __construct()
   {
     parent::__construct();
 
-  $this->load->model('packagedata');
-  $this->load->model('package_data');
-  $this->load->model('Update_package');
-  $this->load->model('delete_package');
+  $this->load->model('moduledata');
+  $this->load->model('module_data');
+  //$this->load->model('Update_module');
+  $this->load->model('delete_module');
   $this->load->model('template_model');
   
 
@@ -36,9 +36,15 @@ function index()
 
 
   $data['page_title'] = 'Monte Carlo';
-  $data['nav_title'] = 'Package';
-  $data['nav_subtitle'] = 'Package List';
+  $data['nav_title'] = 'Module';
+  $data['nav_subtitle'] = 'Module List';
   $data['home'] = 'Home';
+
+  //alan
+  $list = $this->moduledata->get_datatables();
+  $data['list'] = $list;
+
+
   $this->load->helper('url');
 
    /* if($this->session->userdata('logged_in'))
@@ -51,7 +57,7 @@ function index()
   $this->load->view('templates/header', $data);
   $this->load->view('templates/left_side', $data);
   $this->load->view('templates/content_header', $data);
-  $this->load->view('packages/index');
+  $this->load->view('module/index');
   $this->load->view('templates/footer');
 
     }
@@ -64,29 +70,30 @@ function index()
 
 public function ajax_list()
   {
-    $list = $this->packagedata->get_datatables();
+    $list = $this->moduledata->get_datatables();
+    //var_dump($list);
     $data = array();
     $no = $_POST['start'];
-      foreach ($list as $package) 
+      foreach ($list as $module) 
         {
         $no++;
         $row = array();
-        $row[] = $package->packageid;
-        $row[] = $package->name;
-    
+        $row[] = $module->package_name;
+        $row[] = $module->module_name;
+      
    
 
       //add html for action
-       $row[] = '<a href="package/edit/'."".$package->packageid."".'"><i class="fa fa-pencil"></i></a>
-          <a href="package/delete/'."".$package->packageid."".'"><i class="fa fa-trash-o "></i></a>';
+       $row[] = '<a href="module/edit/'."".$module->ni."".'"><i class="fa fa-pencil"></i></a>
+          <a href="module/delete/'."".$module->no."".'"><i class="fa fa-trash-o "></i></a>';
     
        $data[] = $row;
        }
 
        $output = array(
             "draw" => $_POST['draw'],
-            "recordsTotal" => $this->packagedata->count_all(),
-            "recordsFiltered" => $this->packagedata->count_filtered(),
+            "recordsTotal" => $this->moduledata->count_all(),
+            "recordsFiltered" => $this->moduledata->count_filtered(),
             "data" => $data,
         );
     //output to json format
@@ -190,7 +197,7 @@ public function ajax_list()
 
   function insert()
   {
-    $this->load->library( 'nativesession' );
+  $this->load->library( 'nativesession' );
   $this->load->helper('url');   
 
         //Read the username from session
@@ -204,9 +211,11 @@ public function ajax_list()
         'userLevel' => $userLevel,
         'message' => 'My Message'
     );
+    $data['groups'] = $this->module_data->getAllGroups();
+    $data['group'] = $this->module_data->getAllGroup();
     $data['page_title'] = 'Monte Carlo';
-    $data['nav_title'] = 'Question';
-    $data['nav_subtitle'] = 'New Question';
+    $data['nav_title'] = 'Module';
+    $data['nav_subtitle'] = 'New Module';
     $data['home'] = 'Home';
 
     $this->load->helper('url');
@@ -221,7 +230,49 @@ public function ajax_list()
      $this->load->view('templates/header', $data);
      $this->load->view('templates/left_side', $data);
      $this->load->view('templates/content_header', $data);
-     $this->load->view('packages/insert',$data);
+     $this->load->view('module/insert',$data);
+     $this->load->view('templates/footer');
+
+    }
+
+    function insert2()
+  {
+  $this->load->library( 'nativesession' );
+  $this->load->helper('url');   
+
+        //Read the username from session
+        
+  $userid = $this->nativesession->get( 'userid' );
+  $userLevel = $this->nativesession->get( 'userLevel' );
+
+      
+    $data = array(
+        'userid' => $userid,
+        'userLevel' => $userLevel,
+        'message' => 'My Message',
+        'modules' => $this->module_data->packageids($packageid),
+    );
+
+    $data['groups'] = $this->module_data->getAllGroups();
+    $data['group'] = $this->module_data->getAllGroup();
+    $data['page_title'] = 'Monte Carlo';
+    $data['nav_title'] = 'Module';
+    $data['nav_subtitle'] = 'New Module';
+    $data['home'] = 'Home';
+
+    $this->load->helper('url');
+
+   /* if($this->session->userdata('logged_in'))
+    {
+     $session_data = $this->session->userdata('logged_in');
+
+     $data['username'] = $session_data['username']; */
+
+     $this->load->view('templates/head', $data);
+     $this->load->view('templates/header', $data);
+     $this->load->view('templates/left_side', $data);
+     $this->load->view('templates/content_header', $data);
+     $this->load->view('module/insert2',$data);
      $this->load->view('templates/footer');
 
     }
@@ -294,9 +345,9 @@ public function ajax_list()
 
 
 
-function package_data() 
+function module_data() 
   {
-    $this->load->library( 'nativesession' );
+  $this->load->library( 'nativesession' );
   $this->load->helper('url');   
 
         //Read the username from session
@@ -312,10 +363,10 @@ function package_data()
     );
     $data = array(
     'packageid' => $this->input->post('packageid'),
-    'name' => $this->input->post('name'),
+    'moduleid' => $this->input->post('moduleid'),
      );
        
-    $this->package_data->packages($data);
+    $this->module_data->modules($data);
    
 
       $data['page_title'] = 'Monte Carlo';
@@ -336,21 +387,16 @@ function package_data()
        $this->load->view('templates/header', $data);
        $this->load->view('templates/left_side', $data);
        $this->load->view('templates/content_header', $data);
-       redirect ( base_url().'package');
+       redirect ( base_url().'module');
        $this->load->view('templates/footer');
    // redirect('package/insert');
     }
 
 
-
-function edit($packageid)
-  { 
-    if ($packageid !== null){
+function module_datas() 
+  {
   $this->load->library( 'nativesession' );
-  $this->load->helper('url');   
-
-        //Read the username from session
-        
+  $this->load->helper('url');
   $userid = $this->nativesession->get( 'userid' );
   $userLevel = $this->nativesession->get( 'userLevel' );
 
@@ -361,68 +407,35 @@ function edit($packageid)
         'message' => 'My Message'
     );
 
-      // If has id and go to single view
-      $data['package'] = $this->packagedata->packageid($packageid);
+    $packageid=$_POST['packageid'];
+    $moduleid=$_POST['moduleid'];
+    $count = count($_POST['moduleid']);
+   // $count = count($_POST['packageid']);
+   
+    
+    for($i=0; $i<$count; $i++) {
+    $datas = array(
+           'packageid' => $packageid, 
+           'moduleid' => $moduleid[$i],
+           
 
-      $data['page_title'] = 'Monte Carlo';
-      $data['nav_title'] = 'package';
-      $data['nav_subtitle'] = 'package Details';
-      $data['home'] = 'Home';
+           );
+$q =  $this->db->select('packageid,moduleid')
+      ->from('lms_package_module')
+      ->where(array('packageid' => $packageid, 'moduleid' => $moduleid[$i]))->get();
+if($q->num_rows() == 0){
+   $this->db->insert('lms_package_module', $datas);
+}
 
-      $this->load->helper('url');
-
-      /*if($this->session->userdata('logged_in'))
-      {
-       $session_data = $this->session->userdata('logged_in');
-
-       $data['username'] = $session_data['username'];*/
-
-       // view template
-       $this->load->view('templates/head', $data);
-       $this->load->view('templates/header', $data);
-       $this->load->view('templates/left_side', $data);
-       $this->load->view('templates/content_header', $data);
-       $this->load->view('packages/edit', $data);
-       $this->load->view('templates/footer');
-
-      }
-     /* else
-      {
-       //If no session, redirect to login page
-       redirect('login', 'refresh');
-      }
-
-    } */
-     else {
-
-      $data['package'] = $this->packagedata->package();
-
-      $this->load->view('packages/index', $data);
-
-    }
-  }
-
-
-function delete($packageid)
-  { 
-    $this->load->library( 'nativesession' );
-  $this->load->helper('url');   
-
-        //Read the username from session
-        
-  $userid = $this->nativesession->get( 'userid' );
-  $userLevel = $this->nativesession->get( 'userLevel' );
-
-      
-    $data = array(
-        'userid' => $userid,
-        'userLevel' => $userLevel,
-        'message' => 'My Message'
-    );
-    if ($packageid !== null){
-
-      // If has id and go to single view
-      $data['package'] = $this->delete_package->delete_data($packageid);
+  
+}
+    // $data = array(
+    // 'packageid' => $this->input->post('packageid'),
+    // 'moduleid' => $this->input->post('moduleid'),
+    //  );
+       
+    //$this->module_data->modules($data);
+   
 
       $data['page_title'] = 'Monte Carlo';
       $data['nav_title'] = 'package';
@@ -442,7 +455,140 @@ function delete($packageid)
        $this->load->view('templates/header', $data);
        $this->load->view('templates/left_side', $data);
        $this->load->view('templates/content_header', $data);
-        redirect ( base_url().'package');
+       redirect ( base_url().'module');
+       $this->load->view('templates/footer');
+   // redirect('package/insert');
+    }
+function edit($packageid)
+  { 
+  if ($packageid !== null){
+  $this->load->library( 'nativesession' );
+  $this->load->helper('url');   
+
+        //Read the username from session
+        
+  $userid = $this->nativesession->get( 'userid' );
+  $userLevel = $this->nativesession->get( 'userLevel' );
+
+       
+       $data= array(
+      'userid' => $userid,
+      'userLevel' => $userLevel,
+      'module' => $this->moduledata->packageid($packageid),
+      'modules' => $this->moduledata->packageids($packageid),
+      'modu' => $this->moduledata->packageidst()
+      );
+      $data['groups'] = $this->moduledata->getAllGroups();
+      $data['page_title'] = 'Monte Carlo';
+      $data['nav_title'] = 'Module';
+      $data['nav_subtitle'] = 'Adding modules by selecting modules to the right';
+      $data['home'] = 'Home';
+
+      $this->load->helper('url');
+
+       $this->load->view('templates/head', $data);
+       $this->load->view('templates/header', $data);
+       $this->load->view('templates/left_side', $data);
+       $this->load->view('templates/content_header', $data);
+       $this->load->view('module/edit', $data);
+       $this->load->view('templates/footer');
+
+      }
+     
+     else {
+
+      $data['module'] = $this->moduledata->module();
+
+      $this->load->view('module/index', $data);
+
+    }
+  }
+
+// function edit($id)
+//   { 
+//     if ($id !== null){
+//   $this->load->library( 'nativesession' );
+//   $this->load->helper('url');   
+
+//         //Read the username from session
+        
+//   $userid = $this->nativesession->get( 'userid' );
+//   $userLevel = $this->nativesession->get( 'userLevel' );
+
+       
+//        $data= array(
+//       'userid' => $userid,
+//       'userLevel' => $userLevel,
+//       'module' => $this->moduledata->id($id),
+//       'modules' => $this->moduledata->ids($id)
+//       );
+//       $data['groups'] = $this->moduledata->getAllGroups();
+//       $data['page_title'] = 'Monte Carlo';
+//       $data['nav_title'] = 'Module';
+//       $data['nav_subtitle'] = 'Module Details';
+//       $data['home'] = 'Home';
+
+//       $this->load->helper('url');
+
+//        $this->load->view('templates/head', $data);
+//        $this->load->view('templates/header', $data);
+//        $this->load->view('templates/left_side', $data);
+//        $this->load->view('templates/content_header', $data);
+//        $this->load->view('module/edit', $data);
+//        $this->load->view('templates/footer');
+
+//       }
+     
+//      else {
+
+//       $data['module'] = $this->moduledata->module();
+
+//       $this->load->view('module/index', $data);
+
+//     }
+//   }
+
+
+function delete($id)
+  { 
+  $this->load->library( 'nativesession' );
+  $this->load->helper('url');   
+
+        //Read the username from session
+        
+  $userid = $this->nativesession->get( 'userid' );
+  $userLevel = $this->nativesession->get( 'userLevel' );
+
+      
+    $data = array(
+        'userid' => $userid,
+        'userLevel' => $userLevel,
+        'message' => 'My Message'
+    );
+    if ($id !== null){
+
+      // If has id and go to single view
+      $data['package'] = $this->delete_module->delete_data($id);
+
+      $data['page_title'] = 'Monte Carlo';
+      $data['nav_title'] = 'package';
+      $data['nav_subtitle'] = 'package Details';
+      $data['home'] = 'Home';
+
+      $this->load->helper('url');
+
+      // if($this->session->userdata('logged_in'))
+      // {
+      //  $session_data = $this->session->userdata('logged_in');
+
+      //  $data['username'] = $session_data['username']; 
+
+       // view template
+       $this->load->view('templates/head', $data);
+       $this->load->view('templates/header', $data);
+       $this->load->view('templates/left_side', $data);
+       $this->load->view('templates/content_header', $data);
+        redirect ( base_url().'module');
        $this->load->view('templates/footer');
 
       }
@@ -455,9 +601,9 @@ function delete($packageid)
     } */
      else {
 
-      $data['package'] = $this->delete_package->delete_data();
+      $data['module'] = $this->delete_module->delete_data();
 
-      $this->load->view('packages/index', $data);
+      $this->load->view('module/index', $data);
 
     }
   }
@@ -505,30 +651,26 @@ function delete($packageid)
       $this->load->view('templates/header', $data);
       $this->load->view('templates/left_side', $data);
       $this->load->view('templates/content_header', $data);
-      redirect ( base_url().'package');
+      redirect ( base_url().'module');
       $this->load->view('templates/footer');
     
-     //redirect('package/view/'.$packageid, 'refresh');
+     
     }
    }
      
-    function delete_package($packageid)
+    function delete_module($id)
     {
-      $this->load->library( 'nativesession' );
-  $this->load->helper('url');   
-
-        //Read the username from session
-        
+  $this->load->library( 'nativesession' );
+  $this->load->helper('url');         
   $userid = $this->nativesession->get( 'userid' );
   $userLevel = $this->nativesession->get( 'userLevel' );
 
-      
-    $data = array(
+  $data = array(
         'userid' => $userid,
         'userLevel' => $userLevel,
         'message' => 'My Message'
     );
-    $delete=$this->delete_package->delete_data($packageid);
+    $delete=$this->delete_module->delete_data($id);
     //$this->display();
     }
   

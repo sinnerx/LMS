@@ -1,22 +1,25 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 
-class Course extends CI_Controller {
+class Result extends CI_Controller {
 
   public function __construct()
   {
     parent::__construct();
- //  $this->load->model('data');
-  $this->load->model('coursedata');
-  $this->load->model('courses_data');
-  $this->load->model('Update_course');
-  $this->load->model('delete_course');
+
+  $this->load->model('resultdata');
+  //$this->load->model('package_data');
+ // $this->load->model('Update_package');
+ // $this->load->model('delete_package');
   $this->load->model('template_model');
+  
+
+    
   }
 
 function index()
   {
-    $this->load->library( 'nativesession' );
+  $this->load->library( 'nativesession' );
   $this->load->helper('url');   
 
         //Read the username from session
@@ -30,59 +33,56 @@ function index()
         'userLevel' => $userLevel,
         'message' => 'My Message'
     );
-    $data['page_title'] = 'Learning Management System';
-    $data['nav_title'] = 'Course';
-    $data['nav_subtitle'] = 'Course List';
-    $data['home'] = 'Home';
 
-    $this->load->helper('url');
-     /* if($this->session->userdata('logged_in'))
+
+  $data['page_title'] = 'Monte Carlo';
+  $data['nav_title'] = 'Result';
+  $data['nav_subtitle'] = 'Result List';
+  $data['home'] = 'Home';
+  $this->load->helper('url');
+
+   /* if($this->session->userdata('logged_in'))
     {
      $session_data = $this->session->userdata('logged_in');
 
      $data['username'] = $session_data['username']; */
 
-     $this->load->view('templates/head', $data);
-     $this->load->view('templates/header', $data);
-     $this->load->view('templates/left_side', $data);
-     $this->load->view('templates/content_header', $data);
-     //$this->view($id=null);
-     $this->load->view('courses/index');
+  $this->load->view('templates/head', $data);
+  $this->load->view('templates/header', $data);
+  $this->load->view('templates/left_side', $data);
+  $this->load->view('templates/content_header', $data);
+  $this->load->view('result/index');
+  $this->load->view('templates/footer');
 
-   //  $this->load->view('announce/index',$data);
-     $this->load->view('templates/footer');
-  }
-  /* else
+    }
+   /* else
     {
      //If no session, redirect to login page
      redirect('login', 'refresh');
     } 
   }*/
 
-
-  public function ajax_list()
+public function ajax_list()
   {
-    $list = $this->coursedata->get_datatables();
+    $list = $this->resultdata->get_datatables();
     $data = array();
     $no = $_POST['start'];
-    foreach ($list as $course) {
-      $no++;
-      $row = array();
-      $row[] = $course->id;
-      $row[] = $course->code;
-      $row[] = $course->name;
-
-      //add html for action
-     $row[] = '<a href="course/edit/'."".$course->id."".'"><i class="fa fa-pencil"></i></a>
-          <a href="course/delete/'."".$course->id."".'"><i class="fa fa-trash-o "></i></a>';
+      foreach ($list as $result) 
+        {
+        $no++;
+        $row = array();
+        $row[] = $result->userid;
+        $row[] = $result->result;
+         $row[] = $result->status;
+       
     
-      $data[] = $row;
-    }
+       $data[] = $row;
+       }
 
-    $output = array(
+       $output = array(
             "draw" => $_POST['draw'],
-            "recordsTotal" => $this->coursedata->count_all(),
-            "recordsFiltered" => $this->coursedata->count_filtered(),
+            "recordsTotal" => $this->resultdata->count_all(),
+            "recordsFiltered" => $this->resultdata->count_filtered(),
             "data" => $data,
         );
     //output to json format
@@ -91,15 +91,16 @@ function index()
 
 
 
-  public function ajax_edit($id)
+  public function ajax_edit($packageid)
   {
-    $data = $this->coursedata->get_by_id($id);
+     $data = $this->packagedata->get_by_id($packageid);
     //$data->dob = ($data->dob == '0000-00-00') ? '' : $data->dob; // if 0000-00-00 set tu empty for datepicker compatibility
     echo json_encode($data);
   }
 
   public function ajax_add()
   {
+
     $this->_validate();
     $data = array(
         'firstName' => $this->input->post('firstName'),
@@ -108,7 +109,7 @@ function index()
         'address' => $this->input->post('address'),
         'dob' => $this->input->post('dob'),
       );
-    $insert = $this->coursedata->save($data);
+    $insert = $this->packagedata->save($data);
     echo json_encode(array("status" => TRUE));
   }
 
@@ -116,19 +117,19 @@ function index()
   {
     $this->_validate();
     $data = array(
-        'id' => $this->input->post('id'),
-        'q_text' => $this->input->post('q_text'),
-        'type' => $this->input->post('type'),
+        'packageid' => $this->input->post('packageid'),
+        'name' => $this->input->post('name'),
+        
         //'address' => $this->input->post('address'),
         //'dob' => $this->input->post('dob'),
       );
-    $this->coursedata->update(array('id' => $this->input->post('id')), $data);
+    $this->packagedata->update(array('packageid' => $this->input->post('packageid')), $data);
     echo json_encode(array("status" => TRUE));
   }
 
-  public function ajax_delete($id)
+  public function ajax_delete($packageid)
   {
-    $this->coursedata->delete_by_id($id);
+    $this->packagedata->delete_by_id($packageid);
     echo json_encode(array("status" => TRUE));
   }
 
@@ -199,10 +200,9 @@ function index()
         'userLevel' => $userLevel,
         'message' => 'My Message'
     );
-     $data['groups'] = $this->courses_data->getAllGroups();
-    $data['page_title'] = 'Learning Management System';
-    $data['nav_title'] = 'Course';
-    $data['nav_subtitle'] = 'New Course';
+    $data['page_title'] = 'Monte Carlo';
+    $data['nav_title'] = 'Question';
+    $data['nav_subtitle'] = 'New Question';
     $data['home'] = 'Home';
 
     $this->load->helper('url');
@@ -211,25 +211,26 @@ function index()
     {
      $session_data = $this->session->userdata('logged_in');
 
-     $data['username'] = $session_data['username'];*/
+     $data['username'] = $session_data['username']; */
 
      $this->load->view('templates/head', $data);
      $this->load->view('templates/header', $data);
      $this->load->view('templates/left_side', $data);
-   // $this->load->view('templates/content_header', $data);
-     $this->load->view('courses/insert',$data);
+     $this->load->view('templates/content_header', $data);
+     $this->load->view('packages/insert',$data);
      $this->load->view('templates/footer');
 
     }
-    //else
-   // {
+    
+  /*  else
+    {
      //If no session, redirect to login page
-    // redirect('login', 'refresh');
-  //}
-//  }
+     redirect('login', 'refresh');
+    }
+  } */
 
 
-  function view($id)
+  function view($packageid)
   { 
     $this->load->library( 'nativesession' );
   $this->load->helper('url');   
@@ -245,13 +246,13 @@ function index()
         'userLevel' => $userLevel,
         'message' => 'My Message'
     );
-    if ($id !== null){
+    if ($packageid !== null){
 
       // If has id and go to single view
-      $data['course'] = $this->coursedata->id($id);
+      $data['question'] = $this->packagedata->packageid($packageid);
       $data['page_title'] = 'Monte Carlo';
-      $data['nav_title'] = 'Course';
-      $data['nav_subtitle'] = 'Course Details';
+      $data['nav_title'] = 'package';
+      $data['nav_subtitle'] = 'package Details';
       $data['home'] = 'Home';
 
       $this->load->helper('url');
@@ -260,33 +261,36 @@ function index()
       {
        $session_data = $this->session->userdata('logged_in');
 
-       $data['username'] = $session_data['username'];*/
+       $data['username'] = $session_data['username']; */
 
        // view template
        $this->load->view('templates/head', $data);
        $this->load->view('templates/header', $data);
        $this->load->view('templates/left_side', $data);
        $this->load->view('templates/content_header', $data);
-       $this->load->view('courses/view', $data);
+       $this->load->view('packages/view', $data);
        $this->load->view('templates/footer');
 
-     }
-      //else
-      //{
+      }
+     /* else
+      {
        //If no session, redirect to login page
-      // redirect('login', 'refresh');
-     // }
+       redirect('login', 'refresh');
+      }
 
-  // } 
-    else {
+    } */
+     else {
 
-      $data['course'] = $this->coursedata->course();
+      $data['package'] = $this->packagedata->package();
 
-      $this->load->view('courses/index', $data);
+      $this->load->view('packages/index', $data);
+
     }
   }
 
-  function courses_data() 
+
+
+function package_data() 
   {
     $this->load->library( 'nativesession' );
   $this->load->helper('url');   
@@ -303,211 +307,208 @@ function index()
         'message' => 'My Message'
     );
     $data = array(
-    'code' => $this->input->post('code'),
-    'name' => $this->input->post('name'),
-    'description' => $this->input->post('description'),
     'packageid' => $this->input->post('packageid'),
-    'name' => $this->input->post('name')
+    'name' => $this->input->post('name'),
      );
-    $this->courses_data->courses($data);
-    // If has id and go to single view
-      $data['course'] = $this->coursedata->id($id);
+       
+    $this->package_data->packages($data);
+   
+
       $data['page_title'] = 'Monte Carlo';
-      $data['nav_title'] = 'Course';
-      $data['nav_subtitle'] = 'Course Details';
+      $data['nav_title'] = 'package';
+      $data['nav_subtitle'] = 'package Details';
+      $data['home'] = 'Home';
+
+      $this->load->helper('url');
+
+      // if($this->session->userdata('logged_in'))
+      // {
+      //  $session_data = $this->session->userdata('logged_in');
+
+      //  $data['username'] = $session_data['username']; 
+
+       // view template
+       $this->load->view('templates/head', $data);
+       $this->load->view('templates/header', $data);
+       $this->load->view('templates/left_side', $data);
+       $this->load->view('templates/content_header', $data);
+       redirect ( base_url().'package');
+       $this->load->view('templates/footer');
+   // redirect('package/insert');
+    }
+
+
+
+function edit($packageid)
+  { 
+    if ($packageid !== null){
+      $this->load->library( 'nativesession' );
+  $this->load->helper('url');   
+
+        //Read the username from session
+        
+  $userid = $this->nativesession->get( 'userid' );
+  $userLevel = $this->nativesession->get( 'userLevel' );
+
+      
+    $data = array(
+        'userid' => $userid,
+        'userLevel' => $userLevel,
+        'message' => 'My Message'
+    );
+
+      // If has id and go to single view
+      $data['package'] = $this->packagedata->packageid($packageid);
+
+      $data['page_title'] = 'Monte Carlo';
+      $data['nav_title'] = 'package';
+      $data['nav_subtitle'] = 'package Details';
+      $data['home'] = 'Home';
+
+      $this->load->helper('url');
+
+      /*if($this->session->userdata('logged_in'))
+      {
+       $session_data = $this->session->userdata('logged_in');
+
+       $data['username'] = $session_data['username'];*/
+
+       // view template
+       $this->load->view('templates/head', $data);
+       $this->load->view('templates/header', $data);
+       $this->load->view('templates/left_side', $data);
+       $this->load->view('templates/content_header', $data);
+       $this->load->view('packages/edit', $data);
+       $this->load->view('templates/footer');
+
+      }
+     /* else
+      {
+       //If no session, redirect to login page
+       redirect('login', 'refresh');
+      }
+
+    } */
+     else {
+
+      $data['package'] = $this->packagedata->package();
+
+      $this->load->view('packages/index', $data);
+
+    }
+  }
+
+
+function delete($packageid)
+  { 
+    $this->load->library( 'nativesession' );
+  $this->load->helper('url');   
+
+        //Read the username from session
+        
+  $userid = $this->nativesession->get( 'userid' );
+  $userLevel = $this->nativesession->get( 'userLevel' );
+
+      
+    $data = array(
+        'userid' => $userid,
+        'userLevel' => $userLevel,
+        'message' => 'My Message'
+    );
+    if ($packageid !== null){
+
+      // If has id and go to single view
+      $data['package'] = $this->delete_package->delete_data($packageid);
+
+      $data['page_title'] = 'Monte Carlo';
+      $data['nav_title'] = 'package';
+      $data['nav_subtitle'] = 'package Details';
+      $data['home'] = 'Home';
+
+      $this->load->helper('url');
+
+      // if($this->session->userdata('logged_in'))
+      // {
+      //  $session_data = $this->session->userdata('logged_in');
+
+      //  $data['username'] = $session_data['username']; 
+
+       // view template
+       $this->load->view('templates/head', $data);
+       $this->load->view('templates/header', $data);
+       $this->load->view('templates/left_side', $data);
+       $this->load->view('templates/content_header', $data);
+        redirect ( base_url().'package');
+       $this->load->view('templates/footer');
+
+      }
+     /* else
+      {
+       //If no session, redirect to login page
+       redirect('login', 'refresh');
+      }
+
+    } */
+     else {
+
+      $data['package'] = $this->delete_package->delete_data();
+
+      $this->load->view('packages/index', $data);
+
+    }
+  }
+
+
+
+
+  function Update_package() 
+  {
+    $this->load->library( 'nativesession' );
+  $this->load->helper('url');   
+
+        //Read the username from session
+        
+  $userid = $this->nativesession->get( 'userid' );
+  $userLevel = $this->nativesession->get( 'userLevel' );
+
+      
+    $data = array(
+        'userid' => $userid,
+        'userLevel' => $userLevel,
+        'message' => 'My Message'
+    );
+    $packageid = $this->input->post('packageid');
+    $name = $this->input->post('name');
+  
+    
+    $data = array(
+      'packageid' => $this->input->post('packageid'),
+      'name' => $this->input->post('name'),
+
+      );
+
+    $this->Update_package->update_pac($packageid,$data);
+   
+
+      $data['page_title'] = 'Monte Carlo';
+      $data['nav_title'] = 'package';
+      $data['nav_subtitle'] = 'package Details';
       $data['home'] = 'Home';
 
       $this->load->helper('url');
 
       $this->load->view('templates/head', $data);
-       $this->load->view('templates/header', $data);
-       $this->load->view('templates/left_side', $data);
-       $this->load->view('templates/content_header', $data);
-       redirect ( base_url().'course');
-       $this->load->view('templates/footer');
-
-   // redirect('course/insert');
-  }
-
-
-
-    function edit($id)
-  { 
-    if ($id !== null){
-      $this->load->library( 'nativesession' );
-  $this->load->helper('url');   
-
-        //Read the username from session
-        
-  $userid = $this->nativesession->get( 'userid' );
-  $userLevel = $this->nativesession->get( 'userLevel' );
-
-      
-    $data = array(
-        'userid' => $userid,
-        'userLevel' => $userLevel,
-        'message' => 'My Message'
-    );
-      // If has id and go to single view
-      $data['groups'] = $this->courses_data->getAllGroups();
-      $data['course'] = $this->coursedata->id($id);
-     // $data['package'] = $this->coursedata->ids($id);
-
-      $data['page_title'] = 'Monte Carlo';
-      $data['nav_title'] = 'Course';
-      $data['nav_subtitle'] = 'Course Details';
-      $data['home'] = 'Home';
-
-      $this->load->helper('url');
-
-     /* if($this->session->userdata('logged_in'))
-      {
-       $session_data = $this->session->userdata('logged_in');
-
-       $data['username'] = $session_data['username'];*/
-
-       // view template
-       $this->load->view('templates/head', $data);
-       $this->load->view('templates/header', $data);
-       $this->load->view('templates/left_side', $data);
-       $this->load->view('templates/content_header', $data);
-       $this->load->view('courses/edit', $data);
-       $this->load->view('templates/footer');
-
-      }
-    /*  else
-      {
-       //If no session, redirect to login page
-       redirect('login', 'refresh');
-      }
-
-    }*/
-    else {
-
-      $data['course'] = $this->coursedata->course();
-
-      $this->load->view('courses/view', $data);
-
-    }
-  }
-
-
-function delete($id)
-  { 
-
-    if ($id !== null){
-      $this->load->library( 'nativesession' );
-  $this->load->helper('url');   
-
-        //Read the username from session
-        
-  $userid = $this->nativesession->get( 'userid' );
-  $userLevel = $this->nativesession->get( 'userLevel' );
-
-      
-    $data = array(
-        'userid' => $userid,
-        'userLevel' => $userLevel,
-        'message' => 'My Message'
-    );
-
-      // If has id and go to single view
-      $data['course'] = $this->delete_course->delete_data($id);
-
-      $data['page_title'] = 'Monte Carlo';
-      $data['nav_title'] = 'course';
-      $data['nav_subtitle'] = 'Course Details';
-      $data['home'] = 'Home';
-
-      $this->load->helper('url');
-
-     /* if($this->session->userdata('logged_in'))
-      {
-       $session_data = $this->session->userdata('logged_in');
-
-       $data['username'] = $session_data['username'];*/
-
-       // view template
-       $this->load->view('templates/head', $data);
-       $this->load->view('templates/header', $data);
-       $this->load->view('templates/left_side', $data);
-       $this->load->view('templates/content_header', $data);
-       redirect ( base_url().'course');
-       $this->load->view('templates/footer');
-
-      }
-   /*   else
-      {
-       //If no session, redirect to login page
-       redirect('login', 'refresh');
-      }
-
-    }*/
-    else {
-
-      $data['course'] = $this->delete_course->delete_data();
-
-      $this->load->view('courses/index', $data);
-
-    }
-  }
-
-
-
-
-  function Update_course() 
-  {
-  $this->load->library( 'nativesession' );
-  $this->load->helper('url');
-  $userid = $this->nativesession->get( 'userid' );
-  $userLevel = $this->nativesession->get( 'userLevel' );
-
-      
-    $data = array(
-        'userid' => $userid,
-        'userLevel' => $userLevel,
-        'message' => 'My Message'
-    );
-
-    $id = $this->input->post('id');
-    $code = $this->input->post('code');
-    $name = $this->input->post('name');
-    $description = $this->input->post('description');
+      $this->load->view('templates/header', $data);
+      $this->load->view('templates/left_side', $data);
+      $this->load->view('templates/content_header', $data);
+      redirect ( base_url().'package');
+      $this->load->view('templates/footer');
     
-    $data = array(
-    'id' => $this->input->post('id'),
-    'code' => $this->input->post('code'),
-    'name' => $this->input->post('name'),
-    'description' => $this->input->post('description'),
-    );
-
-    $this->Update_course->update_cou($id,$data);
-
-    $data['page_title'] = 'Monte Carlo';
-      $data['nav_title'] = 'course';
-      $data['nav_subtitle'] = 'Course Details';
-      $data['home'] = 'Home';
-
-      $this->load->helper('url');
-
-     /* if($this->session->userdata('logged_in'))
-      {
-       $session_data = $this->session->userdata('logged_in');
-
-       $data['username'] = $session_data['username'];*/
-
-       // view template
-       $this->load->view('templates/head', $data);
-       $this->load->view('templates/header', $data);
-       $this->load->view('templates/left_side', $data);
-       $this->load->view('templates/content_header', $data);
-       redirect ( base_url().'course');
-       $this->load->view('templates/footer');
-   /* redirect('course/view/'.$id, 'refresh'); */
+     //redirect('package/view/'.$packageid, 'refresh');
     }
    }
      
-    function delete_course($id)
+    function delete_package($packageid)
     {
       $this->load->library( 'nativesession' );
   $this->load->helper('url');   
@@ -523,7 +524,7 @@ function delete($id)
         'userLevel' => $userLevel,
         'message' => 'My Message'
     );
-    $delete=$this->delete_course->delete_data($id);
-    $this->display();
+    $delete=$this->delete_package->delete_data($packageid);
+    //$this->display();
     }
   

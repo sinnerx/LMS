@@ -33,7 +33,7 @@
                         <!--- wsig-->
 
 
-                          <input type="hidden" name="packageid" id="packageid" value="<?php echo $course['packageid']; ?>" class="form-control">
+                         
                     <div class="line line-dashed b-b line-lg pull-in"></div>
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Module name</label>
@@ -46,7 +46,7 @@
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Description</label>
                       <div class="col-md-5">
-                        <input type="text" name="description" id="description" value="<?php echo $course['description']; ?>" class="form-control">
+                        <textarea name="description" id="description" class="form-control"><?php echo $course['description']; ?></textarea>
                         
                       </div>
                     </div>
