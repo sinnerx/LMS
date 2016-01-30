@@ -1,35 +1,4 @@
 
-<!DOCTYPE html>
-<html>
-    <head>
-<script type="text/javascript">
-function pre_sbtform(){
-if((document.getElementById('warning_div').style.display)=="block"){
-document.getElementById('warning_div').style.display="none";
-}else{
-document.getElementById('warning_div').style.display="block";
-}
-
-}
-
-function sbtform(){
-
-
-document.getElementById('form-horizontal').submit();
-
-}
-
-
-</script>
-<body OnLoad="timeIt()">
-
-
-
-
-        <meta charset="utf-8" />
-       
-    
-    </head>
     <section id="content">
     <section class="vbox">
     <section class="scrollable padder">
@@ -42,9 +11,47 @@ document.getElementById('form-horizontal').submit();
             </header>
            
             <div class="panel-body">
+
+            <form action ="<?php echo base_url() ?>quizs/index" method = "post" class="form-horizontal" data-validate="parsley">
+            <div class="form-group">
+
+            <div class="form-group">
+            <label class="col-md-6 control-label"><h3>Pi1M Online Examination Result</h3></label>
+            </div>
+            <div class="form-group">
+            <label class="col-sm-2 control-label">Session ID:</label>
+            <div class="col-md-5">
+            <input type="text" name="sessionid" class="form-control" value=""readonly >
+            </div>
+            </div>
            
-          <center><h1>  Your Score : <?php echo $m ; ?>%</h1></center>
-          <center><h1>  Status : <?php echo $status ; ?></h1></center>
+            
+            <div class="line line-dashed b-b line-lg pull-in"></div>
+            <div class="form-group">
+            <label class="col-sm-2 control-label">Package:</label>
+            <div class="col-md-5">
+            <input type="text" name="id" class="form-control" value="1" readonly>
+            </div>
+            </div>
+            
+
+
+
+            <div class="line line-dashed b-b line-lg pull-in"></div>
+            <div class="form-group">
+            <label class="col-sm-2 control-label">Your Score:</label>
+            <div class="col-md-5">
+            <input type="text" name="ids" class="form-control" value="<?php echo $m ; ?>%"disabled>
+            </div>
+            </div>
+
+            <div class="line line-dashed b-b line-lg pull-in"></div>
+            <div class="form-group">
+            <label class="col-sm-2 control-label">Status :</label>
+            <div class="col-md-5">
+            <input type="text" name="ids" class="form-control" value="<?php echo $status ; ?>"disabled>
+            </div>
+            </div>
        
 </html>
 </div>

@@ -47,7 +47,7 @@ document.getElementById('form-horizontal').submit();
            
             <br/>
               
-              <form method="POST" name="form-horizontal" class="form-horizontal" id="form-horizontal" action="<?php echo base_url() ?>quizs/quiz_data">
+            <form method="POST" name="form-horizontal" class="form-horizontal" id="form-horizontal" action="<?php echo base_url() ?>quizs/quiz_data"  onsubmit="return confirm('Are you sure want to finish?');">
             <div class="form-group">
             <div class="col-sm-10">
             <CENTER><label><?php echo $q_text?></label></CENTER>
@@ -81,9 +81,11 @@ document.getElementById('form-horizontal').submit();
            <!--  <a href="javascript:pre_sbtform();"   class="btn btn-danger"  style="cursor:pointer;" >Cancel</a> &nbsp; &nbsp; &nbsp; &nbsp; -->
 
            &nbsp; &nbsp; &nbsp; 
-           &nbsp; &nbsp; &nbsp;<center> <a onclick="javascript:sbtform();"   class="btn btn-info" style="cursor:pointer;">Save & Next</a>
-   
-           <button class="btn btn-success" type="submit"><a href="<?php echo base_url(); ?>quizs/result/">Finish</a></button></center>
-</form>           
+           &nbsp; &nbsp; &nbsp;<center> <!-- <a onclick="javascript:sbtform();"  name="submit" class="btn btn-info" style="cursor:pointer;">Save & Next</a> -->
+            <input type="submit" class="btn btn-s-md btn-primary" name="submit" value="Save & Next" />
+            <input type="submit" class="btn btn-s-md btn-success" name="submiting" value="Finish" />
+           <!-- <button class="btn btn-success" type="submiting"><a href="<?php echo base_url(); ?>quizs/result/">Finish</a></button> -->
+           </center>
+</form>     
 </html>
 </div>

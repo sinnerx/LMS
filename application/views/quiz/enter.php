@@ -1,40 +1,4 @@
-<?php
- 
-//$_SESSION["sessionid"] ='green';
 
-?>
-<!DOCTYPE html>
-<html>
-    <head>
-<script type="text/javascript">
-function pre_sbtform(){
-if((document.getElementById('warning_div').style.display)=="block"){
-document.getElementById('warning_div').style.display="none";
-}else{
-document.getElementById('warning_div').style.display="block";
-}
-
-}
-
-function sbtform(){
-
-
-document.getElementById('form-horizontal').submit();
-
-}
-
-
-</script>
-
-<body OnLoad="timeIt()">
-
-
-
-
-        <meta charset="utf-8" />
-        <title><?php echo $question?> - Question of the day | Tutorialzine Demo</title>
-    
-    </head>
     <section id="content">
     <section class="vbox">
     <section class="scrollable padder">
@@ -45,16 +9,52 @@ document.getElementById('form-horizontal').submit();
             <header class="panel-heading font-bold">                  
             <red>Instruction: </red>Please Read all the instruction carefully. Good Luck              
             </header>
-            print_r($_SESSION);
-            Subject :
-            Time : 
-            <form action ="<?php echo base_url() ?>quizs/index" method = "post">
-            <input value="<?php $today = date("ymdhis");echo $unique = $today ; ?>" name="sessionid"/>
-            <button type="submit" class="btn btn-sm btn-default">Start</button>
+
+            <div class="panel-body">
+
+            <form action ="<?php echo base_url() ?>quizs/index" method = "post" class="form-horizontal" data-validate="parsley">
+            <div class="form-group">
+
+            <div class="form-group">
+            <label class="col-md-6 control-label"><h3>Pi1M Online Examination</h3></label>
+            </div>
+            <div class="form-group">
+            <label class="col-sm-2 control-label">Session ID:</label>
+            <div class="col-md-5">
+            <input type="text" name="sessionid" class="form-control" value="<?php $today = date("ymdhis");echo $unique = $today ; ?>"readonly >
+            </div>
+            </div>
+           
+            
+            <div class="line line-dashed b-b line-lg pull-in"></div>
+            <div class="form-group">
+            <label class="col-sm-2 control-label">Package Name :</label>
+            <div class="col-md-5">
+            <input type="text" name="id" class="form-control" value="1" readonly>
+            </div>
+            </div>
+            
+
+
+
+            <div class="line line-dashed b-b line-lg pull-in"></div>
+            <div class="form-group">
+            <label class="col-sm-2 control-label">Time :</label>
+            <div class="col-md-5">
+            <input type="text" name="ids" class="form-control" value="<?php echo 'id'?>"disabled>
+            </div>
+            </div>
+
+            
+            
+            <div class="doc-buttons">
+            <center><button type="submit" class="btn btn-s-md btn-info">Start</button></center></div>
             </form>
            
 
 
-</form>           
-</html>
-</div>
+           
+       
+        </div><!-- /.box-body -->
+        </div><!-- /.box -->
+        </section><!-- /.content -->

@@ -514,7 +514,7 @@ function delete($packageid)
      
     function delete_package($packageid)
     {
-      $this->load->library( 'nativesession' );
+  $this->load->library( 'nativesession' );
   $this->load->helper('url');   
 
         //Read the username from session
