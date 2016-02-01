@@ -79,7 +79,7 @@
                       </a>
                         <ul class="nav dk">
                           <li >
-                          <a href="#" class="auto">                                                        
+                          <a href="<?php echo base_url();?>reporting" class="auto">                                                        
                             <i class="i i-dot"></i>
 
                             <span>Manage Report</span>
