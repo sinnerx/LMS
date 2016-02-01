@@ -1,12 +1,6 @@
 
 <html lang="en" class="app">
-<?php
-if($_SESSION['userLevel'] != 2){
-       
-      header("location: ./");
-     
-  }
-  ?>
+
 <head>  
   <meta charset="utf-8" />
  

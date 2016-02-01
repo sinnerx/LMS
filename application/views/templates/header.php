@@ -30,23 +30,14 @@
           <ul class="dropdown-menu animated fadeInRight">
             <span class="arrow top"></span>
             <li>
-              <a href="#">Settings</a>
+              <a href="../dashboard/user/profile">My Profile</a>
             </li>
             <li>
-              <a href="profile.html">Profile</a>
-            </li>
-            <li>
-              <a href="#">
-                <span class="badge bg-danger pull-right">3</span>
-                Notifications
-              </a>
-            </li>
-            <li>
-              <a href="docs.html">Help</a>
+              <a href="../dashboard/user/changePassword">Change Password</a>
             </li>
             <li class="divider"></li>
             <li>
-              <a href="modal.lockme.html" data-toggle="ajaxModal" >Logout</a>
+              <a href="../dashboard/logout">Logout</a>
             </li>
           </ul>
         </li>

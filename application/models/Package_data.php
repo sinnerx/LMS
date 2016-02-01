@@ -8,6 +8,7 @@ Class Package_data extends CI_Model
   $data=array(
     'packageid'=>$this->input->post('packageid'),
     'name'=>$this->input->post('name'),
+    'status'=>$this->input->post('status'),
 );
 
   $this->db->insert('lms_package',$data);

@@ -313,6 +313,7 @@ function package_data()
     $data = array(
     'packageid' => $this->input->post('packageid'),
     'name' => $this->input->post('name'),
+    'status' => $this->input->post('status'),
      );
        
     $this->package_data->packages($data);

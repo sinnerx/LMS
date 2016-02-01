@@ -306,8 +306,8 @@ function index()
     'code' => $this->input->post('code'),
     'name' => $this->input->post('name'),
     'description' => $this->input->post('description'),
-    'packageid' => $this->input->post('packageid'),
-    'name' => $this->input->post('name')
+    'typeid' => $this->input->post('typeid'),
+    'status' => $this->input->post('status'),
      );
     $this->courses_data->courses($data);
     // If has id and go to single view

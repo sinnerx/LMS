@@ -39,7 +39,8 @@
                         
                       </div>
                     </div>
-                   
+                       <input type="hidden" name="status" class="form-control" value="1">
+                      <input type="hidden" name="typeid" class="form-control" value="2">
                      <div class="doc-buttons">
                      <button type="submit" class="btn btn-sm btn-default">Submit</button>
                     <a href="javascript:window.history.go(-1);" class="btn btn-sm btn-default">Cancel</a></div>

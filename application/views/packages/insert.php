@@ -23,6 +23,7 @@
                             <label class="col-sm-2 control-label">Package name</label>
                             <div class="col-md-5">
                             <input type="text" data-required="true" name="name" id="name" class="form-control" />
+                            <input type="hidden" data-required="true" name="status" id="status" value="1" />
                             </div>
                             </div>
 

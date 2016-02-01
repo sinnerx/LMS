@@ -28,7 +28,7 @@
             
             <div class="line line-dashed b-b line-lg pull-in"></div>
             <div class="form-group">
-            <label class="col-sm-2 control-label">Package Name :</label>
+            <label class="col-sm-2 control-label">Package ID :</label>
             <div class="col-md-5">
             <input type="text" name="id" class="form-control" value="1" readonly>
             </div>
@@ -37,13 +37,7 @@
 
 
 
-            <div class="line line-dashed b-b line-lg pull-in"></div>
-            <div class="form-group">
-            <label class="col-sm-2 control-label">Time :</label>
-            <div class="col-md-5">
-            <input type="text" name="ids" class="form-control" value="<?php echo 'id'?>"disabled>
-            </div>
-            </div>
+            
 
             
             

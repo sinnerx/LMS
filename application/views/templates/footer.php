@@ -266,6 +266,7 @@ $(document).ready(function() {
       $('html,body').animate({scrollTop: $(id).offset().top - 40},'slow');
     }
   }
+  
   </script>
 
 
