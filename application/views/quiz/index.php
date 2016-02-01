@@ -47,7 +47,7 @@ document.getElementById('form-horizontal').submit();
            
             <br/>
               
-            <form method="POST" name="form-horizontal" class="form-horizontal" id="form-horizontal" action="<?php echo base_url() ?>quizs/quiz_data"  >
+            <form method="POST" name="form-horizontal" data-validate="parsley" class="form-horizontal" id="form-horizontal" action="<?php echo base_url() ?>quizs/quiz_data"  >
             <div class="form-group">
             <div class="col-sm-10">
             <CENTER><label><?php echo $q_text?></label></CENTER>
@@ -67,7 +67,7 @@ document.getElementById('form-horizontal').submit();
             <div class="form-group">
             <label class="col-sm-2 control-label"></label>
             <div class="col-sm-10">
-            <input type="radio" name="a_id" id="a_id" value="<?php echo $ans['a_id']?>"> <label><?php echo $ans['a_text']?></label>
+            <input type="radio" name="a_id" id="a_id" data-required="true" value="<?php echo $ans['a_id']?>"> <label><?php echo $ans['a_text']?></label>
 
             </div>
             
@@ -90,7 +90,8 @@ document.getElementById('form-horizontal').submit();
             
             
            <!-- <button class="btn btn-success" type="submiting"><a href="<?php echo base_url(); ?>quizs/result/">Finish</a></button> -->
-          <?php } else {?> 
+          <?php } else { ?> 
+
           <input type="submit" class="btn btn-s-md btn-success" name="submiting" value="Finish" />
           <?php } ?>
            </center>
