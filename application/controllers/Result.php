@@ -1,16 +1,16 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 
-class Package extends CI_Controller {
+class Result extends CI_Controller {
 
   public function __construct()
   {
     parent::__construct();
 
-  $this->load->model('packagedata');
-  $this->load->model('package_data');
-  $this->load->model('Update_package');
-  $this->load->model('delete_package');
+  $this->load->model('resultdata');
+  //$this->load->model('package_data');
+ // $this->load->model('Update_package');
+ // $this->load->model('delete_package');
   $this->load->model('template_model');
   
 
@@ -36,8 +36,8 @@ function index()
 
 
   $data['page_title'] = 'Monte Carlo';
-  $data['nav_title'] = 'Package';
-  $data['nav_subtitle'] = 'Package List';
+  $data['nav_title'] = 'Result';
+  $data['nav_subtitle'] = 'Result List';
   $data['home'] = 'Home';
   $this->load->helper('url');
 
@@ -51,7 +51,7 @@ function index()
   $this->load->view('templates/header', $data);
   $this->load->view('templates/left_side', $data);
   $this->load->view('templates/content_header', $data);
-  $this->load->view('packages/index');
+  $this->load->view('result/index');
   $this->load->view('templates/footer');
 
     }
@@ -64,29 +64,25 @@ function index()
 
 public function ajax_list()
   {
-    $list = $this->packagedata->get_datatables();
+    $list = $this->resultdata->get_datatables();
     $data = array();
     $no = $_POST['start'];
-      foreach ($list as $package) 
+      foreach ($list as $result) 
         {
         $no++;
         $row = array();
-        $row[] = $package->packageid;
-        $row[] = $package->name;
-    
-   
-
-      //add html for action
-       $row[] = '<a href="package/edit/'."".$package->packageid."".'"><i class="fa fa-pencil"></i></a>
-          <a href="package/delete/'."".$package->packageid."".'"><i class="fa fa-trash-o "></i></a>';
+        $row[] = $result->userid;
+        $row[] = $result->result;
+         $row[] = $result->status;
+       
     
        $data[] = $row;
        }
 
        $output = array(
             "draw" => $_POST['draw'],
-            "recordsTotal" => $this->packagedata->count_all(),
-            "recordsFiltered" => $this->packagedata->count_filtered(),
+            "recordsTotal" => $this->resultdata->count_all(),
+            "recordsFiltered" => $this->resultdata->count_filtered(),
             "data" => $data,
         );
     //output to json format
@@ -346,7 +342,7 @@ function package_data()
 function edit($packageid)
   { 
     if ($packageid !== null){
-  $this->load->library( 'nativesession' );
+      $this->load->library( 'nativesession' );
   $this->load->helper('url');   
 
         //Read the username from session
@@ -514,7 +510,7 @@ function delete($packageid)
      
     function delete_package($packageid)
     {
-  $this->load->library( 'nativesession' );
+      $this->load->library( 'nativesession' );
   $this->load->helper('url');   
 
         //Read the username from session

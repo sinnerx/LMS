@@ -21,6 +21,14 @@
   <script src="<?php echo base_url(); ?>assets/js/app.plugin.js"></script>
 
   <script type="text/javascript" src="<?php echo base_url(); ?>assets/add/jquery-1.10.2.min.js"></script>
+<!-- popup correct -->
+
+ <!-- <link href="<?php echo base_url(); ?>assets/csss/bootstrap.css" rel="stylesheet" type="text/css" /> -->
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript" language="javascript" src="<?php echo base_url(); ?>assets/jss/bootstrap.js"></script>
+
+
+
 
  <!-- datepicker -->
   <script src="<?php echo base_url(); ?>assets/js/datepicker/bootstrap-datepicker.js"></script>
@@ -300,6 +308,45 @@ $(document).ready(function(){
 
 
 </script>
+
+<script>
+
+$(document).ready(function(){
+  
+  $('#tambah').click(function(){
+    
+    var inp = $('#box');
+    
+    
+    var i = $('select').size() ;
+    var s = $('input').size() ;
+    
+    //$('<div id="box' + i +'"><div class="form-group"><label class="col-sm-2 control-label">Answer</label><div class="col-md-5"><input type="text" id="a_text[' + i +']" class="form-control" name="a_text1[' + i +']" /></div><img src="<?php echo base_url(); ?>assets/add/remove.png" align="top" class="add" id="remove" /></div></div></div>').appendTo(inp);
+    $('<div id="box' + i +'"><div class="form-group"><label class="col-sm-2 control-label">Module</label><div class="col-md-5"><select data-required="true"  id="moduleid'+ i +'" name="moduleid' + i +'" class="form-control"><option value="">Select one </option>;<?php foreach($group as $row){ echo '<option value="'.$row->id.'">'.$row->name.'</option>'; } ?></select></div><img src="<?php echo base_url(); ?>assets/add/remove.png" align="top" class="add" id="remove" /></div></div></div>').appendTo(inp);
+
+    i++;
+    s++;
+
+    
+  });
+  
+  
+  
+  $('body').on('click','#remove',function(){
+    
+    $(this).parent('div').remove();
+
+    
+  });
+
+    
+});
+
+
+
+
+</script>
+
 <script>
 // $(function(){
 //        $("input").prop('required',true);
@@ -342,4 +389,18 @@ alert(html);
 return false;
 }
 </script>-->
+<script type="text/javascript">
+$(document).ready(function(){
+var $modal = $('#load_popup_modal_show_id');
+$('#click_to_load_modal_popup').on('click', function(){
+$modal.load('questions/load-modal.php',{'id1': '1', 'id2': '2'},
+function(){
+$modal.modal('show');
+});
+
+});
+});
+
+</script>
+
 </html>

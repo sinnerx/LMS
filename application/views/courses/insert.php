@@ -16,21 +16,7 @@
 
 
                     <div class="form-group">
-                      <label class="col-sm-2 control-label">Package</label>
-                      <div class="col-md-5">
-                        <select data-required="true" style="width:260px" name="packageid" class="form-control m-b"><option value="">Select one </option>;
-                        <?php 
-
-            foreach($groups as $row)
-            { 
-              echo '<option value="'.$row->packageid.'">'.$row->name.'</option>';
-            }
-            ?>
-            </select>
-                            
-                       
-                      </div>
-                    </div>
+                 
                     
                      <div class="line line-dashed b-b line-lg pull-in"></div>
                       <label class="col-sm-2 control-label">Module ID</label>
@@ -49,7 +35,7 @@
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Description</label>
                       <div class="col-md-5">
-                        <input type="text" name="description" id="description" class="form-control"/>
+                        <textarea name="description" id="description" class="form-control"/></textarea>
                         
                       </div>
                     </div>

@@ -1,4 +1,12 @@
+
 <html lang="en" class="app">
+<?php
+if($_SESSION['userLevel'] != 2){
+       
+      header("location: ./");
+     
+  }
+  ?>
 <head>  
   <meta charset="utf-8" />
  
@@ -10,31 +18,34 @@
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/icon.css" type="text/css" />
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/font.css" type="text/css" />
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/app.css" type="text/css" /> 
-<section id="content">
+        <!-- Main content -->
+        <section id="content">
           <section class="vbox">
             <section class="scrollable padder">
-                 <div class="m-b-md">
+        <!-- Main content -->
+ <div class="m-b-md">
                 <h3 class="m-b-none"></h3>
-              </div>
+                                             </div>
                  <section class="panel panel-default">
                 <header class="panel-heading font-bold">                  
                 <?php echo $nav_subtitle; ?>                
             </header>
-        <!-- Main content -->
+                    
+        <br />
         
- <br />
         
-        <a href="<?php echo base_url(); ?>course/insert/"><button class="btn btn-success" type="submit"><i class="glyphicon glyphicon-plus"></i> Add Module</button></a>
         <button class="btn btn-default" onclick="reload_table()"><i class="glyphicon glyphicon-refresh"></i> Reload</button>
         <br />
         <br />
         <table id="table" class="table table-striped table-bordered">
             <thead>
                 <tr>
-                    <th> ID</th>
-                    <th>Module ID</th>
-                    <th>Module name</th>
-                    <th>Action</th>
+                    
+                    <th>User</th>
+                    
+                    <th>Result</th>
+                    <th>Status</th>
+
                 </tr>
             </thead>
             
@@ -66,7 +77,7 @@ $(document).ready(function() {
 
         // Load data for the table's content from an Ajax source
         "ajax": {
-            "url": "<?php echo site_url('course/ajax_list')?>",
+            "url": "<?php echo site_url('result/ajax_list')?>",
             "type": "POST"
         },
 
@@ -118,7 +129,7 @@ function add_person()
     $('.modal-title').text('Add Question'); // Set Title to Bootstrap modal title
 }
 
-function edit_person(id)
+function edit_person(packageid)
 {
     save_method = 'update';
     $('#form')[0].reset(); // reset form on modals
@@ -127,16 +138,16 @@ function edit_person(id)
 
     //Ajax Load data from ajax
     $.ajax({
-        url : "<?php echo site_url('question/ajax_edit/')?>/" + id,
+        url : "<?php echo site_url('result/ajax_edit/')?>/" + packageid,
         type: "GET",
         dataType: "JSON",
         success: function(data)
         {
 
            
-            $('[name="id"]').val(data.id);
-            $('[name="q_text"]').val(data.q_text);
-            $('[name="type"]').val(data.type);
+            $('[name="packageid"]').val(data.packageid);
+            $('[name="name"]').val(data.name);
+            //$('[name="type"]').val(data.type);
             /*$('[name="gender"]').val(data.gender);
             $('[name="address"]').val(data.address);
             $('[name="dob"]').datepicker('update',data.dob);*/
@@ -163,9 +174,9 @@ function save()
     var url;
 
     if(save_method == 'add') {
-        url = "<?php echo site_url('course/ajax_add')?>";
+        url = "<?php echo site_url('result/ajax_add')?>";
     } else {
-        url = "<?php echo site_url('course/ajax_update')?>";
+        url = "<?php echo site_url('result/ajax_update')?>";
     }
 
     // ajax adding data to database
@@ -205,13 +216,13 @@ function save()
     });
 }
 
-function delete_person(id)
+function delete_person(packageid)
 {
     if(confirm('Are you sure delete this data?'))
     {
         // ajax delete data to database
         $.ajax({
-            url : "<?php echo site_url('course/ajax_delete')?>/"+id,
+            url : "<?php echo site_url('package/ajax_delete')?>/"+packageid,
             type: "POST",
             dataType: "JSON",
             success: function(data)
@@ -240,9 +251,9 @@ function delete_person(id)
                 <h3 class="modal-title">Person Form</h3>
             </div>
             <div class="modal-body form">
-               <form class="form-horizontal" method="post" id="form" action="<?php echo base_url() ?>index.php/question/questions_data">
+               <form class="form-horizontal" method="post" id="form" action="<?php echo base_url() ?>question/questions_data">
                     <div class="form-group">
-             
+                                <?php echo "Welcome userID = ". $userid .". Your user level ID is ". $userLevel; ?>
                             <label class="col-sm-2 control-label">Course</label>
                             <div class="col-md-4">
                             <?php

@@ -14,7 +14,7 @@ if (!isset($_SESSION['userid'])) {
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/bootstrap.css" type="text/css" />
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/animate.css" type="text/css" />
-  <link rel="stylesheet" href="<?php echo base_url(); ?><?php echo base_url(); ?>assets/css/font-awesome.min.css" type="text/css" />
+  <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/font-awesome.min.css" type="text/css" />
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/icon.css" type="text/css" />
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/font.css" type="text/css" />
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/app.css" type="text/css" />  

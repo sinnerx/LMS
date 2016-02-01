@@ -71,9 +71,6 @@ function index()
       $row[] = $course->id;
       $row[] = $course->code;
       $row[] = $course->name;
-      $row[] = $course->description;
-      // $row[] = $person->address;
-      // $row[] = $person->dob;
 
       //add html for action
      $row[] = '<a href="course/edit/'."".$course->id."".'"><i class="fa fa-pencil"></i></a>
@@ -326,7 +323,7 @@ function index()
        $this->load->view('templates/header', $data);
        $this->load->view('templates/left_side', $data);
        $this->load->view('templates/content_header', $data);
-       redirect ( base_url().'index.php/course');
+       redirect ( base_url().'course');
        $this->load->view('templates/footer');
 
    // redirect('course/insert');
@@ -460,11 +457,8 @@ function delete($id)
 
   function Update_course() 
   {
-    $this->load->library( 'nativesession' );
-  $this->load->helper('url');   
-
-        //Read the username from session
-        
+  $this->load->library( 'nativesession' );
+  $this->load->helper('url');
   $userid = $this->nativesession->get( 'userid' );
   $userLevel = $this->nativesession->get( 'userLevel' );
 
@@ -477,14 +471,12 @@ function delete($id)
 
     $id = $this->input->post('id');
     $code = $this->input->post('code');
-    $packageid = $this->input->post('packageid');
     $name = $this->input->post('name');
     $description = $this->input->post('description');
     
     $data = array(
     'id' => $this->input->post('id'),
     'code' => $this->input->post('code'),
-    'packageid' => $this->input->post('packageid'),
     'name' => $this->input->post('name'),
     'description' => $this->input->post('description'),
     );
@@ -509,7 +501,7 @@ function delete($id)
        $this->load->view('templates/header', $data);
        $this->load->view('templates/left_side', $data);
        $this->load->view('templates/content_header', $data);
-       redirect ( base_url().'index.php/course');
+       redirect ( base_url().'course');
        $this->load->view('templates/footer');
    /* redirect('course/view/'.$id, 'refresh'); */
     }
