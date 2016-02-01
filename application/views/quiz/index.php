@@ -47,7 +47,7 @@ document.getElementById('form-horizontal').submit();
            
             <br/>
               
-            <form method="POST" name="form-horizontal" class="form-horizontal" id="form-horizontal" action="<?php echo base_url() ?>quizs/quiz_data"  onsubmit="return confirm('Are you sure want to finish?');">
+            <form method="POST" name="form-horizontal" class="form-horizontal" id="form-horizontal" action="<?php echo base_url() ?>quizs/quiz_data"  >
             <div class="form-group">
             <div class="col-sm-10">
             <CENTER><label><?php echo $q_text?></label></CENTER>
@@ -67,7 +67,7 @@ document.getElementById('form-horizontal').submit();
             <div class="form-group">
             <label class="col-sm-2 control-label"></label>
             <div class="col-sm-10">
-            <input type="radio" name="a_id" id="a_id" value="<?php echo $ans['a_id']?>">  <label><?php echo $ans['a_text']?></label>
+            <input type="radio" name="a_id" id="a_id" value="<?php echo $ans['a_id']?>"> <label><?php echo $ans['a_text']?></label>
 
             </div>
             
@@ -82,9 +82,17 @@ document.getElementById('form-horizontal').submit();
 
            &nbsp; &nbsp; &nbsp; 
            &nbsp; &nbsp; &nbsp;<center> <!-- <a onclick="javascript:sbtform();"  name="submit" class="btn btn-info" style="cursor:pointer;">Save & Next</a> -->
-            <input type="submit" class="btn btn-s-md btn-primary" name="submit" value="Save & Next" />
-            <input type="submit" class="btn btn-s-md btn-success" name="submiting" value="Finish" />
+       
+        <?php
+        
+        if ($next!== NULL) { ?>
+            <input type="submit" class="btn btn-s-md btn-primary" name="submit" value="Save & Next" onsubmit="return confirm('Are you sure want to finish?');" />
+            
+            
            <!-- <button class="btn btn-success" type="submiting"><a href="<?php echo base_url(); ?>quizs/result/">Finish</a></button> -->
+          <?php } else {?> 
+          <input type="submit" class="btn btn-s-md btn-success" name="submiting" value="Finish" />
+          <?php } ?>
            </center>
 </form>     
 </html>

@@ -6,7 +6,7 @@ if($_SESSION['userLevel'] != 2){
   }
 
   elseif ($_SESSION['userLevel'] != 99){
-  	header("location: ./quizs/enter");
+  	header("location: ./quizs/login");
   }
 
   else {

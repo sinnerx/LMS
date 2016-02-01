@@ -1,36 +1,43 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+ 
 class Login extends CI_Controller {
+ 
+ function __construct()
+ {
+   parent::__construct();
+    $this->load->model('template_model');
+ }
+ 
+ function index()
+ {
 
-	public function __construct()
- 	{
-   		parent::__construct();
- 	}
+	$this->load->library( 'nativesession' );
+	$this->load->helper('url');
+	$userid = $this->nativesession->get( 'userid' );
+	$userLevel = $this->nativesession->get( 'userLevel' );
 
-	public function index()
-	{
-		$data['page_title'] = 'App Data';
-		$data['nav_title'] = 'Login';
-		$data['nav_subtitle'] = 'Control panel';
-		$data['home'] = 'Home';
+	$data = array(
+		'userid' => $userid,
+		'userLevel' => $userLevel,
+		'message' => 'My Message'
+	);
 
-		$this->load->helper('url');
-		$this->load->helper(array('form'));
+	$data['page_title'] = 'Monte Carlo';
+	$data['nav_title'] = 'Question';
+	$data['nav_subtitle'] = 'Question Details';
+	$data['home'] = 'Home';
 
-		if($this->session->userdata('logged_in'))
-		{
-
-		redirect('dashboard', 'refresh');
-
-		}
-		else
-		{
-
-		$this->load->view('templates/head', $data);
-		$this->load->view('login/login_form', $data);
-		$this->load->view('templates/footer');
-
-		}
-
-	}
+	$this->load->helper(array('form'));
+	$this->load->view('templates/head', $data);
+	$this->load->view('templates/header', $data);
+	$this->load->view('templates/left_side_manager', $data);
+	$this->load->view('templates/content_header', $data);
+	$this->load->view('quiz/login', $data);
+	$this->load->view('templates/footer');
+   
+ }
+ 
 }
+ 
+?>

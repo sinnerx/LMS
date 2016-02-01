@@ -21,7 +21,7 @@
             <div class="form-group">
             <label class="col-sm-2 control-label">Session ID:</label>
             <div class="col-md-5">
-            <input type="text" name="sessionid" class="form-control" value=""readonly >
+            <input type="text" name="sessionid" class="form-control" value="<?php echo $sessionid?>"readonly >
             </div>
             </div>
            
@@ -30,7 +30,7 @@
             <div class="form-group">
             <label class="col-sm-2 control-label">Package:</label>
             <div class="col-md-5">
-            <input type="text" name="id" class="form-control" value="1" readonly>
+            <input type="text" name="id" class="form-control" value="<?php echo $id ?>" readonly>
             </div>
             </div>
             

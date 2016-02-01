@@ -38,7 +38,7 @@
                       </a>
                         <ul class="nav dk">
                           <li >
-                          <a href="<?php echo base_url(); ?>quizs/enter" class="auto">                                                        
+                          <a href="<?php echo base_url(); ?>quizs/login" class="auto">                                                        
                             <i class="i i-dot"></i>
 
                             <span>Take Quiz</span>
@@ -46,25 +46,7 @@
                    
                         </ul>
                     </li>
-                    <li>
-                        <a href="#" class="auto">
-                        <span class="pull-right text-muted">
-                          <i class="i i-circle-sm-o text"></i>
-                          <i class="i i-circle-sm text-active"></i>
-                        </span>
-                        <!--<b class="badge bg-danger pull-right">4</b>-->
-                        <i class="i i-stack icon">
-                        </i>
-                        <span class="font-bold">Certificate</span>
-                      </a>
-                        <ul class="nav dk">
-                          <li >
-                          <a href="<?php echo base_url(); ?>question" class="auto">                                                        
-                            <i class="i i-dot"></i>
-
-                            <span>Cert</span>
-                          </a>
-                        </li>
+                    
                         
                         
                         </ul>
