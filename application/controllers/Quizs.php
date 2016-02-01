@@ -254,8 +254,9 @@ public	function quiz_data()
 			   $data['sessionid'] = $this->input->post('sessionid'); 
 				} 
 
-			if (!empty($_POST['submiting'])) 
-			{
+			else if (!empty($_POST['submiting'])) 
+			{	
+				$data['sessionid'] = $this->input->post('sessionid'); 
 				$sessionid= $this->input->post('sessionid');
 				$userid= $this->input->post('userid');
 				$id= $this->input->post('id');
@@ -311,84 +312,87 @@ public	function quiz_data()
 				    'status'=>$status,
 				    'userid'=> $userid,	
 				    'packageid'=> $id,
-				    'sessionid'=> $sessionid	    
+				    'sessionid'=> $sessionid,	    
 				     );
+				    //print_r($data);
 				$this->db->insert('lms_result',$data);
 				$data['id'] = $id;
-				$data['sessionid'] = $sessionid;
+				//$data['sessionid'] = $sessionid;
 				$data['m'] = $m;
 				$data['status'] = $status;
 				$this->load->view('quiz/result', $data);
 				$this->load->view('templates/content_header', $data);
 			    $this->load->view('templates/footer');
 			}
-			else
-			{
-				$sessionid= $this->input->post('sessionid');
-				$userid= $this->input->post('userid');
-				$id= $this->input->post('id');
-				$this->load->library( 'nativesession' );
-			    $this->load->helper('url');   
-				$userid = $this->nativesession->get( 'userid' );
-			    $userLevel = $this->nativesession->get( 'userLevel' );
+			// else
+			// {
+			// 	$sessionid= $this->input->post('sessionid');
+			// 	$userid= $this->input->post('userid');
+			// 	$id= $this->input->post('id');
+			// 	$this->load->library( 'nativesession' );
+			//     $this->load->helper('url');   
+			// 	$userid = $this->nativesession->get( 'userid' );
+			//     $userLevel = $this->nativesession->get( 'userLevel' );
 			     
 			      
-			    $data = array(
-			        'userid' => $userid,
-			        'userLevel' => $userLevel,
-			        'message' => 'My Message'
-			    );
+			//     $data = array(
+			//         'userid' => $userid,
+			//         'userLevel' => $userLevel,
+			//         'message' => 'My Message'
+			//     );
 
-				$data['page_title'] = 'Monte Carlo';
-			   	$data['nav_title'] = 'Quiz';
-			    $data['nav_subtitle'] = 'Quiz List';
-			    $data['home'] = 'Home';
+			// 	$data['page_title'] = 'Monte Carlo';
+			//    	$data['nav_title'] = 'Quiz';
+			//     $data['nav_subtitle'] = 'Quiz List';
+			//     $data['home'] = 'Home';
 
-				$this->load->database();
-				$this->load->helper(array('date','url'));
+			// 	$this->load->database();
+			// 	$this->load->helper(array('date','url'));
 
-				 $this->load->view('templates/head', $data);
-			     $this->load->view('templates/header', $data);
-			     $this->load->view('templates/left_side_manager', $data);
+			// 	 $this->load->view('templates/head', $data);
+			//      $this->load->view('templates/header', $data);
+			//      $this->load->view('templates/left_side_manager', $data);
 			    
 
-				  $this->db->select('*');
-				  $this->db->where("marks","1");
-			      $this->db->where("id",$id);
-			      $this->db->where("sessionid",$sessionid);
-				  $query = $this->db->get('lms_question_user');
-				  $count = $query->num_rows();
+			// 	  $this->db->select('*');
+			// 	  $this->db->where("marks","1");
+			//       $this->db->where("id",$id);
+			//       $this->db->where("sessionid",$sessionid);
+			// 	  $query = $this->db->get('lms_question_user');
+			// 	  $count = $query->num_rows();
 				  
-				$m= ($count/20)*100;
+			// 	$m= ($count/20)*100;
 
-				if ($m  >= 50 || $m==50){
-					$status='Pass';
-				}
+			// 	if ($m  >= 50 || $m==50){
+			// 		$status='Pass';
+			// 	}
 
-				else
-				{
-					$status='Fail';
-				}
+			// 	else
+			// 	{
+			// 		$status='Fail';
+			// 	}
 
-				$data = array(
-				        'result' => $m,
-				        );
+			// 	$data = array(
+			// 	        'result' => $m,
+			// 	        );
 
-				    $data = array(
-				    'result' => $m,
-				    'status'=>$status,
-				    'userid'=> $userid,	    
-				     );
-				$this->db->insert('lms_result',$data);
+			// 	    $data = array(
+			// 	    'result' => $m,
+			// 	    'status'=>$status,
+			// 	    'userid'=> $userid,	
+			// 	    'packageid'=> $id,
+			// 	    'sessionid'=> $sessionid,    
+			// 	     );
+			// 	$this->db->insert('lms_result',$data);
 
-				$data['id'] = $id;
-				$data['sessionid'] = $sessionid;
-				$data['m'] = $m;
-				$data['status'] = $status;
-				$this->load->view('quiz/result', $data);
-				$this->load->view('templates/content_header', $data);
-			    $this->load->view('templates/footer');
-			}
+			// 	$data['id'] = $id;
+			// 	$data['sessionid'] = $sessionid;
+			// 	$data['m'] = $m;
+			// 	$data['status'] = $status;
+			// 	$this->load->view('quiz/result', $data);
+			// 	$this->load->view('templates/content_header', $data);
+			//     $this->load->view('templates/footer');
+			// }
 
 }
 
