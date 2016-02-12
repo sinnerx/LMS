@@ -15,13 +15,13 @@
 <!--  <link href="<?php echo base_url('assets/bootstrap/css/bootstrap.min.css')?>" rel="stylesheet">
     <link href="<?php echo base_url('assets/datatables/css/dataTables.bootstrap.css')?>" rel="stylesheet">
     <link href="<?php echo base_url('assets/bootstrap-datepicker/css/bootstrap-datepicker3.min.css')?>" rel="stylesheet"> -->
-<section id="content">
+<!-- <section id="content">
           <section class="vbox">
             <section class="scrollable padder">
         <!-- Main content -->
- <div class="m-b-md">
+ <!-- div class="m-b-md">
                 <h3 class="m-b-none"></h3>
-              </div>
+              </div> -->
                  <section class="panel panel-default">
                 <header class="panel-heading font-bold">                  
                 <?php echo $nav_subtitle; ?>                

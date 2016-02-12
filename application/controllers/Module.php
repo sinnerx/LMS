@@ -53,12 +53,13 @@ function index()
 
      $data['username'] = $session_data['username']; */
 
-  $this->load->view('templates/head', $data);
-  $this->load->view('templates/header', $data);
-  $this->load->view('templates/left_side', $data);
-  $this->load->view('templates/content_header', $data);
+  // $this->load->view('templates/head', $data);
+  // $this->load->view('templates/header', $data);
+  // $this->load->view('templates/left_side', $data);
+  // $this->load->view('templates/content_header', $data);
+  $this->load->view('page_view',$data);
   $this->load->view('module/index');
-  $this->load->view('templates/footer');
+  // $this->load->view('templates/footer');
 
     }
    /* else
@@ -226,12 +227,13 @@ public function ajax_list()
 
      $data['username'] = $session_data['username']; */
 
-     $this->load->view('templates/head', $data);
-     $this->load->view('templates/header', $data);
-     $this->load->view('templates/left_side', $data);
-     $this->load->view('templates/content_header', $data);
+     // $this->load->view('templates/head', $data);
+     // $this->load->view('templates/header', $data);
+     // $this->load->view('templates/left_side', $data);
+     // $this->load->view('templates/content_header', $data);
+     $this->load->view('page_view',$data);
      $this->load->view('module/insert',$data);
-     $this->load->view('templates/footer');
+     //$this->load->view('templates/footer');
 
     }
 
@@ -319,12 +321,13 @@ public function ajax_list()
        $data['username'] = $session_data['username']; */
 
        // view template
-       $this->load->view('templates/head', $data);
-       $this->load->view('templates/header', $data);
-       $this->load->view('templates/left_side', $data);
-       $this->load->view('templates/content_header', $data);
+       // $this->load->view('templates/head', $data);
+       // $this->load->view('templates/header', $data);
+       // $this->load->view('templates/left_side', $data);
+       // $this->load->view('templates/content_header', $data);
+       $this->load->view('page_view',$data);
        $this->load->view('packages/view', $data);
-       $this->load->view('templates/footer');
+       // $this->load->view('templates/footer');
 
       }
      /* else
@@ -383,12 +386,13 @@ function module_data()
       //  $data['username'] = $session_data['username']; 
 
        // view template
-       $this->load->view('templates/head', $data);
-       $this->load->view('templates/header', $data);
-       $this->load->view('templates/left_side', $data);
-       $this->load->view('templates/content_header', $data);
+       // $this->load->view('templates/head', $data);
+       // $this->load->view('templates/header', $data);
+       // $this->load->view('templates/left_side', $data);
+       // $this->load->view('templates/content_header', $data);
+      $this->load->view('page_view',$data);
        redirect ( base_url().'module');
-       $this->load->view('templates/footer');
+       //$this->load->view('templates/footer');
    // redirect('package/insert');
     }
 
@@ -451,12 +455,13 @@ if($q->num_rows() == 0){
       //  $data['username'] = $session_data['username']; 
 
        // view template
-       $this->load->view('templates/head', $data);
-       $this->load->view('templates/header', $data);
-       $this->load->view('templates/left_side', $data);
-       $this->load->view('templates/content_header', $data);
+       // $this->load->view('templates/head', $data);
+       // $this->load->view('templates/header', $data);
+       // $this->load->view('templates/left_side', $data);
+       // $this->load->view('templates/content_header', $data);
+      $this->load->view('page_view',$data);
        redirect ( base_url().'module');
-       $this->load->view('templates/footer');
+      // $this->load->view('templates/footer');
    // redirect('package/insert');
     }
 function edit($packageid)
@@ -486,12 +491,13 @@ function edit($packageid)
 
       $this->load->helper('url');
 
-       $this->load->view('templates/head', $data);
-       $this->load->view('templates/header', $data);
-       $this->load->view('templates/left_side', $data);
-       $this->load->view('templates/content_header', $data);
+       // $this->load->view('templates/head', $data);
+       // $this->load->view('templates/header', $data);
+       // $this->load->view('templates/left_side', $data);
+       // $this->load->view('templates/content_header', $data);
+      $this->load->view('page_view',$data);
        $this->load->view('module/edit', $data);
-       $this->load->view('templates/footer');
+       // $this->load->view('templates/footer');
 
       }
      
@@ -584,12 +590,13 @@ function delete($id)
       //  $data['username'] = $session_data['username']; 
 
        // view template
-       $this->load->view('templates/head', $data);
-       $this->load->view('templates/header', $data);
-       $this->load->view('templates/left_side', $data);
-       $this->load->view('templates/content_header', $data);
+       // $this->load->view('templates/head', $data);
+       // $this->load->view('templates/header', $data);
+       // $this->load->view('templates/left_side', $data);
+       // $this->load->view('templates/content_header', $data);
+      $this->load->view('page_view',$data);
         redirect ( base_url().'module');
-       $this->load->view('templates/footer');
+       //$this->load->view('templates/footer');
 
       }
      /* else
@@ -647,12 +654,13 @@ function delete($id)
 
       $this->load->helper('url');
 
-      $this->load->view('templates/head', $data);
-      $this->load->view('templates/header', $data);
-      $this->load->view('templates/left_side', $data);
-      $this->load->view('templates/content_header', $data);
+      // $this->load->view('templates/head', $data);
+      // $this->load->view('templates/header', $data);
+      // $this->load->view('templates/left_side', $data);
+      // $this->load->view('templates/content_header', $data);
+      $this->load->view('page_view',$data);
       redirect ( base_url().'module');
-      $this->load->view('templates/footer');
+      //$this->load->view('templates/footer');
     
      
     }

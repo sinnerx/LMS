@@ -31,12 +31,7 @@ document.getElementById('form-horizontal').submit();
     
     </head>
 
-        <section id="content">
-    <section class="vbox">
-    <section class="scrollable padder">
-    <div class="m-b-md">
-    <h3 class="m-b-none"></h3>
-    </div>
+       
             <section class="panel panel-default">
             <header class="panel-heading font-bold">                  
             <red>Instruction: </red>Please answer all the questions. Good Luck              
@@ -54,8 +49,7 @@ document.getElementById('form-horizontal').submit();
             <input type="hidden" name="q_id" id="q_id" value="<?php echo $q_id?>">
             <input type="hidden" name="id" id="id" value="<?php echo $id?>">
             <input type="hidden" name="next" id="next" value="<?php echo $next?>">
-            <input type="hidden" name="questionNumber" value="<?php echo $questionNumber?>" />
-            <input type="hidden" name="correct" value="<?php echo $correct?>" />
+            <!-- <input type="hidden" name="questionNumber" value="<?php //echo $questionNumber?>" /> -->
             <input type="hidden" name="userid" value="<?php echo $userid?>" />
             <input type="hidden" name="sessionid" value="<?php echo $sessionid?>" />
             
@@ -85,7 +79,7 @@ document.getElementById('form-horizontal').submit();
        
         <?php
         
-        if ($next!== NULL) { ?>
+        if ($next != $total_question) { ?>
             <input type="submit" class="btn btn-s-md btn-primary" name="submit" value="Save & Next" onsubmit="return confirm('Are you sure want to finish?');" />
             
             

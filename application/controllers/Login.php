@@ -29,12 +29,9 @@ class Login extends CI_Controller {
 	$data['home'] = 'Home';
 
 	$this->load->helper(array('form'));
-	$this->load->view('templates/head', $data);
-	$this->load->view('templates/header', $data);
-	$this->load->view('templates/left_side_manager', $data);
-	$this->load->view('templates/content_header', $data);
+	$this->load->view('page_view2',$data);
 	$this->load->view('quiz/login', $data);
-	$this->load->view('templates/footer');
+	//$this->load->view('templates/footer');
    
  }
  

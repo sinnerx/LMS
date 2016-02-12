@@ -1,11 +1,11 @@
 
                 <!-- Main content -->
-    <section id="content">
+    <!-- <section id="content">
           <section class="vbox">
             <section class="scrollable padder">
               <div class="m-b-md">
                 <h3 class="m-b-none"></h3>
-              </div>
+              </div> -->
               
                 
               <section class="panel panel-default">

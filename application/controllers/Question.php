@@ -42,14 +42,15 @@ function index()
 
      $data['username'] = $session_data['username']; */
 
-     $this->load->view('templates/head', $data);
-     $this->load->view('templates/header', $data);
-     $this->load->view('templates/left_side', $data);
-     $this->load->view('templates/content_header', $data);
+     // $this->load->view('templates/head', $data);
+     // $this->load->view('templates/header', $data);
+     // $this->load->view('templates/left_side', $data);
+     // $this->load->view('templates/content_header', $data);
+     $this->load->view('page_view',$data);
      //$this->view($q_id=null);
      $this->load->view('questions/index');
    //  $this->load->view('announce/index',$data);
-     $this->load->view('templates/footer');
+    // $this->load->view('templates/footer');
 
     }
    /* else
@@ -75,7 +76,7 @@ function index()
       // $row[] = $person->dob;
 
       //add html for action
-     $row[] = '<a href="question/edit/'."".$question->q_id."".'"><i class="fa fa-pencil"></i></a>
+     $row[] = '<a href="question/edit/'."".$question->q_id."".'"><i class="fa fa-pencil"></i></a> 
           <a href="question/delete/'."".$question->q_id."".'"><i class="fa fa-trash-o "></i></a>';
     
       $data[] = $row;
@@ -211,12 +212,13 @@ function index()
 
      $data['username'] = $session_data['username']; */
 
-     $this->load->view('templates/head', $data);
-     $this->load->view('templates/header', $data);
-     $this->load->view('templates/left_side', $data);
-     $this->load->view('templates/content_header', $data);
+     // $this->load->view('templates/head', $data);
+     // $this->load->view('templates/header', $data);
+     // $this->load->view('templates/left_side', $data);
+     // $this->load->view('templates/content_header', $data);
+     $this->load->view('page_view',$data);
      $this->load->view('questions/insert',$data);
-     $this->load->view('templates/footer');
+     //$this->load->view('templates/footer');
 
     }
   /*  else
@@ -257,12 +259,13 @@ function index()
        $data['username'] = $session_data['username']; */
 
        // view template
-       $this->load->view('templates/head', $data);
-       $this->load->view('templates/header', $data);
-       $this->load->view('templates/left_side', $data);
-       $this->load->view('templates/content_header', $data);
+       // $this->load->view('templates/head', $data);
+       // $this->load->view('templates/header', $data);
+       // $this->load->view('templates/left_side', $data);
+       // $this->load->view('templates/content_header', $data);
+       $this->load->view('page_view',$data);
        $this->load->view('questions/view', $data);
-       $this->load->view('templates/footer');
+       //$this->load->view('templates/footer');
 
       }
      /* else
@@ -314,12 +317,13 @@ function questions_data()
 
       $this->load->helper('url');
 
-       $this->load->view('templates/head', $data);
-       $this->load->view('templates/header', $data);
-       $this->load->view('templates/left_side', $data);
-       $this->load->view('templates/content_header', $data);
+       // $this->load->view('templates/head', $data);
+       // $this->load->view('templates/header', $data);
+       // $this->load->view('templates/left_side', $data);
+       // $this->load->view('templates/content_header', $data);
+      $this->load->view('page_view',$data);
        redirect ( base_url().'question');
-       $this->load->view('templates/footer');
+       //$this->load->view('templates/footer');
     
     }
 
@@ -349,13 +353,13 @@ function questions_data()
 
       $this->load->helper('url');
  
-       $this->load->view('templates/head', $data);
-       $this->load->view('templates/header', $data);
-       $this->load->view('templates/left_side', $data);
-       $this->load->view('templates/content_header', $data);
-
+       // $this->load->view('templates/head', $data);
+       // $this->load->view('templates/header', $data);
+       // $this->load->view('templates/left_side', $data);
+       // $this->load->view('templates/content_header', $data);
+       $this->load->view('page_view',$data);
        $this->load->view('questions/edit', $data);
-       $this->load->view('templates/footer');
+       //$this->load->view('templates/footer');
 
       }
      
@@ -400,12 +404,13 @@ function delete($q_id)
        $data['username'] = $session_data['username']; */
 
        // view template
-       $this->load->view('templates/head', $data);
-       $this->load->view('templates/header', $data);
-       $this->load->view('templates/left_side', $data);
-       $this->load->view('templates/content_header', $data);
+       // $this->load->view('templates/head', $data);
+       // $this->load->view('templates/header', $data);
+       // $this->load->view('templates/left_side', $data);
+       // $this->load->view('templates/content_header', $data);
+       $this->load->view('page_view',$data);
        redirect ( base_url().'question');
-       $this->load->view('templates/footer');
+       //$this->load->view('templates/footer');
 
       }
      /* else
@@ -455,12 +460,13 @@ function delete($q_id)
        $data['username'] = $session_data['username']; */
 
        // view template
-       $this->load->view('templates/head', $data);
-       $this->load->view('templates/header', $data);
-       $this->load->view('templates/left_side', $data);
-       $this->load->view('templates/content_header', $data);
+       // $this->load->view('templates/head', $data);
+       // $this->load->view('templates/header', $data);
+       // $this->load->view('templates/left_side', $data);
+       // $this->load->view('templates/content_header', $data);
+       $this->load->view('page_view',$data);
        redirect ( base_url().'question');
-       $this->load->view('templates/footer');
+       //$this->load->view('templates/footer');
 
       }
      /* else
