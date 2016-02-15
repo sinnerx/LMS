@@ -27,6 +27,12 @@ Class Questiondata extends CI_Model
   }
 
   
+public function getLastInserted() {
+$query ="SELECT * from lms_answer where q_id = LAST_INSERT_ID()";
+
+
+return $query; //line 69
+       }
 
 
   public function q_id($q_id)

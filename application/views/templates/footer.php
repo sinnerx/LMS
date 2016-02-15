@@ -115,8 +115,8 @@ $(document).ready(function() {
     });
 
 });
-<!-- -->
 
+<script></script>
 
     <script type="text/javascript" src="<?php echo base_url(); ?>assets/multi/js/jquery.min.js"></script>
   <script type="text/javascript" src="<?php echo base_url(); ?>assets/multi/js/bootstrap.min.js"></script>

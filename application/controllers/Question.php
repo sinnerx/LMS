@@ -199,6 +199,7 @@ function index()
         'message' => 'My Message'
     );
     $data['groups'] = $this->questions_data->getAllGroups();
+   // $data['ques'] = $this->questions_data->getLastInserted();
     $data['page_title'] = 'Monte Carlo';
     $data['nav_title'] = 'Question';
     $data['nav_subtitle'] = 'New Question';
@@ -218,6 +219,7 @@ function index()
      // $this->load->view('templates/content_header', $data);
      $this->load->view('page_view',$data);
      $this->load->view('questions/insert',$data);
+
      //$this->load->view('templates/footer');
 
     }
@@ -309,7 +311,7 @@ function questions_data()
 
    
  
-     $this->questions_data->questions($data);
+     $caca = $this->questions_data->questions($data);
      $data['page_title'] = 'Monte Carlo';
       $data['nav_title'] = 'Question';
       $data['nav_subtitle'] = 'Question Details';
@@ -317,12 +319,17 @@ function questions_data()
 
       $this->load->helper('url');
 
+      foreach ($caca as $key => $value) {
+        echo $value;
+      }
+
        // $this->load->view('templates/head', $data);
        // $this->load->view('templates/header', $data);
        // $this->load->view('templates/left_side', $data);
        // $this->load->view('templates/content_header', $data);
       $this->load->view('page_view',$data);
-       redirect ( base_url().'question');
+      // $this->load->view('questions/correct', $data);
+     redirect ( base_url().'question/correct');
        //$this->load->view('templates/footer');
     
     }

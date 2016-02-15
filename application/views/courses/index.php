@@ -10,12 +10,7 @@
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/icon.css" type="text/css" />
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/font.css" type="text/css" />
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/app.css" type="text/css" /> 
-<section id="content">
-          <section class="vbox">
-            <section class="scrollable padder">
-                 <div class="m-b-md">
-                <h3 class="m-b-none"></h3>
-              </div>
+
                  <section class="panel panel-default">
                 <header class="panel-heading font-bold">                  
                 <?php echo $nav_subtitle; ?>                

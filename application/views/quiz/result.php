@@ -1,4 +1,9 @@
+<?php
+unset($_SESSION["question_key"]);
+                  unset($_SESSION["q_shuffle"]);
 
+                  unset($_SESSION["sessionid"]);
+                  ?>
             <section class="panel panel-default">
             <header class="panel-heading font-bold">                  
                   Pi1M Online Examination Result      
@@ -49,9 +54,4 @@
        
 </html>
 </div>
-<?php
-unset($_SESSION["question_key"]);
-                  unset($_SESSION["q_shuffle"]);
 
-                  unset($_SESSION["sessionid"]);
-                  ?>

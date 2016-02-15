@@ -32,7 +32,7 @@ function index()
     );
     $data['page_title'] = 'Learning Management System';
     $data['nav_title'] = 'Course';
-    $data['nav_subtitle'] = 'Course List';
+    $data['nav_subtitle'] = 'Module List';
     $data['home'] = 'Home';
 
     $this->load->helper('url');
@@ -42,15 +42,16 @@ function index()
 
      $data['username'] = $session_data['username']; */
 
-     $this->load->view('templates/head', $data);
-     $this->load->view('templates/header', $data);
-     $this->load->view('templates/left_side', $data);
-     $this->load->view('templates/content_header', $data);
+     $this->load->view('page_view',$data);
+     // $this->load->view('templates/head', $data);
+     // $this->load->view('templates/header', $data);
+     // $this->load->view('templates/left_side', $data);
+     // $this->load->view('templates/content_header', $data);
      //$this->view($id=null);
      $this->load->view('courses/index');
 
    //  $this->load->view('announce/index',$data);
-     $this->load->view('templates/footer');
+     // $this->load->view('templates/footer');
   }
   /* else
     {
@@ -202,7 +203,7 @@ function index()
      $data['groups'] = $this->courses_data->getAllGroups();
     $data['page_title'] = 'Learning Management System';
     $data['nav_title'] = 'Course';
-    $data['nav_subtitle'] = 'New Course';
+    $data['nav_subtitle'] = 'New Module';
     $data['home'] = 'Home';
 
     $this->load->helper('url');
@@ -251,7 +252,7 @@ function index()
       $data['course'] = $this->coursedata->id($id);
       $data['page_title'] = 'Monte Carlo';
       $data['nav_title'] = 'Course';
-      $data['nav_subtitle'] = 'Course Details';
+      $data['nav_subtitle'] = 'Module Details';
       $data['home'] = 'Home';
 
       $this->load->helper('url');
@@ -314,7 +315,7 @@ function index()
       $data['course'] = $this->coursedata->id($id);
       $data['page_title'] = 'Monte Carlo';
       $data['nav_title'] = 'Course';
-      $data['nav_subtitle'] = 'Course Details';
+      $data['nav_subtitle'] = 'Module Details';
       $data['home'] = 'Home';
 
       $this->load->helper('url');
@@ -355,7 +356,7 @@ function index()
 
       $data['page_title'] = 'Monte Carlo';
       $data['nav_title'] = 'Course';
-      $data['nav_subtitle'] = 'Course Details';
+      $data['nav_subtitle'] = 'Module Details';
       $data['home'] = 'Home';
 
       $this->load->helper('url');
@@ -416,7 +417,7 @@ function delete($id)
 
       $data['page_title'] = 'Monte Carlo';
       $data['nav_title'] = 'course';
-      $data['nav_subtitle'] = 'Course Details';
+      $data['nav_subtitle'] = 'Module Details';
       $data['home'] = 'Home';
 
       $this->load->helper('url');
@@ -485,7 +486,7 @@ function delete($id)
 
     $data['page_title'] = 'Monte Carlo';
       $data['nav_title'] = 'course';
-      $data['nav_subtitle'] = 'Course Details';
+      $data['nav_subtitle'] = 'Module Details';
       $data['home'] = 'Home';
 
       $this->load->helper('url');

@@ -12,11 +12,7 @@ class Package extends CI_Controller {
   $this->load->model('Update_package');
   $this->load->model('delete_package');
   $this->load->model('template_model');
-
-  
-
-    
-  }
+}
 
 function index()
   {
