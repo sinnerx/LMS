@@ -1,11 +1,15 @@
 
 <html lang="en" class="app">
 <?php
-if($_SESSION['userLevel'] != 2){
+// echo $_SESSION['userLevel'];
+// if( $_SESSION['userLevel'] != 99){
        
-      header("location: ./");
+//       header("location: ./");
      
-  }
+//   }
+// else if($_SESSION['userLevel'] != 2){
+//     header("location: ./");
+// }
   ?>
 <head>  
   <meta charset="utf-8" />
