@@ -1,11 +1,11 @@
 
         <!-- Main content -->
-       <section id="content">
+       <!-- <section id="content">
           <section class="vbox">
             <section class="scrollable padder">
               <div class="m-b-md">
                 <h3 class="m-b-none"></h3>
-              </div>
+              </div> -->
               
                 
               <section class="panel panel-default">
@@ -67,10 +67,32 @@
 
 
                             <div class="doc-buttons">
-                           <button type="submit" class="btn btn-sm btn-default">Submit</button>
+                           <button type="submit" class="btn btn-sm btn-default" >Submit</button>
+                           <!-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button> -->
                            <a href="javascript:window.history.go(-1);" class="btn btn-sm btn-default">Cancel</a></div>
                      </form>
                 </div><!-- /.box-body -->
+                <div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Which one is correct answer? </h4>
+      </div>
+      <div class="modal-body">
+        <form>
+          
+      </form>
+  </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
             </div><!-- /.box -->
         </section><!-- /.content -->
 

@@ -5,6 +5,7 @@ Class Packagedata extends CI_Model
 var $table = 'lms_package';
   var $column = array('packageid','name'); //set column field database for order and search
   var $order = array('packageid' => 'asc');
+  
   public function __construct()
   {
         parent::__construct();

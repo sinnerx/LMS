@@ -1,13 +1,13 @@
 
-    <section id="content">
+    <!-- <section id="content">
     <section class="vbox">
     <section class="scrollable padder">
     <div class="m-b-md">
     <h3 class="m-b-none"></h3>
-    </div>
+    </div> -->
             <section class="panel panel-default">
             <header class="panel-heading font-bold">                  
-                        
+              <center>Pi1M Online Examination </center>         
             </header>
 
             <div class="panel-body">
@@ -16,7 +16,7 @@
             <div class="form-group">
 
             <div class="form-group">
-            <label class="col-md-6 control-label"><h3>Pi1M Online Examination</h3></label>
+            
             </div>
             <div class="form-group">
             <label class="col-sm-2 control-label">Username :</label>
@@ -37,7 +37,7 @@
             
             
             <div class="doc-buttons">
-            <center><input type="submit" class="btn btn-s-md btn-info" value="submit"></center></div>
+            <center><input type="submit" class="btn btn-s-md btn-info" value="Login"></center></div>
             </form>
            
 

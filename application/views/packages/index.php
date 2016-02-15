@@ -1,16 +1,6 @@
 
 <html lang="en" class="app">
-<?php
-// echo $_SESSION['userLevel'];
-// if( $_SESSION['userLevel'] != 99){
-       
-//       header("location: ./");
-     
-//   }
-// else if($_SESSION['userLevel'] != 2){
-//     header("location: ./");
-// }
-  ?>
+
 <head>  
   <meta charset="utf-8" />
  
@@ -23,13 +13,10 @@
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/font.css" type="text/css" />
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/app.css" type="text/css" /> 
         <!-- Main content -->
-        <section id="content">
-          <section class="vbox">
-            <section class="scrollable padder">
+        
         <!-- Main content -->
- <div class="m-b-md">
-                <h3 class="m-b-none"></h3>
-              </div>
+
+             
                  <section class="panel panel-default">
                 <header class="panel-heading font-bold">                  
                 <?php echo $nav_subtitle; ?>                

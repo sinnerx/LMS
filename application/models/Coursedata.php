@@ -5,6 +5,7 @@ Class Coursedata extends CI_Model
  var $table = 'lms_module';
   var $column = array('id','code','name','description'); //set column field database for order and search
   var $order = array('id' => 'asc');
+  
   public function __construct()
   {
     $this->load->database();

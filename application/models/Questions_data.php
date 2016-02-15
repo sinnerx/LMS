@@ -34,7 +34,9 @@ Class Questions_data extends CI_Model
             //print_r($array_ans);
 
             $this->db->insert('lms_answer', $array_ans);
-        //}
+            return $array_ans;
+//print_r($array_ans);
+         
 
         }
       }
@@ -69,6 +71,23 @@ Class Questions_data extends CI_Model
 
     
   }
+
+  public function getLastInserted() {
+
+    $results = array();
+    $query ="SELECT * from lms_answer where q_id = LAST_INSERT_ID()";
+
+    $query = $this->db->get();
+
+    if($query->num_rows() > 0) {
+        $results = $query->result();
+    }
+    return $query->$results;
+// $query ="SELECT * from lms_answer where q_id = LAST_INSERT_ID()";
+
+
+// return $query; //line 69
+       }
 
 public function getAllGroups()
     {

@@ -1,13 +1,12 @@
+<?php
+unset($_SESSION["question_key"]);
+                  unset($_SESSION["q_shuffle"]);
 
-    <section id="content">
-    <section class="vbox">
-    <section class="scrollable padder">
-    <div class="m-b-md">
-    <h3 class="m-b-none"></h3>
-    </div>
+                  unset($_SESSION["sessionid"]);
+                  ?>
             <section class="panel panel-default">
             <header class="panel-heading font-bold">                  
-                     
+                  Pi1M Online Examination Result      
             </header>
            
             <div class="panel-body">
@@ -16,7 +15,7 @@
             <div class="form-group">
 
             <div class="form-group">
-            <label class="col-md-6 control-label"><h3>Pi1M Online Examination Result</h3></label>
+           
             </div>
             <div class="form-group">
             <label class="col-sm-2 control-label">Session ID:</label>
@@ -55,3 +54,4 @@
        
 </html>
 </div>
+

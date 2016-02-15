@@ -87,25 +87,7 @@
                           </a>
                         </li>
                     </ul>
-                      <li>
-                        <a href="#" class="auto">
-                        <span class="pull-right text-muted">
-                          <i class="i i-circle-sm-o text"></i>
-                          <i class="i i-circle-sm text-active"></i>
-                        </span>
-                        <!--<b class="badge bg-danger pull-right">4</b>-->
-                        <i class="i i-stack icon">
-                        </i>
-                        <span class="font-bold">Report</span>
-                      </a>
-                        <ul class="nav dk">
-                          <li >
-                          <a href="<?php echo base_url();?>reporting" class="auto">                                                        
-                            <i class="i i-dot"></i>
-
-                            <span>Manage Report</span>
-                          </a>
-                        </li>
+                      
                    
                   </ul>
                 </nav>

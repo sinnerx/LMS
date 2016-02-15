@@ -12,10 +12,7 @@ class Package extends CI_Controller {
   $this->load->model('Update_package');
   $this->load->model('delete_package');
   $this->load->model('template_model');
-  
-
-    
-  }
+}
 
 function index()
   {
@@ -47,12 +44,13 @@ function index()
 
      $data['username'] = $session_data['username']; */
 
-  $this->load->view('templates/head', $data);
-  $this->load->view('templates/header', $data);
-  $this->load->view('templates/left_side', $data);
-  $this->load->view('templates/content_header', $data);
+$this->load->view('page_view',$data);
+  //$this->load->view('templates/head', $data);
+ // $this->load->view('templates/header', $data);
+  //$this->load->view('templates/left_side', $data);
+  //$this->load->view('templates/content_header', $data);
   $this->load->view('packages/index');
-  $this->load->view('templates/footer');
+ // $this->load->view('templates/footer');
 
     }
    /* else
@@ -313,6 +311,7 @@ function package_data()
     $data = array(
     'packageid' => $this->input->post('packageid'),
     'name' => $this->input->post('name'),
+    'status' => $this->input->post('status'),
      );
        
     $this->package_data->packages($data);
@@ -332,12 +331,13 @@ function package_data()
       //  $data['username'] = $session_data['username']; 
 
        // view template
-       $this->load->view('templates/head', $data);
-       $this->load->view('templates/header', $data);
-       $this->load->view('templates/left_side', $data);
-       $this->load->view('templates/content_header', $data);
+       // $this->load->view('templates/head', $data);
+       // $this->load->view('templates/header', $data);
+       // $this->load->view('templates/left_side', $data);
+       // $this->load->view('templates/content_header', $data);
+        $this->load->view('page_view',$data);
        redirect ( base_url().'package');
-       $this->load->view('templates/footer');
+       //$this->load->view('templates/footer');
    // redirect('package/insert');
     }
 
@@ -378,12 +378,13 @@ function edit($packageid)
        $data['username'] = $session_data['username'];*/
 
        // view template
-       $this->load->view('templates/head', $data);
-       $this->load->view('templates/header', $data);
-       $this->load->view('templates/left_side', $data);
-       $this->load->view('templates/content_header', $data);
+       // $this->load->view('templates/head', $data);
+       // $this->load->view('templates/header', $data);
+       // $this->load->view('templates/left_side', $data);
+       // $this->load->view('templates/content_header', $data);
+       $this->load->view('page_view',$data);
        $this->load->view('packages/edit', $data);
-       $this->load->view('templates/footer');
+       // $this->load->view('templates/footer');
 
       }
      /* else
