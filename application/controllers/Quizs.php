@@ -81,7 +81,7 @@ $data['home'] 			= 'Home';
 			if (!isset($_SESSION['question_key'])) 
 			{
 				$_SESSION["question_key"] = '0';
-				
+
 			}
 
 			foreach ($_SESSION["q_shuffle"] as $key => $value) 
@@ -291,7 +291,8 @@ public	function quiz_data()
 						    'status'=>$status,
 						    'userid'=> $userid,	
 						    'moduleid'=> $id,
-						    'sessionid'=> $sessionid,	    
+						    'sessionid'=> $sessionid,
+						    'datecreated'=> date("Y-m-d H:i:s"),	    
 						     );
 					    //print_r($data);
 				$this->db->insert('lms_result',$data);

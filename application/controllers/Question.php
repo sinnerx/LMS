@@ -351,7 +351,7 @@ function questions_data()
     $max=$this->questions_data->add_posto($data);
 
     foreach ($max as $key => $value) {
-        echo $value;
+        //echo $value;
        }
 
     $this->db->select('*');
