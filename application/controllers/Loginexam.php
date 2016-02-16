@@ -17,6 +17,7 @@ public function hashPassword($val,$salt = null)
 
 function index()
 {
+   
     $userEmail = $this->input->post('userEmail');
     //$userPassword = $this->input->post('userPassword');
    //$post_password = md5($this->input->post('userPassword', TRUE));
@@ -24,7 +25,7 @@ function index()
 
    //print_r($post_password);
 
-    $this->db->where('userEmail', $this->input->post('userEmail'));
+      $this->db->where('userEmail', $this->input->post('userEmail'));
       $this->db->where('userPassword', $post_password);
       $result = $this->db->get('user');
       

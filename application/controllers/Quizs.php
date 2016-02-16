@@ -177,7 +177,7 @@ public	function quiz_data()
 			    'sessionid' =>$this->input->post('sessionid'),
 			    'marks' => $marks,
 			    'userid'=> $this->input->post('userid'),
-			    'id'=> $this->input->post('id'),
+			    'moduleid'=> $this->input->post('id'),
 			     );
 
 					  	$this->db->insert('lms_question_user',$data);			
@@ -249,7 +249,7 @@ public	function quiz_data()
 				    'sessionid' =>$this->input->post('sessionid'),
 				    'marks' => $marks,
 				    'userid'=> $this->input->post('userid'),
-				    'id'=> $this->input->post('id'),
+				    'moduleid'=> $this->input->post('id'),
 				     );
 
 				  	$this->db->insert('lms_question_user',$data);			
@@ -265,12 +265,12 @@ public	function quiz_data()
 
 					  $this->db->select('*');
 					  $this->db->where("marks","1");
-				      $this->db->where("id",$id);
+				      $this->db->where("moduleid",$id);
 				      $this->db->where("sessionid",$sessionid);
 					  $query = $this->db->get('lms_question_user');
 					  $count = $query->num_rows();
 					  
-						$m= ($count/20)*100;
+						$m= ($count/5)*100;
 
 						if ($m  >= 50 || $m==50){
 							$status='Pass';
@@ -289,7 +289,7 @@ public	function quiz_data()
 						    'result' => $m,
 						    'status'=>$status,
 						    'userid'=> $userid,	
-						    'packageid'=> $id,
+						    'moduleid'=> $id,
 						    'sessionid'=> $sessionid,	    
 						     );
 					    //print_r($data);
@@ -396,14 +396,28 @@ $data['nav_title'] 		= 'Question';
 $data['nav_subtitle']	= 'Question Details';
 $data['home'] 			= 'Home';
 
-$this->load->helper('url');
-$this->load->view('page_view2',$data);
-$this->load->view('quiz/enter', $data);
+$data['boss'] = $_SESSION['pop'];
+$say = $data['boss']['moduleid']; 
+
+$this->db->select('q_id');
+$query = $this->db->get_where('lms_questions_bank', array('id' => $say));
+$result = $query->result();
+if (count($result)<1) {
+	$data['noq']=1;
+} else {
+	$data['noq']=0;
+
 }
 
+$this->load->view('page_view2',$data);
+$this->load->view('quiz/enter', $data);
+
+}
+//print_r($data['boss']);
+
+}
 
 
 
 
 	
-}

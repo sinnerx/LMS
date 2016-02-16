@@ -29,6 +29,19 @@ class Login extends CI_Controller {
 	$data['home'] = 'Home';
 
 	$this->load->helper(array('form'));
+	
+	$moduleid = $this->input->get('moduleid', TRUE);
+//	echo $moduleid;
+	$userid = $this->input->get('userid', TRUE);
+	//echo $userid;
+
+	$data['quaz'] =  array(
+		'userid' => $userid,
+		'moduleid' => $moduleid
+		);
+
+	$_SESSION['pop'] = $data['quaz'];
+	//print_r($_SESSION['pop']);
 	$this->load->view('page_view2',$data);
 	$this->load->view('quiz/login', $data);
 	//$this->load->view('templates/footer');

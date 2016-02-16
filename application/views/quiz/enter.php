@@ -25,19 +25,13 @@
             <div class="form-group">
             <label class="col-sm-2 control-label">Module ID :</label>
             <div class="col-md-5">
-            <input type="text" name="id" class="form-control" value="1" readonly>
+            <input type="text" name="id" class="form-control" value="<?php echo $boss['moduleid'] ?>" readonly>
             </div>
             </div>
-            
-
-
-
-            
-
             
             
             <div class="doc-buttons">
-            <center><button type="submit" class="btn btn-s-md btn-info">Start Exam</button></center></div>
+            <center><button type="submit" <?php if ($noq==1) { echo 'disabled'; } ?> class="btn btn-s-md btn-info">Start Exam</button></center></div>
             </form>
            
 
