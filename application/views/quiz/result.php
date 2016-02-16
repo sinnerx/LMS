@@ -44,13 +44,7 @@ unset($_SESSION["question_key"]);
             </div>
             </div>
 
-            <div class="line line-dashed b-b line-lg pull-in"></div>
-            <div class="form-group">
-            <label class="col-sm-2 control-label">Status :</label>
-            <div class="col-md-5">
-            <input type="text" name="ids" class="form-control" value="<?php echo $status ; ?>"disabled>
-            </div>
-            </div>
+            
        
 </html>
 </div>

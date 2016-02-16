@@ -19,7 +19,7 @@ public function index()
   	if (!isset($_SESSION['sessionid'])) 
   	{
 		$data['sessionid'] 	= $this->input->post('sessionid');
-		echo $_SESSION['sessionid'] 	= $data['sessionid'];
+		 $_SESSION['sessionid'] 	= $data['sessionid'];
   	}
 
 	if (!isset($_SESSION['id'])) 
@@ -49,7 +49,7 @@ public function index()
 				$nq_shuffle = $_SESSION["q_shuffle"];
 				$total_question = count($nq_shuffle);
 				//session_destroy();
-				echo $total_question;
+				 $total_question;
 				//print_r($nq_shuffle);
 				$this->show($total_question);
 }
@@ -60,7 +60,7 @@ public function show($total_question)
  $this->load->helper('url');
  $userid = $this->nativesession->get( 'userid' );
  $userLevel = $this->nativesession->get( 'userLevel' );
- echo $sessionid=$_SESSION['sessionid'];
+  $sessionid=$_SESSION['sessionid'];
  $id=$_SESSION['id'];
 			 
  $data = array(
@@ -81,6 +81,7 @@ $data['home'] 			= 'Home';
 			if (!isset($_SESSION['question_key'])) 
 			{
 				$_SESSION["question_key"] = '0';
+				
 			}
 
 			foreach ($_SESSION["q_shuffle"] as $key => $value) 
@@ -88,8 +89,8 @@ $data['home'] 			= 'Home';
 
 				if ($key == $_SESSION["question_key"]) 
 				{
-					echo $next_question_id = $key;
-					echo $current_question_id = $value->q_id;
+					$next_question_id = $key;
+					$current_question_id = $value->q_id;
 				}
 
 			}
@@ -121,7 +122,7 @@ $data['home'] 			= 'Home';
 			$_SESSION["question_key"] = $next_question_id + 1;
 
 			$prev = 0;
-			echo $next = $_SESSION["question_key"];  
+			 $next = $_SESSION["question_key"];  
 
 			$this->load->view('quiz/index',array(
 				'q_text'	=> $q_text,
@@ -273,12 +274,12 @@ public	function quiz_data()
 						$m= ($count/5)*100;
 
 						if ($m  >= 50 || $m==50){
-							$status='Pass';
+							$status='1';
 						}
 
 						else
 						{
-							$status='Fail';
+							$status='0';
 						}
 
 						$data = array(
