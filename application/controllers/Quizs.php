@@ -50,7 +50,7 @@ public function index()
 				$total_question = count($nq_shuffle);
 				//session_destroy();
 				echo $total_question;
-				print_r($nq_shuffle);
+				//print_r($nq_shuffle);
 				$this->show($total_question);
 }
 
@@ -159,7 +159,7 @@ public	function quiz_data()
 				$optionChoose=$a_id;
 				$correctOption = $correct->correct;
 				//print_r($a_id);
-				print_r($correctOption);
+				//print_r($correctOption);
 			    $marks=0;
 			    if($optionChoose==$correctOption)
 			    $marks=1;
