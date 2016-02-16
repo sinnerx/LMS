@@ -311,7 +311,8 @@ function questions_data()
 
    
  
-     $caca = $this->questions_data->questions($data);
+     $caca= $this->questions_data->questions($data);
+     print_r($caca);
      $data['page_title'] = 'Monte Carlo';
       $data['nav_title'] = 'Question';
       $data['nav_subtitle'] = 'Question Details';
@@ -319,20 +320,79 @@ function questions_data()
 
       $this->load->helper('url');
 
-      foreach ($caca as $key => $value) {
-        echo $value;
-      }
+      // foreach ($caca as $key => $value) {
+      //   echo $value;
+      // }
 
        // $this->load->view('templates/head', $data);
        // $this->load->view('templates/header', $data);
        // $this->load->view('templates/left_side', $data);
        // $this->load->view('templates/content_header', $data);
-      $this->load->view('page_view',$data);
+      //$this->load->view('page_view',$data);
       // $this->load->view('questions/correct', $data);
-     redirect ( base_url().'question/correct');
+    redirect ( base_url().'question/correct',$data);
        //$this->load->view('templates/footer');
     
     }
+
+    function correct()
+    {
+  $this->load->library( 'nativesession' );
+  $this->load->helper('url');
+  $userid = $this->nativesession->get( 'userid' );
+  $userLevel = $this->nativesession->get( 'userLevel' );
+
+  $data = array(
+        'userid' => $userid,
+        'userLevel' => $userLevel,
+        'message' => 'My Message'
+    );
+    
+    $max=$this->questions_data->add_posto($data);
+
+    foreach ($max as $key => $value) {
+        echo $value;
+       }
+
+    $this->db->select('*');
+    $q_details = $this->db->get_where('lms_answer', array('q_id'=>$value));
+    $data['result'] = $q_details->result();
+
+    // foreach ($q as $key => $value) 
+    //   {
+    //     $a_id       = $value->a_id;
+    //     $a_text      = $value->a_text;
+    //     $correct      = $value->correct;
+    //   }
+    // print_r($q);
+   
+    //$data['result'] = $this->db->insert_id();
+
+    $data['page_title'] = 'Monte Carlo';
+    $data['nav_title'] = 'Question';
+    $data['nav_subtitle'] = 'Please click on radio button to set correct answer';
+    $data['home'] = 'Home';
+
+    $this->load->helper('url');
+
+   /* if($this->session->userdata('logged_in'))
+    {
+     $session_data = $this->session->userdata('logged_in');
+
+     $data['username'] = $session_data['username']; */
+
+     // $this->load->view('templates/head', $data);
+     // $this->load->view('templates/header', $data);
+     // $this->load->view('templates/left_side', $data);
+     // $this->load->view('templates/content_header', $data);
+     // $data['a_id'] = $a_id;
+     // $data['a_text'] = $a_text;
+     //$data['status'] = $status;
+     $this->load->view('page_view',$data);
+     $this->load->view('questions/correct',$data);
+      
+    }
+
 
 
 
@@ -492,6 +552,40 @@ function delete($q_id)
     }
   }
 
+function Update_correct()
+{
+$this->load->library( 'nativesession' );
+$this->load->helper('url');
+$userid = $this->nativesession->get( 'userid' );
+$userLevel = $this->nativesession->get( 'userLevel' );
+
+      
+    $data = array(
+        'userid' => $userid,
+        'userLevel' => $userLevel,
+        'message' => 'My Message'
+    );
+    
+    $correct = $this->input->post('correct');
+    $q_id = $this->input->post('q_id');
+  
+    
+    $data = array(
+      'correct' => $this->input->post('correct'),
+      'q_id' => $this->input->post('q_id')
+
+      );
+
+    $this->db->where('q_id', $q_id);
+    $this->db->update('lms_questions_bank', $data); 
+   
+
+      redirect ( base_url().'question');
+     
+    
+     //redirect('package/view/'.$packageid, 'refresh');
+    
+   }
 
 
   function Update_question() 

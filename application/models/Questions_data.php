@@ -34,48 +34,29 @@ Class Questions_data extends CI_Model
             //print_r($array_ans);
 
             $this->db->insert('lms_answer', $array_ans);
-            return $array_ans;
-//print_r($array_ans);
-         
+  
 
         }
       }
+    }
      
-   // $a_text1[] = array();
-   //  foreach($_POST['a_text1'] as $a_text1)
-   //    {
-   //    $a_text1['q_id'] = $this->db->insert_id();
-   //    $this->db->insert('answer', $a_text1);
-   //    print_r($a_text1);
-   //    }
-   /* $a_text1 = array(
-    'a_text'=>$this->input->post('a_text'),  
-    );
-      $a_text1['q_id'] = $this->db->insert_id();
-      $this->db->insert('answer', $a_text1);
-      print_r($a_text1);
-
-
-
-    /*$data1 = array(
-     'q_id' => $this->input->post('q_id'), 
-    'a_text' => $_POST['a_text']
-    );
-
-    $data1['q_id'] = $this->db->insert_id();
-    $this->db->insert('answer', $data1);
-    print_r($data1);*/
+function add_posto($data){
+           
+  $last_row=$this->db->select('q_id')->order_by('q_id',"desc")->limit(1)->get('lms_questions_bank');
+  return $last_row->row();
+  print_r($last_row);
+        }
 
 
 
 
     
-  }
+  
 
   public function getLastInserted() {
 
     $results = array();
-    $query ="SELECT * from lms_answer where q_id = LAST_INSERT_ID()";
+    $query ="SELECT * from lms_answer where q_id = $value";
 
     $query = $this->db->get();
 
