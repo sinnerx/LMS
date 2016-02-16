@@ -74,11 +74,12 @@
                               <!--  </div> --><!-- /.box -->
 
                               <?php foreach ($answer as $y):{?>
+                              <!-- <input type="text" name="correct" id="correct" value="<?php echo $y['correct']; ?> "> -->
                                <div class="line line-dashed b-b line-lg pull-in"></div>
                                <div class="form-group">
                                <label for= "Answer" class="col-sm-2 control-label">Answer :</label>
                                <div class="col-md-5">
-                               <input name="a_text[]" type="text" id="a_text" class="form-control" value="<?php echo $y['a_text']; ?>"><input name="a_id[]" type="hidden" id="a_id" class="form-control" value="<?php echo $y['a_id']; ?>"></div><input type="radio" value="<?php echo $y['a_id']; ?>" id="correct"  name="correct">&nbsp; &nbsp;&nbsp;<a href="<?php echo base_url().'question/deletes/'.$y['a_id'] ;?>"><i class="fa fa-trash-o "></i></a><br/>
+                               <input name="a_text[]" type="text" id="a_text" class="form-control" value="<?php echo $y['a_text']; ?>"><input name="a_id[]" type="hidden" id="a_id" class="form-control" value="<?php echo $y['a_id']; ?>"></div><input type="radio" value="<?php echo $y['a_id']; ?>" id="correct"  name="correct" <?php if($y['a_id'] ==$y['correct']) echo "checked='checked'"; ?>>&nbsp; &nbsp;&nbsp;<a href="<?php echo base_url().'question/deletes/'.$y['a_id'] ;?>"><i class="fa fa-trash-o "></i></a><br/>
 
                                <?php } endforeach ?>
                              </div></div></div>
