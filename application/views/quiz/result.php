@@ -44,7 +44,8 @@ unset($_SESSION["question_key"]);
             </div>
             </div>
 
-            
+            <div class="doc-buttons">
+            <center><input type="submit" class="btn btn-s-md btn-info" value="Back"></center></div>
        
 </html>
 </div>

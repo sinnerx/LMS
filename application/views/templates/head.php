@@ -22,7 +22,69 @@ if (!isset($_SESSION['userid'])) {
 
   
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/multi/google-code-prettify/prettify.css" />
+      
+
+        <script src="<?php echo base_url(); ?>assets/js/jquery.min.js"></script>
+  <!-- Bootstrap -->
+  <script src="<?php echo base_url(); ?>assets/js/bootstrap.js"></script>
+  <!-- App -->
+  <script src="<?php echo base_url(); ?>assets/js/app.js"></script>  
+  <script src="<?php echo base_url(); ?>assets/js/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="<?php echo base_url(); ?>assets/js/charts/easypiechart/jquery.easy-pie-chart.js"></script>
+  <script src="<?php echo base_url(); ?>assets/js/charts/sparkline/jquery.sparkline.min.js"></script>
+  <script src="<?php echo base_url(); ?>assets/js/charts/flot/jquery.flot.min.js"></script>
+  <script src="<?php echo base_url(); ?>assets/js/charts/flot/jquery.flot.tooltip.min.js"></script>
+  <script src="<?php echo base_url(); ?>assets/js/charts/flot/jquery.flot.spline.js"></script>
+  <script src="<?php echo base_url(); ?>assets/js/charts/flot/jquery.flot.pie.min.js"></script>
+  <script src="<?php echo base_url(); ?>assets/js/charts/flot/jquery.flot.resize.js"></script>
+  <script src="<?php echo base_url(); ?>assets/js/charts/flot/jquery.flot.grow.js"></script>
+  <script src="<?php echo base_url(); ?>assets/js/charts/flot/demo.js"></script>
+
+  <script src="<?php echo base_url(); ?>assets/js/calendar/bootstrap_calendar.js"></script>
+  <script src="<?php echo base_url(); ?>assets/js/calendar/demo.js"></script>
+
+  <script src="<?php echo base_url(); ?>assets/js/sortable/jquery.sortable.js"></script>
+  <script src="<?php echo base_url(); ?>assets/js/app.plugin.js"></script>
+
+  <script type="text/javascript" src="<?php echo base_url(); ?>assets/add/jquery-1.10.2.min.js"></script>
+<!-- popup correct -->
+
+ <!-- <link href="<?php echo base_url(); ?>assets/csss/bootstrap.css" rel="stylesheet" type="text/css" /> -->
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript" language="javascript" src="<?php echo base_url(); ?>assets/jss/bootstrap.js"></script>
+
+
+
+
+ <!-- datepicker -->
+  <script src="<?php echo base_url(); ?>assets/js/datepicker/bootstrap-datepicker.js"></script>
+  <!-- slider -->
+  <script src="<?php echo base_url(); ?>assets/js/slider/bootstrap-slider.js"></script>
+  <!-- file input -->  
+  <script src="<?php echo base_url(); ?>assets/js/file-input/bootstrap-filestyle.min.js"></script>
+  <!-- wysiwyg -->
+  <script src="<?php echo base_url(); ?>assets/js/wysiwyg/jquery.hotkeys.js"></script>
+  <script src="<?php echo base_url(); ?>assets/js/wysiwyg/bootstrap-wysiwyg.js"></script>
+  <script src="<?php echo base_url(); ?>assets/js/wysiwyg/demo.js"></script>
+  <!-- markdown -->
+  <script src="<?php echo base_url(); ?>assets/js/markdown/epiceditor.min.js"></script>
+  <script src="<?php echo base_url(); ?>assets/js/markdown/demo.js"></script>
+
+  <script src="<?php echo base_url(); ?>assets/js/chosen/chosen.jquery.min.js"></script>
+  <script src="<?php echo base_url(); ?>assets/js/app.plugin.js"></script>
+   <script src="js/slimscroll/jquery.slimscroll.min.js"></script>
+  <!-- parsley -->
+<script src="<?php echo base_url(); ?>assets/js/parsley/parsley.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/parsley/parsley.extend.js"></script>
+  <script src="<?php echo base_url(); ?>assets/js/app.plugin.js"></script>
+
   
+<!--untuk pagination-->
+<script src="<?php echo base_url('assets/jquery/jquery-2.1.4.min.js')?>"></script>
+<script src="<?php echo base_url('assets/bootstrap/js/bootstrap.min.js')?>"></script>
+<script src="<?php echo base_url('assets/datatables/js/jquery.dataTables.min.js')?>"></script>
+<script src="<?php echo base_url('assets/datatables/js/dataTables.bootstrap.js')?>"></script>
+<script src="<?php echo base_url('assets/bootstrap-datepicker/js/bootstrap-datepicker.min.js')?>"></script>
   <!--[if lt IE 9]>
     <script src="js/ie/html5shiv.js"></script>
     <script src="js/ie/respond.min.js"></script>

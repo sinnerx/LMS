@@ -85,7 +85,7 @@ public function ajax_list()
    
 
       //add html for action
-       $row[] = '<a href="module/edit/'."".$module->ni."".'"><i class="fa fa-pencil"></i></a>
+       $row[] = '<a href="module/edit/'."".$module->ni."".'"><i class="fa fa-pencil"></i></a>&emsp;
           <a href="module/delete/'."".$module->no."".'"><i class="fa fa-trash-o "></i></a>';
     
        $data[] = $row;

@@ -76,7 +76,7 @@ function index()
       // $row[] = $person->dob;
 
       //add html for action
-     $row[] = '<a href="question/edit/'."".$question->q_id."".'"><i class="fa fa-pencil"></i></a> 
+     $row[] = '<a href="question/edit/'."".$question->q_id."".'"><i class="fa fa-pencil"></i></a> &emsp;
           <a href="question/delete/'."".$question->q_id."".'"><i class="fa fa-trash-o "></i></a>';
     
       $data[] = $row;

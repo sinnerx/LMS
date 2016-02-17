@@ -28,8 +28,8 @@
         <table id="table" class="table table-striped table-bordered">
             <thead>
                 <tr>
-                    <th>Package ID</th>
-                    <th>Module ID</th>
+                    <th>Package Name</th>
+                    <th>Module Name</th>
                     
                     <th>Action</th>
                 </tr>

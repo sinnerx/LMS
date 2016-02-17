@@ -75,7 +75,7 @@ public function ajax_list()
    
 
       //add html for action
-       $row[] = '<a href="package/edit/'."".$package->packageid."".'"><i class="fa fa-pencil"></i></a>
+       $row[] = '<a href="package/edit/'."".$package->packageid."".'"><i class="fa fa-pencil"></i></a>&emsp;
           <a href="package/delete/'."".$package->packageid."".'"><i class="fa fa-trash-o "></i></a>';
     
        $data[] = $row;
