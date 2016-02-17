@@ -24,7 +24,8 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             <span class="thumb-sm avatar pull-left">
               <img src="<?php echo base_url(); ?>assets/images/a0.png">
-            </span> <?php echo $this->template_model->getFullName($userid); ?>
+            </span> 
+            <?php echo $this->template_model->getFullName($userid); ?>
             <b class="caret"></b>
           </a>
           <ul class="dropdown-menu animated fadeInRight">

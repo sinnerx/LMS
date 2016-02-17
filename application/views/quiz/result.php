@@ -11,7 +11,7 @@ unset($_SESSION["question_key"]);
            
             <div class="panel-body">
 
-            <form action ="<?php echo base_url() ?>quizs/index" method = "post" class="form-horizontal" data-validate="parsley">
+            <form action ="<?php echo base_url() ?>" method = "post" class="form-horizontal" data-validate="parsley">
             <div class="form-group">
 
             <div class="form-group">
@@ -27,7 +27,7 @@ unset($_SESSION["question_key"]);
             
             <div class="line line-dashed b-b line-lg pull-in"></div>
             <div class="form-group">
-            <label class="col-sm-2 control-label">Package:</label>
+            <label class="col-sm-2 control-label">Module:</label>
             <div class="col-md-5">
             <input type="text" name="id" class="form-control" value="<?php echo $id ?>" readonly>
             </div>

@@ -13,22 +13,37 @@
                 </header>
                  <div class="panel-body">
 
-                <form method="post" action="<?php echo base_url() ?>index.php/package/Update_package">
-                    <div class="form-group">
-                              <input type="hidden" name="packageid" id="packageid" value="<?php echo $package['packageid']; ?>" />
-                            <!--    <input type="hidden" name="no_pictures" id="no_pictures" value="<?php echo $dd_report['no_pictures']; ?>" />-->
-                               
-                         
-                            </i>
-                        </div><!-- /.box-header -->
+                <form method="post" class="form-horizontal" data-validate="parsley" action="<?php echo base_url() ?>package/Update_package">
+                
+                <div class="form-group">
+               
+                 <!-- /.box-header -->
 
-                        <div class="box-body table-responsive no-padding">
-                              <label class="col-sm-2 control-label">Course</label>
-                               <div class="col-sm-10">
+                               <!-- <div class="box-body table-responsive no-padding"> -->
+                               <div class="form-group">
+                               <label class="col-sm-2 control-label">Course</label>
+                               <div class="col-sm-5">
+                                 <input type="hidden" name="packageid" id="packageid" value="<?php echo $package['packageid']; ?>" />
                                <input type="text" name="name" class="form-control" value="<?php echo $package['name']; ?>">
                                </div>
-                               </div>
+                                </div>
+                               
                                 
+                                  <div class="line line-dashed b-b line-lg pull-in"></div>
+                                  <div class="form-group">
+                                  <label class="col-sm-2 control-label">Billing Item</label>
+                                  <div class="col-md-5">
+                                   
+                                  <select data-required="true" style="width:260px" name="billing_item_id" class="form-control m-b">
+                                 <?php 
+                                 foreach($groups as $row)
+                                  { 
+                                    echo '<option value="'.$row->billingItemID.'">'.$row->billingItemName.'</option>';
+                                  }
+                                  ?>
+                                  </select>
+                                  </div>
+                                  </div>
                                  
                                     <!-- Date and time range -->
                                    <!-- <div class="input-group custom-size">
@@ -37,19 +52,19 @@
                                         </div>-->
                                       <!--  <input type="text" name="dt_update" class="form-control pull-right" id="datetimepicker1" data-date-format="YYYY-MM-DD HH:mm:ss" <?php if ($dd_report['dt_update'] != '0000-00-00 00:00:00') { ?> value="<?php echo $dd_report['dt_update']; ?>" <?php } ?>/>
                                     </div><!-- /.input group -->
-                                    <div class="doc-buttons">
+                      <div class="doc-buttons">
                      <button type="submit" class="btn btn-sm btn-default">Update</button>
                      <a href="javascript:window.history.go(-1);" class="btn btn-sm btn-default">Cancel</a></div>
     
 
-                        </div><!-- /.box-body -->
-                    </div><!-- /.box -->
-                </form>
 
+                    
+                </form>
+            </div>
+             </div>
                 </section><!-- /.content -->
 
-            </aside><!-- /.right-side -->
-        </div><!-- ./wrapper -->
+            <!-- ./wrapper -->
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" type="text/javascript"></script>

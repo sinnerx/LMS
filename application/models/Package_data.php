@@ -9,6 +9,7 @@ Class Package_data extends CI_Model
     'packageid'=>$this->input->post('packageid'),
     'name'=>$this->input->post('name'),
     'status'=>$this->input->post('status'),
+    'billing_item_id'=>$this->input->post('billing_item_id'),
 );
 
   $this->db->insert('lms_package',$data);
@@ -21,7 +22,11 @@ Class Package_data extends CI_Model
       return $query->result_array();
   }
 
-
+ public function getAllGroups()
+    {
+    $query = $this->db->query('SELECT *  FROM billing_item where billingitemcode ="lms_item"');
+    return $query->result();
+    }
 
   
 }

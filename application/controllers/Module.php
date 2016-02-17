@@ -378,19 +378,7 @@ function module_data()
       $data['home'] = 'Home';
 
       $this->load->helper('url');
-
-      // if($this->session->userdata('logged_in'))
-      // {
-      //  $session_data = $this->session->userdata('logged_in');
-
-      //  $data['username'] = $session_data['username']; 
-
-       // view template
-       // $this->load->view('templates/head', $data);
-       // $this->load->view('templates/header', $data);
-       // $this->load->view('templates/left_side', $data);
-       // $this->load->view('templates/content_header', $data);
-      $this->load->view('page_view',$data);
+       $this->load->view('page_view',$data);
        redirect ( base_url().'module');
        //$this->load->view('templates/footer');
    // redirect('package/insert');

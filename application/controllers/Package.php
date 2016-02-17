@@ -202,6 +202,7 @@ public function ajax_list()
         'userLevel' => $userLevel,
         'message' => 'My Message'
     );
+    $data['group'] = $this->package_data->getAllGroups();
     $data['page_title'] = 'Monte Carlo';
     $data['nav_title'] = 'Question';
     $data['nav_subtitle'] = 'New Question';
@@ -209,11 +210,6 @@ public function ajax_list()
 
     $this->load->helper('url');
 
-   /* if($this->session->userdata('logged_in'))
-    {
-     $session_data = $this->session->userdata('logged_in');
-
-     $data['username'] = $session_data['username']; */
 
      $this->load->view('templates/head', $data);
      $this->load->view('templates/header', $data);
@@ -224,12 +220,7 @@ public function ajax_list()
 
     }
     
-  /*  else
-    {
-     //If no session, redirect to login page
-     redirect('login', 'refresh');
-    }
-  } */
+  
 
 
   function view($packageid)
@@ -312,6 +303,7 @@ function package_data()
     'packageid' => $this->input->post('packageid'),
     'name' => $this->input->post('name'),
     'status' => $this->input->post('status'),
+    'billing_item_id'=>$this->input->post('billing_item_id')
      );
        
     $this->package_data->packages($data);
@@ -362,6 +354,7 @@ function edit($packageid)
     );
 
       // If has id and go to single view
+      $data['groups'] = $this->package_data->getAllGroups();
       $data['package'] = $this->packagedata->packageid($packageid);
 
       $data['page_title'] = 'Monte Carlo';
@@ -484,11 +477,13 @@ function delete($packageid)
     );
     $packageid = $this->input->post('packageid');
     $name = $this->input->post('name');
+    $billing_item_id= $this->input->post('billing_item_id');
   
     
     $data = array(
       'packageid' => $this->input->post('packageid'),
       'name' => $this->input->post('name'),
+      'billing_item_id'=>$this->input->post('billing_item_id')
 
       );
 
