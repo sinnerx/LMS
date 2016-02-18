@@ -210,7 +210,7 @@ $(document).ready(function() {
   </script>
 
 
-  <script type="text/javascript" src="jquery-1.10.2.min.js"></script>
+  <!--<script type="text/javascript" src="jquery-1.10.2.min.js"></script>-->
 
 <script>
 
@@ -294,12 +294,12 @@ $(document).ready(function(){
 // });
 // </script>
 <script>
-$(function() {
-    var $Answer = Yes;
-    $("input[name='correct'][value="$Answer"]").attr('checked', true);
+// $(function() {
+//     var $Answer = Yes;
+//     $("input[name='correct'][value="$Answer"]").attr('checked', true);
     
-    });
- </script>
+//     });
+//  </script>
   <!--  <script type="text/javascript">
   window.onload = function() {
     document.getElementById('submitt').onclick = function() {

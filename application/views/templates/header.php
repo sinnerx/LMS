@@ -31,10 +31,10 @@
           <ul class="dropdown-menu animated fadeInRight">
             <span class="arrow top"></span>
             <li>
-              <a href="../dashboard/user/profile">My Profile</a>
+              <a href="./dashboard/user/profile">My Profile</a>
             </li>
             <li>
-              <a href="../dashboard/user/changePassword">Change Password</a>
+              <a href="./dashboard/user/changePassword">Change Password</a>
             </li>
             <li class="divider"></li>
             <li>
