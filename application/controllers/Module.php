@@ -85,7 +85,7 @@ public function ajax_list()
    
 
       //add html for action
-       $row[] = '<a href="module/edit/'."".$module->ni."".'"><i class="fa fa-pencil"></i></a>
+       $row[] = '<a href="module/edit/'."".$module->ni."".'"><i class="fa fa-pencil"></i></a>&emsp;
           <a href="module/delete/'."".$module->no."".'"><i class="fa fa-trash-o "></i></a>';
     
        $data[] = $row;
@@ -378,19 +378,7 @@ function module_data()
       $data['home'] = 'Home';
 
       $this->load->helper('url');
-
-      // if($this->session->userdata('logged_in'))
-      // {
-      //  $session_data = $this->session->userdata('logged_in');
-
-      //  $data['username'] = $session_data['username']; 
-
-       // view template
-       // $this->load->view('templates/head', $data);
-       // $this->load->view('templates/header', $data);
-       // $this->load->view('templates/left_side', $data);
-       // $this->load->view('templates/content_header', $data);
-      $this->load->view('page_view',$data);
+       $this->load->view('page_view',$data);
        redirect ( base_url().'module');
        //$this->load->view('templates/footer');
    // redirect('package/insert');

@@ -74,7 +74,7 @@ function index()
       $row[] = $course->name;
 
       //add html for action
-     $row[] = '<a href="course/edit/'."".$course->id."".'"><i class="fa fa-pencil"></i></a>
+     $row[] = '<a href="course/edit/'."".$course->id."".'"><i class="fa fa-pencil"></i></a>&emsp;
           <a href="course/delete/'."".$course->id."".'"><i class="fa fa-trash-o "></i></a>';
     
       $data[] = $row;

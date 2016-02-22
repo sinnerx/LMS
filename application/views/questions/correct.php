@@ -39,7 +39,7 @@
                                <!-- <input name="a_text[]" type="text" id="a_text" class="form-control" value="<?php echo $value->a_text; ?>"> -->
 
                                <?php } ?>
-                             </div></div>
+                             </div></div>    
                         
                             <div class="doc-buttons">
                             <button type="submit" class="btn btn-sm btn-default">Set</button>

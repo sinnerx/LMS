@@ -76,7 +76,7 @@ function index()
       // $row[] = $person->dob;
 
       //add html for action
-     $row[] = '<a href="question/edit/'."".$question->q_id."".'"><i class="fa fa-pencil"></i></a> 
+     $row[] = '<a href="question/edit/'."".$question->q_id."".'"><i class="fa fa-pencil"></i></a> &emsp;
           <a href="question/delete/'."".$question->q_id."".'"><i class="fa fa-trash-o "></i></a>';
     
       $data[] = $row;
@@ -351,7 +351,7 @@ function questions_data()
     $max=$this->questions_data->add_posto($data);
 
     foreach ($max as $key => $value) {
-        echo $value;
+        //echo $value;
        }
 
     $this->db->select('*');
