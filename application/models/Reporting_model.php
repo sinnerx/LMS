@@ -346,7 +346,12 @@ public function get_list_site($q){
 
       //print_r($sql);
       //die;
-      $con=mysqli_connect("localhost","root","root","digitalgaia_iris");
+      //$ci=& get_instance();
+
+      //print($db['default']['hostname']);
+      //print($this->db->hostname);
+      //die;
+      $con=mysqli_connect($this->db->hostname,$this->db->username,$this->db->password,$this->db->database);
       // Check connection
       if (mysqli_connect_errno())
         {

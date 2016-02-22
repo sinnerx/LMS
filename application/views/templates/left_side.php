@@ -101,7 +101,7 @@
                       </a>
                         <ul class="nav dk">
                           <li >
-                          <a href="<?php echo base_url(); ?>module" class="auto">                                                        
+                          <a href="<?php echo base_url(); ?>reporting" class="auto">                                                        
                             <i class="i i-dot"></i>
 
                             <span>Manage Report</span>

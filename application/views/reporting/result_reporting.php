@@ -240,9 +240,6 @@ $("#submitbtn").click(function(){
 
 });
 </script>
-<html lang="en" class="app">
-<head>  
-  <meta charset="utf-8" />
  
   <meta name="description" content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
@@ -253,305 +250,308 @@ $("#submitbtn").click(function(){
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/font.css" type="text/css" />
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/app.css" type="text/css" /> 
 
-                 <section class="panel panel-default">
-                <header class="panel-heading font-bold">                  
-                <?php //echo $nav_subtitle; ?>                
-            </header>
-        <!-- Main content -->
-        
- <br />
-
-
-
-<!-- End Bootstrap modal -->
-            <?php echo form_open('reporting/show_result', array('target'=>'_blank', 'id'=>'myform'))?>
-            <div class="modal-body form">
-							<div class='form-group' class='col-sm-12'>
-                  <div class="col-md-2" style="display:none">  
-                                <label>Show Participant</label>
-                              <select id="participant" name="participant" class="form-control">
-                                <option value="">All</option>
-                                <option value="1">In Progress</option>
-                                <option value="2">Completed Package</option>
-                                <!-- <option value="4">Punch Anomaly</option>                               -->
-
-                                <!-- <option value="3">Insufficient Hours</option>
-                                <option value="4">Both Late/Early and Insufficient Hours</option>
-                                <option value="5">Punch Anomaly</option>
-                                <option value="6">No Attendance Problem</option> -->
-                              </select>
-                  </div>
-                  <div class="col-md-2">  
-                                <label>With Test Result</label>
-                              <select id="testresult" name="testresult" class="form-control">
-                                <option value="">Any</option>
-                                <option value="1">Passed</option>
-                                <option value="2">Failed</option>
-                                <!-- <option value="4">Punch Anomaly</option>                               -->
-
-                                <!-- <option value="3">Insufficient Hours</option>
-                                <option value="4">Both Late/Early and Insufficient Hours</option>
-                                <option value="5">Punch Anomaly</option>
-                                <option value="6">No Attendance Problem</option> -->
-                              </select>
-                  </div> 
-                  <div class="col-md-2">  
-                                <label>With Payment Status</label>
-                              <select id="payment" name="payment" class="form-control">
-                                <option value="">Any</option>
-                                <option value="1">Paid</option>
-                                <option value="2">Unpaid</option>
-                                <!-- <option value="4">Punch Anomaly</option>                               -->
-
-                                <!-- <option value="3">Insufficient Hours</option>
-                                <option value="4">Both Late/Early and Insufficient Hours</option>
-                                <option value="5">Punch Anomaly</option>
-                                <option value="6">No Attendance Problem</option> -->
-                              </select>
-                  </div>
-                  <div class="col-md-2">  
-                                <label>For Modules/Packages</label>
-                              <select id="modulepackage" name="modulepackage" class="form-control">
-                                <option value="">All Modules/Packages</option>
-                                <option value="1">Package</option>
-                                <option value="2">Module</option>
-                                <!-- <option value="4">Punch Anomaly</option>                               -->
-
-                                <!-- <option value="3">Insufficient Hours</option>
-                                <option value="4">Both Late/Early and Insufficient Hours</option>
-                                <option value="5">Punch Anomaly</option>
-                                <option value="6">No Attendance Problem</option> -->
-                              </select>
-                  </div>
-                  <div id="package_div" class='col-md-2' style="display:none;">
-                    
-                      <label>Package</label>
-                      
-                      <?php 
-                        //$package_list = '';
-                        echo form_dropdown('package', $package_list, '', 'id="package" name="package" class="form-control"');
-                        ?>                   
-                  </div>
-                  <div id="module_div" class='col-md-4' style="display:none">
-                    
-                      <label>Module</label>
-                      
-                      <?php 
-                        $data = array(
-                                  'name'        => 'modulename',
-                                  'value'       => "",
-                                  //'class'       => 'input-sm input-s datepicker-input form-control',
-                                  'id'          => 'modulename',
-                                  'size'        => 50,
-                                  'class'       => 'form-control',
-
-                          );
-                        //$js = 'onclick="participants.searchByObj(this)"';
-                        echo form_input($data);
-
-                        $dataid = array(
-                                  'name'        => 'moduleid',
-                                  'value'       => "",
-                                  //'class'       => 'input-sm input-s datepicker-input form-control',
-                                  'id'          => 'moduleid',
-                                  'type'        => 'hidden',
-
-                          );                                
-                        echo form_input($dataid);
-                        ?>
-
-                                               
-                  </div>                                       
-                </div>
-                              
-                <div class='form-group' class='col-sm-12'>
-                  <br>
-                  <div class="clearfix"></div>                    
-                  <div class="col-md-2">
-                                <label>For</label>
-
-                                <?php if($userLevel==99){ 
-                                        //echo "Administration Mode";
-                                        $options = array(
-                                          ''  =>  'Select',
-                                          '3'  => 'Region',
-                                          '4' => 'Cluster',
-                                          '5' => 'Pi1M Site',
-                                          '6' => 'Member',
-                                          //'7' => 'Staff',
-                                        );
-                                      }
-
-                                  else if($userLevel == 3 ){ 
-                                      //echo "Cluster Lead";
-                                      $options = array(
-                                        ''  =>  'Select',
-                                        '1'  => 'All Pi1M Managers',
-                                        //'2'  => 'All Nusuara Staff',
-                                        //'3'  => 'Region',
-                                        '4' => 'Cluster',
-                                        '5' => 'Pi1M Site',
-                                        '6' => 'Manager',
-                                        //'7' => 'Staff',
-                                      ); 
-                                  }
-
-                                  else if($userLevel == 4 ){ 
-                                      //echo "Operation Manager";
-                                      $options = array(
-                                        ''  =>  'Select',
-                                        '1'  => 'All Pi1M Managers',
-                                        '2'  => 'All Nusuara Staff',
-                                        '3'  => 'Region',
-                                        '4' => 'Cluster',
-                                        '5' => 'Pi1M Site',
-                                        '6' => 'Manager',
-                                        //'7' => 'Staff',
-                                      ); 
-                                  }
-                              ?>
-
-                              <?php 
-
-                                echo form_dropdown('forpi1m', $options, '', 'id="forpi1m" name="forpi1m" class="form-control"');
-
-
-                                ?> 
-                                 
-                              </div>
-
-                                <div id="region_div" class='col-md-2' style="display:none;">
-                                  
-                                    <label>Region</label>
-                                    
-                                    <?php 
-                                      $options = array(
-                                          '1' => 'All',
-                                          '2' => 'Peninsular',
-                                          '3' => 'Sabah/Sarawak',
-                                        );
-                                      echo form_dropdown('region', $options, '', 'id="region" name="region" class="form-control"');
-
-
-                                      ?>                    
-                                </div> 
-
-                                <div id="cluster_div" class='col-md-2' style="display:none">
-                                  <div class='form-group'>
-                                    <label>Cluster</label>
-                                    
-                                    <?php 
-                                      echo form_dropdown('cluster', $cluster_list, '', 'id="cluster" name="cluster" class="form-control"');
-                                      ?>
-
-                                  </div>                            
-                                </div> 
-
-                                <div id="site_div" class='col-md-4' style="display:none">
-                                    
-                                      <label>Site</label>
-                                      
-                                      <?php 
-                                        $data = array(
-                                                  'name'        => 'sitename',
-                                                  'value'       => "",
-                                                  //'class'       => 'input-sm input-s datepicker-input form-control',
-                                                  'id'          => 'sitename',
-                                                  'size'        => 50,
-                                                  'class'       => 'form-control',
-
-                                          );
-                                        //$js = 'onclick="participants.searchByObj(this)"';
-                                        echo form_input($data);
-
-                                        $dataid = array(
-                                                  'name'        => 'siteid',
-                                                  'value'       => "",
-                                                  //'class'       => 'input-sm input-s datepicker-input form-control',
-                                                  'id'          => 'siteid',
-                                                  'type'        => 'hidden',
-
-                                          );                                
-                                        echo form_input($dataid);
-                                        ?>
-
-                                                               
-                                  </div>
-                                  <div id="member_div" class='col-md-4' style="display:none">
-                                      <label>Member</label>
-                                      
-                                      <?php 
-                                        $data = array(
-                                                  'name'        => 'membername',
-                                                  'value'       => "",
-                                                  //'class'       => 'input-sm input-s datepicker-input form-control',
-                                                  'id'          => 'membername',
-                                                  'size'        => 50,
-                                                  'class'       => 'form-control'
-
-                                          );
-                                        //$js = 'onclick="participants.searchByObj(this)"';
-                                        echo form_input($data);
-
-                                        $dataid = array(
-                                                  'name'        => 'memberid',
-                                                  'value'       => "",
-                                                  //'class'       => 'input-sm input-s datepicker-input form-control',
-                                                  'id'          => 'memberid',
-                                                  'type'        => 'hidden',
-
-                                          );                                
-                                        echo form_input($dataid);
-                                        ?>
-                           
-                                  </div> 
-                                  <div class="col-md-2" style="display:none">
-                              <label>From</label>
-                              <?php 
-                                $data = array(
-                                          'name'        => 'dateFrom',
-                                          'value'       => "".date('d-m-Y', strtotime(date('d-m-Y')))."",
-                                          // 'class'       => 'input-sm input-s datepicker-input form-control',
-                                          'class'       => 'datepicker-input form-control',
-                                          'id'          => 'dateFrom',
-                                          'data-date-format'    => 'dd-mm-yyyy'
-                                  );
-                                echo form_input($data);
-                                ?>    
-                              </div>
-                              <div class="col-md-2" style="display:none">
-                              <label>Until</label>
-                              <?php 
-                                $data = array(
-                                          'name'        => 'dateTo',
-                                          'value'       => "".date('d-m-Y', strtotime(date('d-m-Y')))."",
-                                          'class'       => 'idatepicker-input form-control',
-                                          'id'          => 'dateTo',
-                                          'data-date-format'    => 'dd-mm-yyyy'
-                                  );
-                                echo form_input($data);
-                                ?>
-                              </div>                                      
-                                                                                            
-                            </div>
-                            <div class='col-md-4 '>
-                                <!-- <div class='form-group'> -->
-
-                                  <input type="button" id="submitbtn" value="Show Report" class="btn btn-primary ">
-                                <!-- </div> -->
-                              </div> 
-                            </div>
-
-                  <?php //echo form_submit('mysubmit', 'Show Report', 'class="btn btn-primary"'); ?>
-                 
+<section id="content">
+          <section class="vbox">
+            <section class="scrollable padder">
+              <div class="m-b-md">
+                <h3 class="m-b-none"></h3>
               </div>
-              <div class="clearfix"></div>
-              <br>
-           <div class='form-group' class='col-sm-12'>
-			         <table id="tableResultReport" class="table table-striped m-b-none"></table>
-            </div>
-            </div>
+              
+                
+              <section class="panel panel-default">
+                <header class="panel-heading font-bold">                  
+                 Reporting
+                </header>
+                <div class="panel-body">
+                  
+                                <?php echo form_open('reporting/show_result', array('target'=>'_blank', 'id'=>'myform'))?>
+                                    <div class="modal-body form">
+                                      <div class='form-group' class='col-sm-12'>
+                                          <div class="col-md-2" style="display:none">  
+                                                        <label>Show Participant</label>
+                                                      <select id="participant" name="participant" class="form-control">
+                                                        <option value="">All</option>
+                                                        <option value="1">In Progress</option>
+                                                        <option value="2">Completed Package</option>
+                                                        <!-- <option value="4">Punch Anomaly</option>                               -->
 
-</body>
-</html>
+                                                        <!-- <option value="3">Insufficient Hours</option>
+                                                        <option value="4">Both Late/Early and Insufficient Hours</option>
+                                                        <option value="5">Punch Anomaly</option>
+                                                        <option value="6">No Attendance Problem</option> -->
+                                                      </select>
+                                          </div>
+                                          <div class="col-md-2">  
+                                                        <label>With Test Result</label>
+                                                      <select id="testresult" name="testresult" class="form-control">
+                                                        <option value="">Any</option>
+                                                        <option value="1">Passed</option>
+                                                        <option value="2">Failed</option>
+                                                        <!-- <option value="4">Punch Anomaly</option>                               -->
 
+                                                        <!-- <option value="3">Insufficient Hours</option>
+                                                        <option value="4">Both Late/Early and Insufficient Hours</option>
+                                                        <option value="5">Punch Anomaly</option>
+                                                        <option value="6">No Attendance Problem</option> -->
+                                                      </select>
+                                          </div> 
+                                          <div class="col-md-2">  
+                                                        <label>With Payment Status</label>
+                                                      <select id="payment" name="payment" class="form-control">
+                                                        <option value="">Any</option>
+                                                        <option value="1">Paid</option>
+                                                        <option value="2">Unpaid</option>
+                                                        <!-- <option value="4">Punch Anomaly</option>                               -->
+
+                                                        <!-- <option value="3">Insufficient Hours</option>
+                                                        <option value="4">Both Late/Early and Insufficient Hours</option>
+                                                        <option value="5">Punch Anomaly</option>
+                                                        <option value="6">No Attendance Problem</option> -->
+                                                      </select>
+                                          </div>
+                                          <div class="col-md-2">  
+                                                        <label>For Modules/Packages</label>
+                                                      <select id="modulepackage" name="modulepackage" class="form-control">
+                                                        <option value="">All Modules/Packages</option>
+                                                        <option value="1">Package</option>
+                                                        <option value="2">Module</option>
+                                                        <!-- <option value="4">Punch Anomaly</option>                               -->
+
+                                                        <!-- <option value="3">Insufficient Hours</option>
+                                                        <option value="4">Both Late/Early and Insufficient Hours</option>
+                                                        <option value="5">Punch Anomaly</option>
+                                                        <option value="6">No Attendance Problem</option> -->
+                                                      </select>
+                                          </div>
+                                          <div id="package_div" class='col-md-2' style="display:none;">
+                                            
+                                              <label>Package</label>
+                                              
+                                              <?php 
+                                                //$package_list = '';
+                                                echo form_dropdown('package', $package_list, '', 'id="package" name="package" class="form-control"');
+                                                ?>                   
+                                          </div>
+                                          <div id="module_div" class='col-md-4' style="display:none">
+                                            
+                                              <label>Module</label>
+                                              
+                                              <?php 
+                                                $data = array(
+                                                          'name'        => 'modulename',
+                                                          'value'       => "",
+                                                          //'class'       => 'input-sm input-s datepicker-input form-control',
+                                                          'id'          => 'modulename',
+                                                          'size'        => 50,
+                                                          'class'       => 'form-control',
+
+                                                  );
+                                                //$js = 'onclick="participants.searchByObj(this)"';
+                                                echo form_input($data);
+
+                                                $dataid = array(
+                                                          'name'        => 'moduleid',
+                                                          'value'       => "",
+                                                          //'class'       => 'input-sm input-s datepicker-input form-control',
+                                                          'id'          => 'moduleid',
+                                                          'type'        => 'hidden',
+
+                                                  );                                
+                                                echo form_input($dataid);
+                                                ?>
+
+                                                                       
+                                          </div>                                       
+                                        </div>
+                                                      
+                                        <div class='form-group' class='col-sm-12'>
+                                          <br>
+                                          <div class="clearfix"></div>                    
+                                          <div class="col-md-2">
+                                                        <label>For</label>
+
+                                                        <?php if($userLevel==99){ 
+                                                                //echo "Administration Mode";
+                                                                $options = array(
+                                                                  ''  =>  'Select',
+                                                                  '3'  => 'Region',
+                                                                  '4' => 'Cluster',
+                                                                  '5' => 'Pi1M Site',
+                                                                  '6' => 'Member',
+                                                                  //'7' => 'Staff',
+                                                                );
+                                                              }
+
+                                                          else if($userLevel == 3 ){ 
+                                                              //echo "Cluster Lead";
+                                                              $options = array(
+                                                                ''  =>  'Select',
+                                                                '1'  => 'All Pi1M Managers',
+                                                                //'2'  => 'All Nusuara Staff',
+                                                                //'3'  => 'Region',
+                                                                '4' => 'Cluster',
+                                                                '5' => 'Pi1M Site',
+                                                                '6' => 'Manager',
+                                                                //'7' => 'Staff',
+                                                              ); 
+                                                          }
+
+                                                          else if($userLevel == 4 ){ 
+                                                              //echo "Operation Manager";
+                                                              $options = array(
+                                                                ''  =>  'Select',
+                                                                '1'  => 'All Pi1M Managers',
+                                                                '2'  => 'All Nusuara Staff',
+                                                                '3'  => 'Region',
+                                                                '4' => 'Cluster',
+                                                                '5' => 'Pi1M Site',
+                                                                '6' => 'Manager',
+                                                                //'7' => 'Staff',
+                                                              ); 
+                                                          }
+                                                      ?>
+
+                                                      <?php 
+
+                                                        echo form_dropdown('forpi1m', $options, '', 'id="forpi1m" name="forpi1m" class="form-control"');
+
+
+                                                        ?> 
+                                                         
+                                                      </div>
+
+                                                        <div id="region_div" class='col-md-2' style="display:none;">
+                                                          
+                                                            <label>Region</label>
+                                                            
+                                                            <?php 
+                                                              $options = array(
+                                                                  '1' => 'All',
+                                                                  '2' => 'Peninsular',
+                                                                  '3' => 'Sabah/Sarawak',
+                                                                );
+                                                              echo form_dropdown('region', $options, '', 'id="region" name="region" class="form-control"');
+
+
+                                                              ?>                    
+                                                        </div> 
+
+                                                        <div id="cluster_div" class='col-md-2' style="display:none">
+                                                          <div class='form-group'>
+                                                            <label>Cluster</label>
+                                                            
+                                                            <?php 
+                                                              echo form_dropdown('cluster', $cluster_list, '', 'id="cluster" name="cluster" class="form-control"');
+                                                              ?>
+
+                                                          </div>                            
+                                                        </div> 
+
+                                                        <div id="site_div" class='col-md-4' style="display:none">
+                                                            
+                                                              <label>Site</label>
+                                                              
+                                                              <?php 
+                                                                $data = array(
+                                                                          'name'        => 'sitename',
+                                                                          'value'       => "",
+                                                                          //'class'       => 'input-sm input-s datepicker-input form-control',
+                                                                          'id'          => 'sitename',
+                                                                          'size'        => 50,
+                                                                          'class'       => 'form-control',
+
+                                                                  );
+                                                                //$js = 'onclick="participants.searchByObj(this)"';
+                                                                echo form_input($data);
+
+                                                                $dataid = array(
+                                                                          'name'        => 'siteid',
+                                                                          'value'       => "",
+                                                                          //'class'       => 'input-sm input-s datepicker-input form-control',
+                                                                          'id'          => 'siteid',
+                                                                          'type'        => 'hidden',
+
+                                                                  );                                
+                                                                echo form_input($dataid);
+                                                                ?>
+
+                                                                                       
+                                                          </div>
+                                                          <div id="member_div" class='col-md-4' style="display:none">
+                                                              <label>Member</label>
+                                                              
+                                                              <?php 
+                                                                $data = array(
+                                                                          'name'        => 'membername',
+                                                                          'value'       => "",
+                                                                          //'class'       => 'input-sm input-s datepicker-input form-control',
+                                                                          'id'          => 'membername',
+                                                                          'size'        => 50,
+                                                                          'class'       => 'form-control'
+
+                                                                  );
+                                                                //$js = 'onclick="participants.searchByObj(this)"';
+                                                                echo form_input($data);
+
+                                                                $dataid = array(
+                                                                          'name'        => 'memberid',
+                                                                          'value'       => "",
+                                                                          //'class'       => 'input-sm input-s datepicker-input form-control',
+                                                                          'id'          => 'memberid',
+                                                                          'type'        => 'hidden',
+
+                                                                  );                                
+                                                                echo form_input($dataid);
+                                                                ?>
+                                                   
+                                                          </div> 
+                                                          <div class="col-md-2" style="display:none">
+                                                      <label>From</label>
+                                                      <?php 
+                                                        $data = array(
+                                                                  'name'        => 'dateFrom',
+                                                                  'value'       => "".date('d-m-Y', strtotime(date('d-m-Y')))."",
+                                                                  // 'class'       => 'input-sm input-s datepicker-input form-control',
+                                                                  'class'       => 'datepicker-input form-control',
+                                                                  'id'          => 'dateFrom',
+                                                                  'data-date-format'    => 'dd-mm-yyyy'
+                                                          );
+                                                        echo form_input($data);
+                                                        ?>    
+                                                      </div>
+                                                      <div class="col-md-2" style="display:none">
+                                                      <label>Until</label>
+                                                      <?php 
+                                                        $data = array(
+                                                                  'name'        => 'dateTo',
+                                                                  'value'       => "".date('d-m-Y', strtotime(date('d-m-Y')))."",
+                                                                  'class'       => 'idatepicker-input form-control',
+                                                                  'id'          => 'dateTo',
+                                                                  'data-date-format'    => 'dd-mm-yyyy'
+                                                          );
+                                                        echo form_input($data);
+                                                        ?>
+                                                      </div>                                      
+                                                                                                                    
+                                                    </div>
+                                                    <div class='col-md-4 '>
+                                                        <!-- <div class='form-group'> -->
+
+                                                          <input type="button" id="submitbtn" value="Show Report" class="btn btn-primary ">
+                                                        <!-- </div> -->
+                                                      </div> 
+                                                    </div>
+
+                                          <?php //echo form_submit('mysubmit', 'Show Report', 'class="btn btn-primary"'); ?>
+                                         
+                                      </div>
+                                      <div class="clearfix"></div>
+                                      <br>
+                                   <div class='form-group' class='col-sm-12'>
+                                       <table id="tableResultReport" class="table table-striped m-b-none"></table>
+                                    </div>
+                                    </div>
+
+                </div>
+              </section>
+</section>  
