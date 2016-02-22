@@ -38,7 +38,7 @@ public function index()
 		
 			if (!isset($_SESSION['q_shuffle'])) 
 			{
-				$limit= 20;
+				$limit= 5;
 				$this->db->select('q_id');
 				$query = $this->db->get_where('lms_questions_bank', array('id' => $id),$limit);
 				$result = $query->result();
