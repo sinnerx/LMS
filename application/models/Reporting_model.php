@@ -247,10 +247,13 @@ public function get_list_site($q){
       }
 
       if($getdata['payment']){
-          if($getdata['payment'] == 1)
-            $sqlwhere .=" AND BTU.billingTransactionUserID <> '' ";
+          if($getdata['payment'] == 1){
+              //$sqlwhere .=" AND BTU.billingTransactionUserID <> '' ";
+              $sqlwhere .= "";
+          }
+            
           else if ($getdata['payment'] == 2)
-            $sqlwhere .=" AND BTU.billingTransactionUserID = '' ";
+            $sqlwhere .=" AND BTU.billingTransactionUserID is NULL ";
       }
 
       if($getdata['package']){
@@ -318,31 +321,33 @@ public function get_list_site($q){
 
             LEFT JOIN lms_result R ON R.userid = user.userid AND R.moduleid = M.id  AND R.status = 1
             ' . $sqlwhere . '
-            )
-            UNION 
-            (SELECT user.userid, userprofilefullname as username, S.sitename as Pi1M, C.clustername as Cluster, T.trainingid, M.name as ModuleName, P.name as PackageName, BTU.billingTransactionUserID, R.status
-            FROM user
-            JOIN site_member SM ON sm.userId = user.userid 
-            JOIN site S ON S.siteid = SM.siteid
-            JOIN cluster_site CS ON cs.siteID = sm.siteid
-            JOIN cluster C ON C.clusterID = CS.clusterid
-            JOIN user_Profile up ON up.userID = user.userID
-            JOIN activity_user au on au.userid = user.userid
-            JOIN training T ON T.activityID = au.activityID
-            JOIN training_lms TL ON TL.trainingID = T.trainingID
-
-            LEFT OUTER JOIN lms_module M ON M.id = TL.packageModuleID
-            LEFT OUTER JOIN lms_package_Module  LP ON M.id = LP.moduleid
-            LEFT OUTER JOIN lms_package P ON P.packageID = LP.packageid
-
-            RIGHT OUTER JOIN billing_item BI ON BI.`billingItemID` = P.billing_item_id
-            RIGHT OUTER JOIN billing_transaction_item BTI ON BTI.billingitemid = BI.billingitemid
-            RIGHT OUTER JOIN billing_transaction BT ON BT.billingTransactionID = BTI.billingTransactionID
-            RIGHT OUTER JOIN billing_transaction_user BTU ON BTU.billingTransactionID = BT.billingTransactionID AND BTU.billingTransactionUser = user.userid
-
-            JOIN lms_result R ON R.userid = user.userid AND R.moduleid = M.id AND R.status = 1
-            ' . $sqlwhere . '
             )';
+
+
+            // UNION 
+            // (SELECT user.userid, userprofilefullname as username, S.sitename as Pi1M, C.clustername as Cluster, T.trainingid, M.name as ModuleName, P.name as PackageName, BTU.billingTransactionUserID, R.status
+            // FROM user
+            // JOIN site_member SM ON sm.userId = user.userid 
+            // JOIN site S ON S.siteid = SM.siteid
+            // JOIN cluster_site CS ON cs.siteID = sm.siteid
+            // JOIN cluster C ON C.clusterID = CS.clusterid
+            // JOIN user_Profile up ON up.userID = user.userID
+            // JOIN activity_user au on au.userid = user.userid
+            // JOIN training T ON T.activityID = au.activityID
+            // JOIN training_lms TL ON TL.trainingID = T.trainingID
+
+            // LEFT OUTER JOIN lms_module M ON M.id = TL.packageModuleID
+            // LEFT OUTER JOIN lms_package_Module  LP ON M.id = LP.moduleid
+            // LEFT OUTER JOIN lms_package P ON P.packageID = LP.packageid
+
+            // RIGHT OUTER JOIN billing_item BI ON BI.`billingItemID` = P.billing_item_id
+            // RIGHT OUTER JOIN billing_transaction_item BTI ON BTI.billingitemid = BI.billingitemid
+            // RIGHT OUTER JOIN billing_transaction BT ON BT.billingTransactionID = BTI.billingTransactionID
+            // RIGHT OUTER JOIN billing_transaction_user BTU ON BTU.billingTransactionID = BT.billingTransactionID AND BTU.billingTransactionUser = user.userid
+
+            // JOIN lms_result R ON R.userid = user.userid AND R.moduleid = M.id AND R.status = 1
+            // ' . $sqlwhere . '
+            // )';
 
       //print_r($sql);
       //die;
