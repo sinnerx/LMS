@@ -1,9 +1,4 @@
-<?php
-unset($_SESSION["question_key"]);
-                  unset($_SESSION["q_shuffle"]);
 
-                  unset($_SESSION["sessionid"]);
-                  ?>
             <section class="panel panel-default">
             <header class="panel-heading font-bold">                  
                   Pi1M Online Examination Result      
@@ -46,7 +41,28 @@ unset($_SESSION["question_key"]);
 
             <div class="doc-buttons">
             <center><input type="submit" class="btn btn-s-md btn-info" value="Back"></center></div>
-       
+
+ <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/timer/compiled/jquery.cookie.js"></script>  
+ <script>
+
+//  $(function(){
+//       resettimer() {
+//           $.removeCookie('endDate');
+//        }
+//        resettimer();
+// });
+ $( document ).ready(function() {
+    $.removeCookie('endDate');
+});
+  </script>     
 </html>
 </div>
 
+<?php
+unset($_SESSION['packageid']);
+unset($_SESSION['id']);
+unset($_SESSION['sessionid']); 
+unset($_SESSION['pop']); 
+
+?>

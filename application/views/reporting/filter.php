@@ -171,7 +171,7 @@ $('#dateFrom').datepicker({ dateFormat: 'dd-mm-yy' });
                         <section class="w-f scrollable">
               <div class=slim-scroll data-height=auto data-disable-fade-out=true data-distance=0 data-size=10px data-railOpacity=0.2>
                 <div class="clearfix wrapper dk nav-user hidden-xs">
-        <div class="dropdown">
+        <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             <span class="thumb avatar pull-left m-r">                        
               <img src="<?php echo base_url();?>images/a0.png" class="dker">
@@ -207,7 +207,7 @@ $('#dateFrom').datepicker({ dateFormat: 'dd-mm-yy' });
               <a href="../dashboard/logout">Logout</a>
             </li>
           </ul>
-        </div>
+        </li>
       </div>                
                 <!-- nav -->                 
                 <nav class="nav-primary hidden-xs">

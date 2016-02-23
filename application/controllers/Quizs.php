@@ -7,12 +7,14 @@ public function __construct()
  $this->load->helper('form');
  $this->load->helper('url');
  $this->load->model('template_model');
+
 }
 
 public function index()
 {
  $this->load->database();
  $data['id'] = $this->input->post('id'); 
+ $data['packageid'] = $this->input->post('packageid');
  $userid 	 = $this->nativesession->get( 'userid' );
  $userLevel  = $this->nativesession->get( 'userLevel' );
 
@@ -26,6 +28,10 @@ public function index()
 	{
   		$_SESSION['id'] 		= $data['id'];
   	}
+  	if (!isset($_SESSION['packageid'])) 
+	{
+  		$_SESSION['packageid'] 		= $data['packageid'];
+  	}
 
 		$data = array(
 		'userid' => $userid,
@@ -35,10 +41,11 @@ public function index()
 
 		$this->load->helper(array('date','url'));
 		$id = $this->input->post('id');
+		$packageid = $this->input->post('packageid');
 		
 			if (!isset($_SESSION['q_shuffle'])) 
 			{
-				$limit= 5;
+				$limit= 10;
 				$this->db->select('q_id');
 				$query = $this->db->get_where('lms_questions_bank', array('id' => $id),$limit);
 				$result = $query->result();
@@ -54,13 +61,16 @@ public function index()
 				$this->show($total_question);
 }
 
+
+
 public function show($total_question)
 {
+if (isset($_SESSION['id'])){
  $this->load->library( 'nativesession' );
  $this->load->helper('url');
  $userid = $this->nativesession->get( 'userid' );
  $userLevel = $this->nativesession->get( 'userLevel' );
-  $sessionid=$_SESSION['sessionid'];
+ $sessionid=$_SESSION['sessionid'];
  $id=$_SESSION['id'];
 			 
  $data = array(
@@ -74,130 +84,78 @@ $data['nav_title'] 		= 'Quiz';
 $data['nav_subtitle'] 	= 'Quiz List';
 $data['home'] 			= 'Home';
 
-		$this->load->database();
-		$this->load->helper(array('date','url'));
-		$this->load->view('page_view2',$data);
+$this->load->database();
+$this->load->helper(array('date','url'));
+$this->load->view('page_view2',$data);
 
-			if (!isset($_SESSION['question_key'])) 
-			{
-				$_SESSION["question_key"] = '0';
-
-			}
-
-			foreach ($_SESSION["q_shuffle"] as $key => $value) 
-			{
-
-				if ($key == $_SESSION["question_key"]) 
-				{
-					$next_question_id = $key;
-					$current_question_id = $value->q_id;
-				}
-
-			}
-
-			$this->db->select('*');
-			$q_details = $this->db->get_where('lms_questions_bank', array('q_id'=>$current_question_id,'id' => $id));
-
-			$q = $q_details->result();
-
-			foreach ($q as $key => $value) 
-			{
-				$q_text 			= $value->q_text;
-				$correct 			= $value->correct;
-				$this_q_id 			= $value->id;
-			}
-				 
 			
-					
-			$a = $this->db->
-						where(array('q_id'=>$current_question_id))->
+			$limit= 10;
+			$this->db->select('*');
+			$q_details = $this->db->get_where('lms_questions_bank', array('id' => $id),$limit);
+			//return $q_details->row();
+			$q = $q_details->result();
+			shuffle($q);
+			$totaly=count($q);
+			//print_r($q);
+
+			 foreach ($q as $key => $value) 
+			 {
+			 	$q_id               = $value->q_id;
+			 	
+				$q_text 			= $value->q_text;
+				$this_q_id 			= $value->id;
+			
+				$a = $this->db->
+						where(array('q_id'=>$q_id))->
 						order_by('q_id','asc')->
 						get('lms_answer')->
-						result_array();
+						result();
 
+				foreach ($a as $key => $value) 
+				 {
+				 	 $value->q_id;
+				 }
+			}
+				 $c = $this->db->
+						// where(array('q_id'=>$q_id))->
+						order_by('q_id','asc')->
+						get('lms_answer')->
+						result();
+			
+			$this->db->select('*');
+			$query = $this->db->get_where('lms_module', array('id' => $id));
+			$resultk = $query->row();
 
+		 	$data = array(
+			    'q' => $q,
+			    'totaly' => $totaly,
+			    'q_text'	=> $q_text,
+			    'sessionid' => $sessionid,
+			    'a'	=> $c,
+			    'id'   		=> $this_q_id,
+			    'modulename'   		=> $resultk
+			      
+			    );
+		 	 //print_r($data);
 			// Get the ids of the previous
 			// and next questions
 
-			$_SESSION["question_key"] = $next_question_id + 1;
+			//$_SESSION["question_key"] = $next_question_id + 1;
 
-			$prev = 0;
-			 $next = $_SESSION["question_key"];  
-
-			$this->load->view('quiz/index',array(
-				'q_text'	=> $q_text,
-				'correct'   => $correct,
-				'id'   		=> $this_q_id,
-				'sessionid' => $sessionid,
-				'answers'	=> $a,
-				'previous'	=> $prev,
-				'next'		=> $next,
-				'q_id'		=> $current_question_id,
-				'total_question' => $total_question
-			));
+			//$prev = 0;
+			// $next = $_SESSION["question_key"];  
+			$this->load->view('quiz/index',$data);
+		}else{
+			redirect ( base_url().'login');
+		}
 
 	}
 
+
+
 public	function quiz_data() 
 	  {
-	  	if (!empty($_POST['submit'])) 
-	  	{
-				  // submit button pressed
-			 
-			$this->load->helper('url');
-			$this->load->database();
-			$a_id= $this->input->post('a_id');
-			$q_id= $this->input->post('q_id');
-			$sessionid= $this->input->post('sessionid');
-			$id= $this->input->post('id');
-
-
-				$correct = $this->db->select('correct')->
-				where(array('q_id'=>$q_id))->
-				get_where('lms_questions_bank')->
-				row();
-				$correct->correct;
-				$optionChoose=$a_id;
-				$correctOption = $correct->correct;
-				//print_r($a_id);
-				//print_r($correctOption);
-			    $marks=0;
-			    if($optionChoose==$correctOption)
-			    $marks=1;
-			    else 
-			    $marks=0;	
-					
-
-				 $data = array(
-			        'marks' => $marks,
-			    );
-
-			    $data = array(
-			    'q_id' => $this->input->post('q_id'),
-			    'a_id' => $this->input->post('a_id'),
-			    'sessionid' =>$this->input->post('sessionid'),
-			    'marks' => $marks,
-			    'userid'=> $this->input->post('userid'),
-			    'moduleid'=> $this->input->post('id'),
-			     );
-
-					  	$this->db->insert('lms_question_user',$data);			
-					    $data = array(
-					    'q_id' => $this->input->post('q_id'),
-					    'a_id' => $this->input->post('a_id'),
-					     );
-					   $search_query = $this->input->post('next');
-					   $this->db->insert('lms_user_answer',$data);
-					   $this->load->helper('url');
-
-
-				   redirect(base_url().'quizs','location', 301);
-				   //redirect(base_url().'quizs/show/'.$search_query,'location', 301);
-		} 
-
-		else if (!empty($_POST['submiting'])) 
-		{	
-			$data['sessionid'] = $this->input->post('sessionid'); 
+	
 			$sessionid= $this->input->post('sessionid');
 			$userid= $this->input->post('userid');
 			$id= $this->input->post('id');
@@ -220,46 +178,55 @@ public	function quiz_data()
 
 			$a_id= $this->input->post('a_id');
 			$q_id= $this->input->post('q_id');
+			//print_r($q_id);
 			$sessionid= $this->input->post('sessionid');
 			$id= $this->input->post('id');
 
 
-				$correct = $this->db->select('correct')->
-				where(array('q_id'=>$q_id))->
-				get_where('lms_questions_bank')->
-				row();
-				$correct->correct;
-				$optionChoose=$a_id;
-				$correctOption = $correct->correct;
-				//print_r($a_id);
-				//print_r($correctOption);
-			    $marks=0;
-			    if($optionChoose==$correctOption)
-			    $marks=1;
-			    else 
-			    $marks=0;	
+
 					
 
-					$data = array(
-				        'marks' => $marks,
-				    );
+					
+			foreach ($q_id as $key => $value) {
 
-				    $data = array(
-				    'q_id' => $this->input->post('q_id'),
-				    'a_id' => $this->input->post('a_id'),
+				foreach ($a_id as $akey => $avalue) {
+
+					if ($akey == $key) {
+
+						$correct = $this->db->select('correct')->
+						where(array('q_id'=>$value))->
+						get_where('lms_questions_bank');
+						$correctOption = $correct->result();
+
+						foreach ($correctOption as $bkey => $bvalue) {
+							//echo $bvalue->correct;
+							$marks=0;
+							if ($bvalue->correct == $avalue)
+							{
+								 $marks=1;
+							}
+							else 
+							{
+								 $marks=0;
+							}
+					$data = array(
+				    'q_id' => $value,
+				    'a_id' => $avalue,
 				    'sessionid' =>$this->input->post('sessionid'),
 				    'marks' => $marks,
 				    'userid'=> $this->input->post('userid'),
-				    'moduleid'=> $this->input->post('id'),
+				    'moduleid'=> $this->input->post('id')
 				     );
+					//print_r($data);
+					$this->db->insert('lms_question_user',$data);
+				
+						}
+						
+					}
 
-				  	$this->db->insert('lms_question_user',$data);			
-				    $data = array(
-				    'q_id' => $this->input->post('q_id'),
-				    'a_id' => $this->input->post('a_id'),
-				     );
-				   $search_query = $this->input->post('next');
-				   $this->db->insert('lms_user_answer',$data);
+	 		  }
+			}
+				
 				   $this->load->database();
 				   $this->load->helper(array('date','url'));
 				   $this->load->view('page_view2',$data);
@@ -271,7 +238,7 @@ public	function quiz_data()
 					  $query = $this->db->get('lms_question_user');
 					  $count = $query->num_rows();
 					  
-						$m= ($count/5)*100;
+						$m= ($count/10)*100;
 
 						if ($m  >= 50 || $m==50){
 							$status='1';
@@ -303,9 +270,30 @@ public	function quiz_data()
 					
 		}
 
-				
+		public	function quiz_result($id) 
+	  {
 
-}
+
+		
+		   $this->load->database();
+		   $this->load->helper(array('date','url'));
+		   $this->load->view('page_view2');
+						
+			$this->db->select('*');
+			$query = $this->db->get_where('lms_result', array('sessionid' => $id));
+			$result = $query->result();
+			//print_r($query->result());
+
+			foreach ($result as $key => $value) {
+				$data['moduleid'] = $value->moduleid;
+				$data['result'] = $value->result;
+				$data['sessionid'] = $value->sessionid;
+			}
+
+			$this->load->view('quiz/result2', $data);
+					
+		}
+
 
 public function login() 
 {
@@ -362,22 +350,7 @@ public function verifylogin()
 	   }
 	}
 
-	// function getRandomQuestion()
-	// {
-	//     $sql = "SELECT * FROM lms_questions_bank ORDER BY RAND() LIMIT 1 )";
-	//     $query = $this->db->query($sql);
-	//     $result = $query->result_array();
-
-	//     $count = count($result);
-
-	//     if (empty($count) ||$count > 1) {
-	//         echo "Inavliad Question";
-	//     }
-	//     else{
-	//         return $result;
-	//     }
-	// }
-
+	
 
 public function enter()
 {
@@ -393,13 +366,39 @@ $data = array(
     'message' => 'My Message'
 );
 
-$data['page_title'] 	= 'Monte Carlo';
-$data['nav_title'] 		= 'Question';
-$data['nav_subtitle']	= 'Question Details';
-$data['home'] 			= 'Home';
 
+if (isset($_SESSION['pop'])){
 $data['boss'] = $_SESSION['pop'];
-$say = $data['boss']['moduleid']; 
+$say = $data['boss']['moduleid'];
+}
+else {
+	$say='';
+}
+//$says = $data['boss']['packageid']; 
+$this->db->select('*');
+$query = $this->db->get_where('lms_module', array('id' => $say));
+$resultk = $query->row();
+
+if (count($resultk) < 1) {
+$data = array(
+    'userid' => $userid,
+    'userLevel' => $userLevel,
+    'message' => 'My Message',
+    'modulename' => 'No Module Selected from Site'
+    );
+}
+else{
+
+ //print_r($resultk->name);
+
+$data = array(
+    'userid' => $userid,
+    'userLevel' => $userLevel,
+    'message' => 'My Message',
+    'modulename' => $resultk->name
+);
+}
+
 
 $this->db->select('q_id');
 $query = $this->db->get_where('lms_questions_bank', array('id' => $say));

@@ -15,7 +15,7 @@ Class Questions_data extends CI_Model
       
         if (strpos($key,'a_text') !== false) {
 
-           $row_count = count($correct);
+          // $row_count = count($correct);
 
             //for ($i=0; $i < $row_count; $i++) { 
             // if ($correct == '1'){
