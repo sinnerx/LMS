@@ -301,17 +301,17 @@ public function get_list_site($q){
       $sql = '
             (SELECT user.userid, userprofilefullname as username, S.sitename as Pi1M, C.clustername as Cluster, T.trainingid, M.name as ModuleName, P.name as PackageName, BTU.billingTransactionUserID, R.status
             FROM user
-            JOIN site_member SM ON sm.userId = user.userid 
+            JOIN site_member SM ON SM.userID = user.userid 
             JOIN site S ON S.siteid = SM.siteid
-            JOIN cluster_site CS ON cs.siteID = sm.siteid
+            JOIN cluster_site CS ON CS.siteID = SM.siteid
             JOIN cluster C ON C.clusterID = CS.clusterid
-            JOIN user_Profile up ON up.userID = user.userID
+            JOIN user_profile up ON up.userID = user.userID
             JOIN activity_user au on au.userid = user.userid
             JOIN training T ON T.activityID = au.activityID
             JOIN training_lms TL ON TL.trainingID = T.trainingID
 
             RIGHT OUTER JOIN lms_module M ON M.id = TL.packageModuleID
-            RIGHT OUTER JOIN lms_package_Module  LP ON M.id = LP.moduleid
+            RIGHT OUTER JOIN lms_package_module  LP ON M.id = LP.moduleid
             RIGHT OUTER JOIN lms_package P ON P.packageID = LP.packageid
 
             LEFT OUTER JOIN billing_item BI ON BI.`billingItemID` = P.billing_item_id
@@ -365,7 +365,11 @@ public function get_list_site($q){
 
       // Perform queries 
       $test = mysqli_query($con,$sql);
-
+      if ( false===$test ) {
+        printf("error: %s\n", mysqli_error($con));
+      }      
+      //print_r($test);
+      //die;
       while ($row = mysqli_fetch_array($test))
           {
             $data[] = $row;
@@ -377,6 +381,221 @@ public function get_list_site($q){
       //die;
 
       return $data;
-  }  
+  } 
+
+  public function get_list_member_passed($getdata){
+
+            // JOIN site_member SM ON SM.userID = user.userid 
+            // JOIN site S ON S.siteid = SM.siteid
+            // JOIN cluster_site CS ON CS.siteID = SM.siteid
+            // JOIN cluster C ON C.clusterID = CS.clusterid
+
+      $this->db->select('R.id,U.userid, userprofilefullname as username, S.sitename as sitename, C.clustername as Cluster, R.status, R.moduleid, R.packageid, R.datecreated, P.name as packagename, M.name as modulename, R.status ');
+        //);
+       // , P.name as packagename, M.name as modulename, R.status ');
+      $this->db->join('lms_result R', 'U.userID = R.userid', 'left outer');
+      $this->db->join('user_profile UP', 'UP.userID = U.userid');
+      $this->db->join('site_member SM', 'SM.userID = U.userid');
+      $this->db->join('site S', 'S.siteid = SM.siteid');
+      $this->db->join('cluster_site CS', 'CS.siteID = SM.siteid');
+      $this->db->join('cluster C', 'C.clusterID = CS.clusterid');
+
+       $this->db->join('lms_package P', 'P.packageid = R.packageid');
+      // $this->db->join('lms_package_module LP', 'LP.packageid = P.packageid', 'left outer');
+       $this->db->join('lms_module M', 'R.moduleid = M.id');
+      $this->db->where('R.status = 1');
+
+      if($getdata['package']){
+        $this->db->where('R.packageid', $getdata['package']);
+      }
+
+      if($getdata['cluster']){
+        $this->db->where('CS.clusterID', $getdata['cluster']);
+      }      
+
+      if($getdata['siteid']){
+        $this->db->where('CS.siteid', $getdata['siteid']);
+      }      
+
+      if($getdata['memberid']){
+        $this->db->where('SM.userid', $getdata['memberid']);
+      }
+
+        if ($getdata['region'] != ''){
+            $regionid = $getdata['region'];
+          if($regionid == 2){
+            $arrayCluster = array('5', '6');
+          }
+          else if ($regionid == 3){
+            $arrayCluster = array('1', '2', '3', '4');        
+          }
+          else
+            $arrayCluster = array('1', '2', '3', '4', '5', '6');  
+
+          //$this->db->join('cluster AS c', 'c.clusterID = att_attendancedetails.clusterID');
+          $this->db->where_in('CS.clusterID', $arrayCluster);
+        }
+
+        //print_r($arrayCluster);
+        //die;
+        $datefrom = date('Y-m-d', strtotime($getdata['dateFrom']));
+        $dateto   = date('Y-m-d', strtotime($getdata['dateTo']));
+
+        // $this->db->where('activityDateTime >=', $datefrom);
+        // $this->db->where('activityDateTime <=', $dateto);
+           $this->db->where('DATE(datecreated) BETWEEN "'. $datefrom . '" AND "'. $dateto .'"');      
+
+      $this->db->order_by('datecreated', 'asc');
+      $query =$this->db->get("user U");
+
+      //$query = $this->db->get()->result();
+      $result_lms = $query->result_array();
+      
+      //print_r($result_lms);
+      //die;
+      
+
+      //$this->db->join('lms_module M');
+        // $this->db->join('lms_result R', 'P.packageid = R.packageid');
+        // //$this->db->join('lms_result R', 'U.userID = R.userid', 'left outer');
+        // $this->db->join('lms_package P', 'P.packageid = R.packageid');        
+        // $this->db->group_by('R.packageid');        
+        // $result_package   = $this->db->get('lms_package P')->result_array();
+
+      // $result_module    = $this->db->get('lms_module M')->result_array();
+
+      //
+        //$this->db->join('lms_result R', 'U.userID = R.userid');
+        $this->db->join('lms_result R', 'U.userID = R.userid');
+        $this->db->join('user_profile UP', 'UP.userID = U.userid');
+        $this->db->join('site_member SM', 'SM.userID = U.userid');
+        $this->db->join('site S', 'S.siteid = SM.siteid');
+        $this->db->join('cluster_site CS', 'CS.siteID = SM.siteid');
+        $this->db->join('cluster C', 'C.clusterID = CS.clusterid');  
+
+        if($getdata['cluster']){
+          $this->db->where('CS.clusterID', $getdata['cluster']);
+        }      
+
+        if($getdata['siteid']){
+          $this->db->where('CS.siteid', $getdata['siteid']);
+        }      
+
+        if($getdata['memberid']){
+          $this->db->where('SM.userid', $getdata['memberid']);
+        }  
+
+        if ($getdata['region'] != ''){
+            $regionid = $getdata['region'];
+          if($regionid == 2){
+            $arrayCluster = array('5', '6');
+          }
+          else if ($regionid == 3){
+            $arrayCluster = array('1', '2', '3', '4');        
+          }
+          else
+            $arrayCluster = array('1', '2', '3', '4', '5', '6');  
+
+          //$this->db->join('cluster AS c', 'c.clusterID = att_attendancedetails.clusterID');
+          $this->db->where_in('CS.clusterID', $arrayCluster);
+        }
+
+        $this->db->group_by('R.userid');
+
+        $result_user      = $this->db->get('user U')->result_array();
+
+       //print_r($result_user);
+       //die;
+
+      $array_full = array();
+      $dateNew = array();
+      $x = 0;
+      foreach ($result_user as $keyUser) {
+        # code...
+        //$array_full[$x]["username"] = $keyUser["userProfileFullName"];
+        
+        $this->db->join('lms_package P', 'P.packageid = R.packageid');
+        $this->db->where('R.userid', $keyUser['userID']);
+
+        if($getdata['package']){
+          $this->db->where('R.packageid', $getdata['package']);
+        } 
+
+             
+
+        $this->db->group_by('R.packageid');
+        $result_package = $this->db->get('lms_result R')->result_array();
+
+        //print_r($result_package);
+        //die;
+        foreach ($result_package as $keyPackage) {
+          # code...
+            //print_r($keyPackage);
+            //die;
+            $this->db->select('*');
+            //$this->db->join('lms_package_module LP', 'LP.packageid = '. $keyPackage['packageid']);
+            //$this->db->join('lms_package P', 'LP.packageid = P.packageid');
+            //$this->db->where('LP.packageid', $keyPackage['packageid']);
+            $this->db->where('LP.packageid', $keyPackage['packageid']);
+            $resultFullModule = $this->db->get('lms_package_module LP');
+            $rowcountFullModule = $resultFullModule->num_rows();
+            $resultFullModule = $resultFullModule ->result_array();
+
+            
+            //print_r($this->db->last_query());
+            //print_r($resultFullModule);
+            //die;
+            $countingModule = 0;
+            $d=0;
+            foreach ($resultFullModule as $keyModule) {
+              # code...
+                
+
+                foreach ($result_lms as $keyResult) {
+                  # code...
+                    if ($keyResult['userid'] == $keyUser['userID'] && $keyResult['packageid'] == $keyPackage['packageid'] && $keyResult['moduleid'] == $keyModule['moduleid']){
+                        //print_r( $keyResult['id'] ." ". $keyResult['datecreated']. " ||" );
+                          $dateNew[$d] = $keyResult['datecreated'];
+                      // if ($keyResult['datecreated'] > $tempNewDate){
+                      //     $tempNewDate = $keyResult['datecreated'];
+                      // }//if date
+                      //$tempNewDate = $keyResult['datecreated'];
+                      $countingModule++;
+                      $d++;
+                    }//if
+                    
+                }//foreach resultlms
+
+                //print_r($dateNew);
+                //die;
+                $maxdate = max($dateNew);
+                
+
+                if ($countingModule == $rowcountFullModule){
+                      
+
+                      //print_r($maxdate);
+                      //unset($dateNew);
+                      //die;                  
+                    $array_full[$x]["username"]     = $keyUser["userProfileFullName"];
+                    $array_full[$x]["userIC"]       = $keyUser["userIC"];
+                    $array_full[$x]["userCluster"]  = $keyUser["clusterName"];
+                    $array_full[$x]["userSite"]     = $keyUser["siteName"];
+                    $array_full[$x]["package"]      = $keyPackage['name'];
+                    $array_full[$x]["date"]         = $maxdate;
+                }//if count
+
+
+            }//foreach full module  
+            $x++;          
+        }//foreach package
+        
+      }//foreach user
+        //print_r($array_full);
+        //die;
+
+      return $array_full;
+
+  } 
 }
 ?>

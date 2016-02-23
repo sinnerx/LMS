@@ -200,11 +200,13 @@ $('#dateFrom').datepicker({ dateFormat: 'dd-mm-yy' });
 //$('#tableResultReport').html('abc');
 $("#submitbtn").click(function(){
             console.log($("form").serialize());
-            console.log("<?php echo base_url() . 'reporting/result_list/?';?>" + $("form").serialize());
+            //console.log("<?php echo base_url() . 'reporting/result_list/?';?>" + $("form").serialize());
+            console.log("<?php echo base_url() . 'reporting/result_member_passed_list/?';?>" + $("form").serialize());
             $.ajax({
                 type: 'GET',
                 dataType: "json",
-                url: 'reporting/result_list',
+                //url: 'reporting/result_list',
+                url: 'reporting/result_member_passed_list',
                 data: $("form").serialize(),
                 success: function(data) {
                     //alert(data);
@@ -228,12 +230,12 @@ $("#submitbtn").click(function(){
                         //Set column definition initialisation properties.
                         "columns": [
                           {title : "Name" },
-                          {title : "Pi1M" },
+                          {title : "I/C" },
                           {title : "Cluster" },
-                          {title : "Module" },
+                          {title : "Pi1M" },
                           {title : "Package" },
-                          {title : "Paid Status" },
-                          {title : "Quiz Status" },
+                          //{title : "Module" },
+                          {title : "Date" },
                         ],
                         dom: 'Bfrtip',
                         buttons: [
@@ -290,7 +292,7 @@ $("#submitbtn").click(function(){
                                                         <option value="6">No Attendance Problem</option> -->
                                                       </select>
                                           </div>
-                                          <div class="col-md-2">  
+                                          <div class="col-md-2" style="display:none">  
                                                         <label>With Test Result</label>
                                                       <select id="testresult" name="testresult" class="form-control">
                                                         <option value="">Any</option>
@@ -304,7 +306,7 @@ $("#submitbtn").click(function(){
                                                         <option value="6">No Attendance Problem</option> -->
                                                       </select>
                                           </div> 
-                                          <div class="col-md-2">  
+                                          <div class="col-md-2" style="display:none">  
                                                         <label>With Payment Status</label>
                                                       <select id="payment" name="payment" class="form-control">
                                                         <option value="">Any</option>
@@ -514,7 +516,7 @@ $("#submitbtn").click(function(){
                                                                 ?>
                                                    
                                                           </div> 
-                                                          <div class="col-md-2" style="display:none">
+                                                          <div class="col-md-2" >
                                                       <label>From</label>
                                                       <?php 
                                                         $data = array(
@@ -528,7 +530,7 @@ $("#submitbtn").click(function(){
                                                         echo form_input($data);
                                                         ?>    
                                                       </div>
-                                                      <div class="col-md-2" style="display:none">
+                                                      <div class="col-md-2" >
                                                       <label>Until</label>
                                                       <?php 
                                                         $data = array(
