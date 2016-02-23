@@ -65,6 +65,7 @@ public function index()
 
 public function show($total_question)
 {
+if (isset($_SESSION['id'])){
  $this->load->library( 'nativesession' );
  $this->load->helper('url');
  $userid = $this->nativesession->get( 'userid' );
@@ -103,8 +104,7 @@ $this->load->view('page_view2',$data);
 			 	
 				$q_text 			= $value->q_text;
 				$this_q_id 			= $value->id;
-			// 	$correct 			= $value->correct;
-			// 	$this_q_id 			= $value->id;
+			
 				$a = $this->db->
 						where(array('q_id'=>$q_id))->
 						order_by('q_id','asc')->
@@ -121,15 +121,7 @@ $this->load->view('page_view2',$data);
 						order_by('q_id','asc')->
 						get('lms_answer')->
 						result();
-			//  }
-			 // $q_id = $current_question_id;
-			 // print_r($current_question_id);
-			// print_r($q_id);
-					
-			// $seconds=10;
-			// $spent= strtotime("::3");
-
-			// $secondss=($seconds) - ($spent);
+			
 			$this->db->select('*');
 			$query = $this->db->get_where('lms_module', array('id' => $id));
 			$resultk = $query->row();
@@ -141,8 +133,8 @@ $this->load->view('page_view2',$data);
 			    'sessionid' => $sessionid,
 			    'a'	=> $c,
 			    'id'   		=> $this_q_id,
-			    'modulename'   		=> $resultk,
-			    // 'seconds' => $secondss	   
+			    'modulename'   		=> $resultk
+			      
 			    );
 		 	 //print_r($data);
 			// Get the ids of the previous
@@ -153,7 +145,9 @@ $this->load->view('page_view2',$data);
 			//$prev = 0;
 			// $next = $_SESSION["question_key"];  
 			$this->load->view('quiz/index',$data);
-
+		}else{
+			redirect ( base_url().'login');
+		}
 
 	}
 
@@ -276,6 +270,31 @@ public	function quiz_data()
 					
 		}
 
+		public	function quiz_result($id) 
+	  {
+
+
+		
+		   $this->load->database();
+		   $this->load->helper(array('date','url'));
+		   $this->load->view('page_view2');
+						
+			$this->db->select('*');
+			$query = $this->db->get_where('lms_result', array('sessionid' => $id));
+			$result = $query->result();
+			//print_r($query->result());
+
+			foreach ($result as $key => $value) {
+				$data['moduleid'] = $value->moduleid;
+				$data['result'] = $value->result;
+				$data['sessionid'] = $value->sessionid;
+			}
+
+			$this->load->view('quiz/result2', $data);
+					
+		}
+
+
 public function login() 
 {
   $this->load->library('form_validation');
@@ -348,22 +367,37 @@ $data = array(
 );
 
 
-
+if (isset($_SESSION['pop'])){
 $data['boss'] = $_SESSION['pop'];
 $say = $data['boss']['moduleid'];
+}
+else {
+	$say='';
+}
 //$says = $data['boss']['packageid']; 
 $this->db->select('*');
 $query = $this->db->get_where('lms_module', array('id' => $say));
 $resultk = $query->row();
+
+if (count($resultk) < 1) {
+$data = array(
+    'userid' => $userid,
+    'userLevel' => $userLevel,
+    'message' => 'My Message',
+    'modulename' => 'No Module Selected from Site'
+    );
+}
+else{
+
  //print_r($resultk->name);
 
 $data = array(
     'userid' => $userid,
     'userLevel' => $userLevel,
     'message' => 'My Message',
-    'modulename' => $resultk
+    'modulename' => $resultk->name
 );
-
+}
 
 
 $this->db->select('q_id');

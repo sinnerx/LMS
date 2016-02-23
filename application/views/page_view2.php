@@ -95,7 +95,7 @@ if (!isset($_SESSION['userid'])) {
         <a class="btn btn-link visible-xs" data-toggle="class:nav-off-screen" data-target="#nav">
           <i class="fa fa-bars"></i>
         </a>
-        <a href="index.html" class="navbar-brand"><img src="<?php echo base_url(); ?>assets/images/logo.png" class="m-r-sm">Learning Management System</a>
+        <a href="#" class="navbar-brand"><img src="<?php echo base_url(); ?>assets/images/logo.png" class="m-r-sm">Learning Management System</a>
         <a class="btn btn-link visible-xs" data-toggle="dropdown" data-target=".user">
           <i class="fa fa-cog"></i>
         </a>

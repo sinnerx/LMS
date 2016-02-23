@@ -24,7 +24,7 @@
             <div class="form-group">
             <label class="col-sm-2 control-label">Module:</label>
             <div class="col-md-5">
-            <input type="text" name="id" class="form-control" value="<?php echo $id ?>" readonly>
+            <input type="text" name="id" class="form-control" value="<?php echo $moduleid ?>" readonly>
             </div>
             </div>
             
@@ -35,7 +35,7 @@
             <div class="form-group">
             <label class="col-sm-2 control-label">Your Score:</label>
             <div class="col-md-5">
-            <input type="text" name="ids" class="form-control" value="<?php echo $m ; ?>%"disabled>
+            <input type="text" name="ids" class="form-control" value="<?php echo $result; ?>%"disabled>
             </div>
             </div>
 
@@ -59,10 +59,3 @@
 </html>
 </div>
 
-<?php
-unset($_SESSION['packageid']);
-unset($_SESSION['id']);
-unset($_SESSION['sessionid']); 
-unset($_SESSION['pop']); 
-
-?>

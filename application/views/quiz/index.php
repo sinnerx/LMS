@@ -37,7 +37,7 @@ return false;
                     //store end date If it's not yet in cookies
                     if(!$.cookie('endDate')){
                         // end date = current date + 1 minutes
-                        var endDate = Date.now() + 1*60*1000; 
+                        var endDate = Date.now() + 1*30*1000; 
 
                         // store end date in cookies
                         $.cookie('endDate', Math.round(endDate / 1000)); 
@@ -47,7 +47,8 @@ return false;
                 //$('.message').html('The clock has stopped!');
                    alert('Time Over');
                   $.removeCookie('endDate');
-
+                 // document.getElementById('forma').submit();
+                   proses();
                 
               },
              }
@@ -65,10 +66,28 @@ return false;
     // }
 
     //reset button
-    // $('#reset').click(function(){
-    //     $.removeCookie('endDate'); //removing end date from cookies
-    //     //countDown(); //launch countdown function
-    // });
+    $('#reset').click(function(){
+        $.removeCookie('endDate'); //removing end date from cookies
+        //countDown(); //launch countdown function
+    });
+
+
+    var sesion=$("input[name=sessionid]").val();
+
+// alert("<?php echo base_url() ?>quizs/quiz_data/"+sesion);
+    function proses(){
+    $.ajax({
+            url: '<?php echo base_url() ?>quizs/quiz_data',
+            type: 'post',
+            // dataType: 'json',
+            data: $("#forma").serialize(),
+            success: function(data) {
+                //alert('Hebakkk');
+                 window.location.href = "<?php echo base_url() ?>quizs/quiz_result/"+sesion;
+            }
+    });
+
+    }
 
     //Lanching count down on ready
     // countDown();
@@ -94,10 +113,10 @@ return false;
   <script type="text/javascript">window.onload = CreateTimer("timer", <?php echo $seconds;?>);</script>
   </div> -->
             <br/>
-            <div style="float:left; ">
-             <div class="clock" style="margin:0.5em;"></div>
+             <div class="clock" style="margin:1em;"></div>
             <div class="message"></div>
-           </div>
+            <button id="reset">reset</button>
+           
 
             <form method="POST" name="form-horizontal" class="form-horizontal" id="forma" onsubmit="return checkconnection()"  action="<?php echo base_url() ?>quizs/quiz_data"  >
             

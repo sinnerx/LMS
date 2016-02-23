@@ -11,6 +11,7 @@ function index()
 {
 if($this->session->userdata('logged_in'))
    {
+    
      $session_data = $this->session->userdata('logged_in');
      $data['userEmail'] = $session_data['userEmail'];
      

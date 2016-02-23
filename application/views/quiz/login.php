@@ -7,7 +7,7 @@
     </div> -->
             <section class="panel panel-default">
             <header class="panel-heading font-bold">                  
-              <center>Pi1M Online Examination </center>         
+             Manager Authenthication       
             </header>
 
             <div class="panel-body">
@@ -20,8 +20,8 @@
             </div>
             <div class="form-group">
             <label class="col-sm-2 control-label">Username :</label>
-            <div class="col-md-5">
-            <input type="text" name="userEmail" id="userEmail" placeholder="user Email" class="form-control">
+            <div class="col-lg-3">
+            <input type="text" name="userEmail" id="userEmail" placeholder="User Email" class="form-control">
             </div>
             </div>
            
@@ -29,15 +29,16 @@
             <div class="line line-dashed b-b line-lg pull-in"></div>
             <div class="form-group">
             <label class="col-sm-2 control-label">Password :</label>
-            <div class="col-md-5">
+            <div class="col-lg-3">
             <input type="password" name="userPassword" id="userPassword" placeholder="Password"class="form-control">
             </div>
             </div>
 
             
             
+            <div class="col-xs-8">
             <div class="doc-buttons">
-            <center><input type="submit" class="btn btn-s-md btn-info" value="Login"></center></div>
+            <center><input type="Reset" class="btn btn-s-md btn-info" value="Reset">&emsp;<input type="submit" class="btn btn-s-md btn-success" value="Login"></center></div></div>
             </form>
            
 

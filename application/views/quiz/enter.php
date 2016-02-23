@@ -2,7 +2,7 @@
    
             <section class="panel panel-default">
             <header class="panel-heading font-bold">                  
-            Quiz For Module :  <?php echo $modulename->name; ?>          
+            Quiz For Module :  <?php echo $modulename; ?>          
             </header>
 
             <div class="panel-body">
@@ -36,7 +36,7 @@
             <div class="col-lg-2">
             <b>Module ID:</b><br/></div>
             <div class="col-md-2">
-             <input type="text" name="id" class="form-control" value="<?php $boss['moduleid'] ?>" readonly>
+             <input type="text" name="id" class="form-control" value="1" readonly>
             </div>
             </div>
 
@@ -56,7 +56,7 @@
             <div class="col-lg-2">
             <b>Percentage Required to Pass :</b><br/></div>
             <div class="col-md-2">
-              <input type="text" name="percent" class="form-control" value="50%" readonly>
+            <input type="text" name="percent" class="form-control" value="50%" readonly>
             </div>
             </div>
 
@@ -85,7 +85,7 @@
             </div> -->
             
             <div class="doc-buttons">
-            <center><button type="submit" <?php if ($noq==1) { echo 'disabled'; } ?> class="btn btn-s-md btn-info">Start Test</button></center></div>
+            <center><button type="submit" <?php if ($noq==1) { echo 'disabled'; } ?> class="btn btn-s-md btn-success">Start Test</button></center></div>
             </form>
            
 
