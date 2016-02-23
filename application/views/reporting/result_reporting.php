@@ -25,6 +25,15 @@ $(document).ready(function() {
 
 <?php //$query = http_build_query($_POST); ?>
 
+var $loading = $('#loading').hide();
+$(document)
+  .ajaxStart(function () {
+    $loading.show();
+  })
+  .ajaxStop(function () {
+    $loading.hide();
+  });
+
 $('#dateFrom').datepicker({ dateFormat: 'dd-mm-yy' });
     $('#dateTo').datepicker({ dateFormat: 'dd-mm-yy' });      
 
@@ -548,7 +557,10 @@ $("#submitbtn").click(function(){
                                       <div class="clearfix"></div>
                                       <br>
                                    <div class='form-group' class='col-sm-12'>
-                                       <table id="tableResultReport" class="table table-striped m-b-none"></table>
+                                       <table id="tableResultReport" class="table table-striped m-b-none" ></table>
+                                    </div>
+                                    <div id="loading" class="col-sm-12" style="text-align: center">
+                                        <img src="<?php echo base_url('assets/images/ajax-loader.gif'); ?>" />
                                     </div>
                                     </div>
 
