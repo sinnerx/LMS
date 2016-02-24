@@ -162,6 +162,7 @@ public	function quiz_data()
 			$sessionid= $this->input->post('sessionid');
 			$userid= $this->input->post('userid');
 			$id= $this->input->post('id');
+			$packageid= $this->input->post('packageid');
 			$this->load->library( 'nativesession' );
 		    $this->load->helper('url');   
 			$userid = $this->nativesession->get( 'userid' );
@@ -262,6 +263,7 @@ public	function quiz_data()
 						    'status'=>$status,
 						    'userid'=> $userid,	
 						    'moduleid'=> $id,
+						    'packageid'=> $packageid,
 						    'sessionid'=> $sessionid,
 						    'datecreated'=> date("Y-m-d H:i:s"),	    
 						     );

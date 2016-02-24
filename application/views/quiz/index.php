@@ -37,7 +37,7 @@ return false;
                     //store end date If it's not yet in cookies
                     if(!$.cookie('endDate')){
                         // end date = current date + 1 minutes
-                        var endDate = Date.now() + 1*60*1000; 
+                        var endDate = Date.now() + 1*30*1000; 
 
                         // store end date in cookies
                         $.cookie('endDate', Math.round(endDate / 1000)); 
@@ -83,8 +83,11 @@ return false;
             data: $("#forma").serialize(),
             success: function(data) {
                 //alert('Hebakkk');
-                  checkconnection();
+                var seti=checkconnection();
+                if(seti!=false){
                  window.location.href = "<?php echo base_url() ?>quizs/quiz_result/"+sesion;
+               }
+
             }
     });
 
