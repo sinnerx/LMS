@@ -33,11 +33,13 @@ class Login extends CI_Controller {
 	$moduleid = $this->input->get('moduleid', TRUE);
 //	echo $moduleid;
 	$userid = $this->input->get('userid', TRUE);
+	$packageid = $this->input->get('packageid', TRUE);
 	//echo $userid;
 
 	$data['quaz'] =  array(
 		'userid' => $userid,
-		'moduleid' => $moduleid
+		'moduleid' => $moduleid,
+		'packageid' => $packageid
 		);
 
 	$_SESSION['pop'] = $data['quaz'];

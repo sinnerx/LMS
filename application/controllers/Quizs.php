@@ -72,6 +72,7 @@ if (isset($_SESSION['id'])){
  $userLevel = $this->nativesession->get( 'userLevel' );
  $sessionid=$_SESSION['sessionid'];
  $id=$_SESSION['id'];
+ $packageid=$_SESSION['packageid'];
 			 
  $data = array(
     'userid' => $userid,
@@ -133,7 +134,9 @@ $this->load->view('page_view2',$data);
 			    'sessionid' => $sessionid,
 			    'a'	=> $c,
 			    'id'   		=> $this_q_id,
-			    'modulename'   		=> $resultk
+			    'modulename' => $resultk,
+			    'packageid' => $packageid
+
 			      
 			    );
 		 	 //print_r($data);
@@ -284,6 +287,18 @@ public	function quiz_data()
 			$result = $query->result();
 			//print_r($query->result());
 
+
+			// $this->db->select('site.siteID,site.siteSlug,user.userID');
+			// $this->db->from('site_member');
+   //  		$this->db->join('site','site.siteID = site_member.siteID');
+   //  		$this->db->join('user','user.userID=site_member.userID'); 
+   //  		$query = $this->db->get();
+   //  		print_r($query);
+    		//return $query->result_array();
+
+
+
+
 			foreach ($result as $key => $value) {
 				$data['moduleid'] = $value->moduleid;
 				$data['result'] = $value->result;
@@ -367,16 +382,21 @@ $data = array(
 );
 
 
-if (isset($_SESSION['pop'])){
-$data['boss'] = $_SESSION['pop'];
-$say = $data['boss']['moduleid'];
-}
-else {
-	$say='';
-}
-//$says = $data['boss']['packageid']; 
+	 if (isset($_SESSION['pop'])){
+	 $data['boss'] = $_SESSION['pop'];
+
+	$mmoid= $data['boss']['moduleid'];
+	
+	//print_r($say);
+	//$data['packageid'] = $data['boss']['packageid'];
+	//print_r($data['moduleid']);
+	}
+	else {
+		$mmoid = '';
+	}
+ 
 $this->db->select('*');
-$query = $this->db->get_where('lms_module', array('id' => $say));
+$query = $this->db->get_where('lms_module', array('id' => $mmoid));
 $resultk = $query->row();
 
 if (count($resultk) < 1) {
@@ -401,7 +421,7 @@ $data = array(
 
 
 $this->db->select('q_id');
-$query = $this->db->get_where('lms_questions_bank', array('id' => $say));
+$query = $this->db->get_where('lms_questions_bank', array('id' => $mmoid));
 $result = $query->result();
 if (count($result)<1) {
 	$data['noq']=1;

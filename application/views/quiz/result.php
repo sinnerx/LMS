@@ -65,4 +65,7 @@ unset($_SESSION['id']);
 unset($_SESSION['sessionid']); 
 unset($_SESSION['pop']); 
 
+// unset($_SESSION['userid']);
+// unset($_SESSION['userlevel']);
+
 ?>

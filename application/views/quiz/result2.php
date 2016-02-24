@@ -6,7 +6,7 @@
            
             <div class="panel-body">
 
-            <form action ="<?php echo base_url() ?>" method = "post" class="form-horizontal" data-validate="parsley">
+            <form action ="http://cloud.fulkrum.net/labs/iris/" method = "post" class="form-horizontal" data-validate="parsley">
             <div class="form-group">
 
             <div class="form-group">
@@ -58,4 +58,13 @@
   </script>     
 </html>
 </div>
+<?php
+unset($_SESSION['packageid']);
+unset($_SESSION['id']);
+unset($_SESSION['sessionid']); 
+unset($_SESSION['pop']); 
 
+// unset($_SESSION['userid']);
+// unset($_SESSION['userlevel']);
+
+?>

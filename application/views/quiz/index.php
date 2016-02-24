@@ -37,7 +37,7 @@ return false;
                     //store end date If it's not yet in cookies
                     if(!$.cookie('endDate')){
                         // end date = current date + 1 minutes
-                        var endDate = Date.now() + 1*30*1000; 
+                        var endDate = Date.now() + 1*60*1000; 
 
                         // store end date in cookies
                         $.cookie('endDate', Math.round(endDate / 1000)); 
@@ -83,6 +83,7 @@ return false;
             data: $("#forma").serialize(),
             success: function(data) {
                 //alert('Hebakkk');
+                  checkconnection();
                  window.location.href = "<?php echo base_url() ?>quizs/quiz_result/"+sesion;
             }
     });
@@ -115,7 +116,7 @@ return false;
             <br/>
              <div class="clock" style="margin:1em;"></div>
             <div class="message"></div>
-            <button id="reset">reset</button>
+            <!-- <button id="reset">reset</button> -->
            
 
             <form method="POST" name="form-horizontal" class="form-horizontal" id="forma" onsubmit="return checkconnection()"  action="<?php echo base_url() ?>quizs/quiz_data"  >
@@ -125,7 +126,7 @@ return false;
             <input type="hidden" name="totaly" value="<?php echo $totaly?>" />
             <input type="hidden" name="sessionid" value="<?php echo $sessionid?>" />
             <input type="hidden" name="id" id="id" value="<?php echo $id?>">
-            <input type="hidden" name="packageid" id="packageid" value="1">
+            <input type="hidden" name="packageid" id="packageid" value="<?php echo $packageid?>">
 
             <?php 
             $x = 0;
