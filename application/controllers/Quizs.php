@@ -218,7 +218,8 @@ public	function quiz_data()
 				    'sessionid' =>$this->input->post('sessionid'),
 				    'marks' => $marks,
 				    'userid'=> $this->input->post('userid'),
-				    'moduleid'=> $this->input->post('id')
+				    'moduleid'=> $this->input->post('id'),
+				     'packageid'=> $this->input->post('packageid')
 				     );
 					//print_r($data);
 					$this->db->insert('lms_question_user',$data);
