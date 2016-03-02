@@ -6,7 +6,7 @@
            
             <div class="panel-body">
 
-            <form action ="http://cloud.fulkrum.net/labs/iris/" method = "post" class="form-horizontal" data-validate="parsley">
+            <form action ="http://cloud.fulkrum.net/labs/iris/<?php echo $siteSlug ?>/profile" method = "post" class="form-horizontal" data-validate="parsley">
             <div class="form-group">
 
             <div class="form-group">

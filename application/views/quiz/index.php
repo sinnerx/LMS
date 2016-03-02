@@ -117,7 +117,7 @@ return false;
   <script type="text/javascript">window.onload = CreateTimer("timer", <?php echo $seconds;?>);</script>
   </div> -->
             <br/>
-             <div class="clock" style="margin:1em;"></div>
+             <div class="clock" style="padding-left:600px;"></div>
             <div class="message"></div>
             <!-- <button id="reset">reset</button> -->
            

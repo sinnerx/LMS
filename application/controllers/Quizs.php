@@ -88,7 +88,7 @@ $data['home'] 			= 'Home';
 $this->load->database();
 $this->load->helper(array('date','url'));
 $this->load->view('page_view2',$data);
-
+//print_r($userid);
 			
 			$limit= 10;
 			$this->db->select('*');
@@ -254,6 +254,7 @@ public	function quiz_data()
 							$status='0';
 						}
 
+
 						$data = array(
 						        'result' => $m,
 						        );
@@ -267,11 +268,31 @@ public	function quiz_data()
 						    'sessionid'=> $sessionid,
 						    'datecreated'=> date("Y-m-d H:i:s"),	    
 						     );
+
+
+
+
+			
+
 					    //print_r($data);
-				$this->db->insert('lms_result',$data);
-				$data['id'] = $id;
-				$data['m'] = $m;
-				$data['status'] = $status;
+			$this->db->insert('lms_result',$data);
+			$data['id'] = $id;
+			$data['m'] = $m;
+			$data['status'] = $status;
+				
+			$this->db->select('site.siteID,site.siteSlug,user.userID');
+			$this->db->from('site_member');
+    		$this->db->join('site','site.siteID = site_member.siteID');
+    		$this->db->join('user','user.userID=site_member.userID');
+    		$this->db->where('user.userID',$userid); 
+    		$query = $this->db->get();
+    		$my= $query->result();
+
+    		foreach ($my as $key => $value) 
+			 {
+			 	$data['siteSlug']   = $value->siteSlug;
+			 	
+				}
 				$this->load->view('quiz/result', $data);
 					
 		}
@@ -279,7 +300,7 @@ public	function quiz_data()
 		public	function quiz_result($id) 
 	  {
 
-
+		$userid = $this->nativesession->get( 'userid' );
 		
 		   $this->load->database();
 		   $this->load->helper(array('date','url'));
@@ -291,13 +312,19 @@ public	function quiz_data()
 			//print_r($query->result());
 
 
-			// $this->db->select('site.siteID,site.siteSlug,user.userID');
-			// $this->db->from('site_member');
-   //  		$this->db->join('site','site.siteID = site_member.siteID');
-   //  		$this->db->join('user','user.userID=site_member.userID'); 
-   //  		$query = $this->db->get();
-   //  		print_r($query);
-    		//return $query->result_array();
+			$this->db->select('site.siteID,site.siteSlug,user.userID');
+			$this->db->from('site_member');
+    		$this->db->join('site','site.siteID = site_member.siteID');
+    		$this->db->join('user','user.userID=site_member.userID');
+    		$this->db->where('user.userID',$userid); 
+    		$query = $this->db->get();
+    		$my= $query->result();
+
+    		foreach ($my as $key => $value) 
+			 {
+			 	$data['siteSlug']   = $value->siteSlug;
+			 	
+				}
 
 
 
@@ -340,33 +367,33 @@ public function login()
 	 
 }
 
-public function verifylogin() 
-{
-	$this->load->library('form_validation');
-	$userEmail = $this->input->post('userEmail');
-	$userPassword = $this->input->post('userPassword');
-	$result = $this->users->login($userEmail, $userPassword);
+// public function verifylogin() 
+// {
+// 	$this->load->library('form_validation');
+// 	$userEmail = $this->input->post('userEmail');
+// 	$userPassword = $this->input->post('userPassword');
+// 	$result = $this->users->login($userEmail, $userPassword);
 
-	   if($result)
-	   {
-	     $sess_array = array();
-	     foreach($result as $row)
-	     {
-	       $sess_array = array(
+// 	   if($result)
+// 	   {
+// 	     $sess_array = array();
+// 	     foreach($result as $row)
+// 	     {
+// 	       $sess_array = array(
 	      
-	         'userEmail' => $row->userEmail
+// 	         'userEmail' => $row->userEmail
 	         
-	       );
-	       $this->session->set_userdata('logged_in', $sess_array);
-	     }
-	     return TRUE;
-	   }
-	   else
-	   {
-	     $this->form_validation->set_message('check_database', 'Invalid username and password or email address not verified');
-	     return false;
-	   }
-	}
+// 	       );
+// 	       $this->session->set_userdata('logged_in', $sess_array);
+// 	     }
+// 	     return TRUE;
+// 	   }
+// 	   else
+// 	   {
+// 	     $this->form_validation->set_message('check_database', 'Invalid username and password or email address not verified');
+// 	     return false;
+// 	   }
+// 	}
 
 	
 

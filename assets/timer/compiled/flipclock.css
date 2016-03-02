@@ -38,7 +38,9 @@
 /* Main */
 .flip-clock-wrapper {
   font: normal 11px "Helvetica Neue", Helvetica, sans-serif;
-  -webkit-user-select: none; }
+  -webkit-user-select: none; 
+  display: table;
+}
 
 .flip-clock-meridium {
   background: none !important;
@@ -49,7 +51,7 @@
 
 .flip-clock-wrapper {
   text-align: center;
-  position: relative;
+  position: fixed;
   width: 100%;
   margin: 1em;
 }
@@ -66,7 +68,8 @@
 /* Skeleton */
 .flip-clock-wrapper ul {
   position: relative;
-  float: left;
+  /*float: left;*/
+  display: inline-block;
   margin: 5px;
   width: 60px;
   height: 90px;
@@ -179,7 +182,7 @@
   z-index: 5; }
 
 .flip-clock-divider {
-  float: left;
+  /*float: left;*/
   display: inline-block;
   position: relative;
   width: 20px;
