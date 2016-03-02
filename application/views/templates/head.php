@@ -50,7 +50,11 @@ if (!isset($_SESSION['userid'])) {
 <!-- popup correct -->
 
  <!-- <link href="<?php echo base_url(); ?>assets/csss/bootstrap.css" rel="stylesheet" type="text/css" /> -->
+
+ <!-- /////////////////////// -->
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
 <script type="text/javascript" language="javascript" src="<?php echo base_url(); ?>assets/jss/bootstrap.js"></script>
 
 
