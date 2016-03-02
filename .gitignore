@@ -34,3 +34,5 @@ application/views/main/index_BASE_18780.php
 application/views/main/index_LOCAL_18780.php
 application/views/main/index_REMOTE_18780.php
 application/views/templates/left_side.php.orig
+
+application/config/*
