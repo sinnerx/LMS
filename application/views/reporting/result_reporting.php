@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
-<!--<script src="<?php //echo base_url('assets/jquery/jquery-1.12.0.min.js')?>"></script>-->
+<script src="<?php //echo base_url('assets/jquery/jquery-1.12.0.min.js')?>"></script>
  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="<?php echo base_url('assets/bootstrap/js/bootstrap.min.js')?>"></script>
 <script src="<?php echo base_url('assets/datatables/js/jquery.dataTables.min.js')?>"></script>
@@ -115,7 +115,7 @@ $('#dateFrom').datepicker({ dateFormat: 'dd-mm-yy' });
           hide_modulepackage();
           $("#module_div").show();
         }
-        else if ($("#modulepackage").val() == ''){
+        else if ($("#modulepackage").val() == '0'){
           hide_modulepackage();
           //$("#module_div").show();
         }
@@ -199,10 +199,30 @@ $('#dateFrom').datepicker({ dateFormat: 'dd-mm-yy' });
 
 //$('#tableResultReport').html('abc');
 $("#submitbtn").click(function(){
-            console.log($("form").serialize());
+            //console.log($("form").serialize());
+            var reporttype = $("#reporttype").val();
+            console.log($("#reporttype").val());
+
             //console.log("<?php echo base_url() . 'reporting/result_list/?';?>" + $("form").serialize());
-            console.log("<?php echo base_url() . 'reporting/result_member_passed_list/?';?>" + $("form").serialize());
-            $.ajax({
+            
+            if (reporttype == 1){
+                console.log("<?php echo base_url() . 'reporting/result_member_passed_list/?';?>" + $("form").serialize());
+                usm_report();
+            }
+            else if (reporttype == 2){
+                console.log("<?php echo base_url() . 'reporting/result_list/?';?>" + $("form").serialize());
+                nusuara_report();
+            }
+            
+
+      });
+
+  function usm_report(){
+      //$("#report_div").empty();
+      //$("#report_div").append('<table id="tableResultReport" class="table table-striped m-b-none"></table>');
+            $("#report_div_nusuara").hide();
+            $("#report_div_usm").show();      
+                $.ajax({
                 type: 'GET',
                 dataType: "json",
                 //url: 'reporting/result_list',
@@ -213,14 +233,14 @@ $("#submitbtn").click(function(){
                     var tableData = data;
                     console.log(tableData);
                     //$("#testdiv").text(tableData);
-                    $('#tableResultReport').DataTable({ 
+                    $('#tableResultReportUSM').DataTable({ 
                         "data": tableData,
                         "bDestroy":true,
                         //"ajax": "reporting/attendance_list",
                         "processing": true, //Feature control the processing indicator.
                         //"serverSide": true, //Feature control DataTables' server-side processing mode.
                         "order": [], //Initial no order.
-
+                        
                         // Load data for the table's content from an Ajax source
                         // "ajax": {
                         //     "url": "<?php //echo base_url() . 'reporting/attendance_list/?' . $query;?>",
@@ -239,16 +259,145 @@ $("#submitbtn").click(function(){
                         ],
                         dom: 'Bfrtip',
                         buttons: [
-                            'copy', 'csv', 'excel', 'pdf', 'print'
+                            {
+                                extend: 'excelHtml5',
+                                title: 'Data export \n',
+                                orientation: "landscape",
+                                filename: "Learning Management Report",
+
+
+                            },
+                            {
+                                extend: 'pdfHtml5',
+                                title: 'Data export \n',
+                                orientation: "landscape",
+                                filename: "Learning Management Report",
+                            }
+                            // 'copy', 'csv', 'excel', 'pdf', 'print'
+                            // 'copy', 'csv', 'print'
                         ],
+
 
                     });//end datatable
 
                 }
             });
-      });
+  }
+
+  function nusuara_report(){
+            //$("#report_div").empty();
+            //$("#report_div").append('<table id="tableResultReport" class="table table-striped m-b-none"></table>');
+            $("#report_div_nusuara").show();
+            $("#report_div_usm").hide();
+            $("#pay_div").show();
+            $.ajax({
+                type: 'GET',
+                dataType: "json",
+                //url: 'reporting/result_list',
+                url: 'reporting/result_list',
+                data: $("form").serialize(),
+                success: function(data) {
+                    //alert(data);
+                    var tableData = data;
+                    console.log(tableData);
+                    //$("#testdiv").text(tableData);
+                    $('#tableResultReportNusuara').DataTable({ 
+                        "data": tableData,
+                        "bDestroy":true,
+                        //"ajax": "reporting/attendance_list",
+                        "processing": true, //Feature control the processing indicator.
+                        //"serverSide": true, //Feature control DataTables' server-side processing mode.
+                        "order": [], //Initial no order.
+
+                        // Load data for the table's content from an Ajax source
+                        // "ajax": {
+                        //     "url": "<?php //echo base_url() . 'reporting/attendance_list/?' . $query;?>",
+                        //     "type": "POST"
+                        // },
+
+                        //Set column definition initialisation properties.
+                        "columns": [
+                          {title : "Name" },
+                          // {title : "I/C" },
+                          {title : "Cluster" },
+                          {title : "Pi1M" },
+                          {title : "Package" },
+                          {title : "Module" },
+                          {title : "Paid Status" },
+                          {title : "Quiz Status" },
+
+                          // {title : "Date" },
+                        ],
+                        dom: 'Bfrtip',
+                        buttons: [
+                            {
+                                extend: 'excelHtml5',
+                                title: 'Data export \n',
+                                orientation: "landscape",
+                                filename: "Learning Management Report",
 
 
+                            },
+                            {
+                                extend: 'pdfHtml5',
+                                title: 'Data export \n',
+                                orientation: "landscape",
+                                filename: "Learning Management Report",
+                            }
+                            // 'copy', 'csv', 'excel', 'pdf', 'print'
+                            // 'copy', 'csv', 'print'
+                        ],
+
+                    });//end datatable
+
+                }
+            });    
+  }
+
+  $("#reporttype").change(function(){
+    if($("#reporttype").val() == 1){//usm
+      hideNusuara();
+
+      $el = $("#modulepackage");
+      $el.empty();
+      var dataModule = jQuery.parseJSON( '{ "0": "All Packages", "1": "Package" }' );;
+      //$el.append($("<option></option>")
+      //        .attr("value", '').text('Please Select'));
+      $.each(dataModule, function(value, key) {
+          $el.append($("<option></option>")
+                  .attr("value", value).text(key));
+        });      
+    }
+    else if($("#reporttype").val() == 2){//nusuara
+      hideNusuara();
+      $("#participant_div").show();
+      $("#test_result_div").show();
+      $("#pay_div").show();
+
+      $el = $("#modulepackage");
+      $el.empty();
+      // <option value="">All Modules/Packages</option>
+      // <option value="1">Package</option>
+      // <!-- <option value="2">Module</option> -->
+      //var dataModule = '{1:"For USM", 2:"For NuSuara"}';
+      var dataModule = jQuery.parseJSON( '{ "0": "All Modules/Packages", "1": "Package", "2": "Module" }' );
+      //$el.append($("<option></option>")
+      //        .attr("value", '').text('Please Select'));
+      $.each(dataModule, function(value, key) {
+          $el.append($("<option></option>")
+                  .attr("value", value).text(key));
+        });
+
+    }
+
+  });//reporttype onchange
+
+  function hideNusuara(){
+      $("#participant_div").hide();
+      $("#test_result_div").hide();
+      $("#pay_div").hide();
+
+  }
 });
 </script>
  
@@ -278,7 +427,20 @@ $("#submitbtn").click(function(){
                                 <?php echo form_open('reporting/show_result', array('target'=>'_blank', 'id'=>'myform'))?>
                                     <div class="modal-body form">
                                       <div class='form-group' class='col-sm-12'>
-                                          <div class="col-md-2" style="display:none">  
+                                          <div class="col-md-2">  
+                                                        <label>Type</label>
+                                                      <select id="reporttype" name="reporttype" class="form-control">
+                                                        <option value="1">For USM</option>
+                                                        <option value="2">For Nusuara</option>
+                                                        <!-- <option value="4">Punch Anomaly</option>                               -->
+
+                                                        <!-- <option value="3">Insufficient Hours</option>
+                                                        <option value="4">Both Late/Early and Insufficient Hours</option>
+                                                        <option value="5">Punch Anomaly</option>
+                                                        <option value="6">No Attendance Problem</option> -->
+                                                      </select>
+                                          </div>                                        
+                                          <div class="col-md-2" style="display:none" id="participant_div">  
                                                         <label>Show Participant</label>
                                                       <select id="participant" name="participant" class="form-control">
                                                         <option value="">All</option>
@@ -292,7 +454,7 @@ $("#submitbtn").click(function(){
                                                         <option value="6">No Attendance Problem</option> -->
                                                       </select>
                                           </div>
-                                          <div class="col-md-2" style="display:none">  
+                                          <div class="col-md-2" style="display:none" div="test_result_div">  
                                                         <label>With Test Result</label>
                                                       <select id="testresult" name="testresult" class="form-control">
                                                         <option value="">Any</option>
@@ -306,7 +468,7 @@ $("#submitbtn").click(function(){
                                                         <option value="6">No Attendance Problem</option> -->
                                                       </select>
                                           </div> 
-                                          <div class="col-md-2" style="display:none">  
+                                          <div class="col-md-2" style="display:none" id="pay_div">  
                                                         <label>With Payment Status</label>
                                                       <select id="payment" name="payment" class="form-control">
                                                         <option value="">Any</option>
@@ -323,9 +485,9 @@ $("#submitbtn").click(function(){
                                           <div class="col-md-2">  
                                                         <label>For Modules/Packages</label>
                                                       <select id="modulepackage" name="modulepackage" class="form-control">
-                                                        <option value="">All Modules/Packages</option>
+                                                        <option value="0">All Packages</option>
                                                         <option value="1">Package</option>
-                                                        <option value="2">Module</option>
+                                                        <!-- <option value="2">Module</option> -->
                                                         <!-- <option value="4">Punch Anomaly</option>                               -->
 
                                                         <!-- <option value="3">Insufficient Hours</option>
@@ -558,12 +720,16 @@ $("#submitbtn").click(function(){
                                       </div>
                                       <div class="clearfix"></div>
                                       <br>
-                                   <div class='form-group' class='col-sm-12'>
-                                       <table id="tableResultReport" class="table table-striped m-b-none" ></table>
-                                    </div>
                                     <div id="loading" class="col-sm-12" style="text-align: center">
                                         <img src="<?php echo base_url('assets/images/ajax-loader.gif'); ?>" />
+                                    </div>                                      
+                                   <div class='form-group' class='col-sm-12' id="report_div_usm" style="display:none">
+                                       <table id="tableResultReportUSM" class="table table-striped m-b-none" ></table>
+                                    </div>                                   
+                                    <div class='form-group' class='col-sm-12' id="report_div_nusuara" style="display:none">
+                                       <table id="tableResultReportNusuara" class="table table-striped m-b-none" ></table>
                                     </div>
+
                                     </div>
 
                 </div>

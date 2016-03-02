@@ -298,30 +298,59 @@ public function get_list_site($q){
       //}
       
 
-      $sql = '
-            (SELECT user.userid, userprofilefullname as username, S.sitename as Pi1M, C.clustername as Cluster, T.trainingid, M.name as ModuleName, P.name as PackageName, BTU.billingTransactionUserID, R.status
+      $sql ='
+             (SELECT DISTINCT(user.userid), 
+            (SELECT userprofilefullname FROM user_profile up WHERE up.userID = user.userID) as username,
+            (SELECT S.sitename FROM site S WHERE S.siteid = SM.siteid) as Pi1M,
+            (SELECT C.clustername FROM cluster C WHERE C.clusterID = CS.clusterID ) as Cluster,
+            T.trainingid,
+            (SELECT M.name FROM lms_module M WHERE M.id = Tl.packageModuleID) as ModuleName, 
+            (SELECT P.name FROM lms_package P WHERE P.packageID = LP.packageid) as PackageName,
+             BTU.billingTransactionUserID, R.status
             FROM user
-            JOIN site_member SM ON SM.userID = user.userid 
-            JOIN site S ON S.siteid = SM.siteid
+            JOIN site_member SM ON SM.userID = user.userid              
             JOIN cluster_site CS ON CS.siteID = SM.siteid
-            JOIN cluster C ON C.clusterID = CS.clusterid
-            JOIN user_profile up ON up.userID = user.userID
+
             JOIN activity_user au on au.userid = user.userid
             JOIN training T ON T.activityID = au.activityID
             JOIN training_lms TL ON TL.trainingID = T.trainingID
 
-            RIGHT OUTER JOIN lms_module M ON M.id = TL.packageModuleID
-            RIGHT OUTER JOIN lms_package_module  LP ON M.id = LP.moduleid
-            RIGHT OUTER JOIN lms_package P ON P.packageID = LP.packageid
+            LEFT OUTER JOIN lms_package_module  LP ON Tl.packageModuleID = LP.moduleid
+            LEFT OUTER JOIN lms_package P ON P.packageID = LP.packageid
 
             LEFT OUTER JOIN billing_item BI ON BI.`billingItemID` = P.billing_item_id
             LEFT OUTER JOIN billing_transaction_item BTI ON BTI.billingitemid = BI.billingitemid
             LEFT OUTER JOIN billing_transaction BT ON BT.billingTransactionID = BTI.billingTransactionID
-            LEFT OUTER JOIN billing_transaction_user BTU ON BTU.billingTransactionID = BT.billingTransactionID AND BTU.billingTransactionUser = user.userid
+            LEFT OUTER JOIN billing_transaction_user BTU ON BTU.billingTransactionID = BT.billingTransactionID AND BTU.billingTransactionUser = user.userid 
 
-            LEFT JOIN lms_result R ON R.userid = user.userid AND R.moduleid = M.id  AND R.status = 1
-            ' . $sqlwhere . '
-            )';
+            LEFT OUTER JOIN lms_result R ON R.userid = user.userid AND R.moduleid = Tl.packageModuleID  AND R.status = 1
+            
+            ' . $sqlwhere .' ORDER BY userid, p.packageid )';
+
+            // '
+            // (SELECT user.userid, userprofilefullname as username, S.sitename as Pi1M, C.clustername as Cluster, T.trainingid, M.name as ModuleName, P.name as PackageName, BTU.billingTransactionUserID, R.status
+            // FROM user
+            // JOIN site_member SM ON SM.userID = user.userid 
+            // JOIN site S ON S.siteid = SM.siteid
+            // JOIN cluster_site CS ON CS.siteID = SM.siteid
+            // JOIN cluster C ON C.clusterID = CS.clusterid
+            // JOIN user_profile up ON up.userID = user.userID
+            // JOIN activity_user au on au.userid = user.userid
+            // JOIN training T ON T.activityID = au.activityID
+            // JOIN training_lms TL ON TL.trainingID = T.trainingID
+
+            // RIGHT OUTER JOIN lms_module M ON M.id = TL.packageModuleID
+            // RIGHT OUTER JOIN lms_package_module  LP ON M.id = LP.moduleid
+            // RIGHT OUTER JOIN lms_package P ON P.packageID = LP.packageid
+
+            // LEFT OUTER JOIN billing_item BI ON BI.`billingItemID` = P.billing_item_id
+            // LEFT OUTER JOIN billing_transaction_item BTI ON BTI.billingitemid = BI.billingitemid
+            // LEFT OUTER JOIN billing_transaction BT ON BT.billingTransactionID = BTI.billingTransactionID
+            // LEFT OUTER JOIN billing_transaction_user BTU ON BTU.billingTransactionID = BT.billingTransactionID AND BTU.billingTransactionUser = user.userid
+
+            // JOIN lms_result R ON R.userid = user.userid AND R.moduleid = M.id  AND R.status = 1
+            // ' . $sqlwhere . '
+            // )';
 
 
             // UNION 

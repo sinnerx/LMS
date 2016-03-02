@@ -93,10 +93,13 @@ class Reporting extends CI_Controller {
             # code...
             $row = array();
             $row[] = $key["username"];
-            $row[] = $key["Pi1M"];
+            
             $row[] = $key["Cluster"];
-            $row[] = $key["ModuleName"];
+            $row[] = $key["Pi1M"];
+            
             $row[] = $key["PackageName"];
+            $row[] = $key["ModuleName"];
+            
             $key['billingTransactionUserID'] != '' ? $paid = "Paid" : $paid = "Unpaid";
             $row[] = $paid;
             
@@ -235,5 +238,66 @@ public function result_member_passed_list()
                 );        
         echo json_encode($data);
         //echo $list;
-    }              
+    }
+
+
+public function result_nusuara_list()
+    {   
+        // {
+        // participant: "1",
+        // testresult: "1",
+        // payment: "1",
+        // modulepackage: "1",
+        // package: "",
+        // modulename: "",
+        // moduleid: "",
+        // forpi1m: "",
+        // region: "1",
+        // cluster: "",
+        // sitename: "",
+        // siteid: "",
+        // membername: "",
+        // memberid: "",
+        // dateFrom: "21-02-2016",
+        // dateTo: "21-02-2016"
+        // }      
+
+        //print_r($_GET);
+        //die;
+        $this->load->model('reporting_model');
+        $list = $this->reporting_model->get_list_result($_GET);
+
+        //print_r($list);
+        //die;
+        //print_r($list[0]);
+        //die;
+        $data = array();
+        foreach ($list as $key) {
+            //print_r($key);
+            //die;
+            # code...
+            $row = array();
+            $row[] = $key["username"];
+            $row[] = $key["userIC"];
+            
+            $row[] = $key["userCluster"];
+            $row[] = $key["userSite"];
+            $row[] = $key["package"];
+            //$row[] = $key["module"];
+            $row[] = $key["date"];
+            
+            $data[] = $row; 
+        }
+        //$list = json_encode($list);
+        //return $list;
+       $output = array(
+                        //"draw" => isset($_POST['draw']),
+                        //"recordsTotal" => $this->reporting_model->count_all(),
+                        //"recordsFiltered" => $this->reporting_model->count_filtered(),
+                        "data" => $data,
+                                                
+                );        
+        echo json_encode($data);
+        //echo $list;
+    }                                
 }

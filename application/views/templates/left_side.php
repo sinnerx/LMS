@@ -100,16 +100,15 @@
                         <span class="font-bold">Report</span>
                       </a>
                         <ul class="nav dk">
-                          <li >
+                          <li>
                           <a href="<?php echo base_url(); ?>reporting" class="auto">                                                        
                             <i class="i i-dot"></i>
 
-                            <span>Manage Report</span>
+                            <span>Manage Report</span>                        
                           </a>
-                   
                         </ul>
-                    </li>                     
-                   
+                    </li>                      
+
                   </ul>
                 </nav>
                   
