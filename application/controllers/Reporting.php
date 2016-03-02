@@ -46,11 +46,11 @@ class Reporting extends CI_Controller {
 
      $data['username'] = $session_data['username']; */
 
-
-     $this->load->view('templates/head', $data);
-     $this->load->view('templates/header', $data);
-     $this->load->view('templates/left_side', $data);
-     $this->load->view('templates/content_header', $data);
+$this->load->view('page_view',$data);
+     // $this->load->view('templates/head', $data);
+     // $this->load->view('templates/header', $data);
+     // $this->load->view('templates/left_side', $data);
+     // $this->load->view('templates/content_header', $data);
      //$this->load->view('reporting/filter', $data);
      $this->load->view('reporting/result_reporting', $data);
      //$this->view($a_id=null);

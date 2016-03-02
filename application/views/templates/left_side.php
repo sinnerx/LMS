@@ -88,8 +88,8 @@
                         </li>
                         </ul>
                       </li>
-                     <li>
-                        <a href="#" class="auto">
+                     <li <?php if ( $this->uri->uri_string() == 'reporting'):  ?> class="active"<?php endif; ?>>
+                        <a href="javascript:void(0);" class="auto">
                         <span class="pull-right text-muted">
                           <i class="i i-circle-sm-o text"></i>
                           <i class="i i-circle-sm text-active"></i>
