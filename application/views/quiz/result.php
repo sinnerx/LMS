@@ -3,10 +3,14 @@
             <header class="panel-heading font-bold">                  
                   Pi1M Online Examination Result      
             </header>
-           
+           <div class="panel-body">
+                  <?php $temp_url = "" . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
+                        $temp = substr($temp_url, 0, strpos($temp_url, 'lms'));
+                        $temp = $temp. $siteSlug . '/profile';
+                   ?>
             <div class="panel-body">
 
-            <form action ="http://cloud.fulkrum.net/labs/iris/<?php echo $siteSlug ?>/profile" method = "post" class="form-horizontal" data-validate="parsley">
+            <form action ="<?php echo "http://" . $temp; ?>" method = "post" class="form-horizontal" data-validate="parsley">
             <div class="form-group">
 
             <div class="form-group">
