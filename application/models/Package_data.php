@@ -24,7 +24,7 @@ Class Package_data extends CI_Model
 
  public function getAllGroups()
     {
-    $query = $this->db->query('SELECT *  FROM billing_item where billingitemcode ="lms_item"');
+    $query = $this->db->query('SELECT *  FROM billing_item ');
     return $query->result();
     }
 

@@ -72,6 +72,7 @@ if (isset($_SESSION['id'])){
  $userLevel = $this->nativesession->get( 'userLevel' );
  $sessionid=$_SESSION['sessionid'];
  $id=$_SESSION['id'];
+ $packageid=$_SESSION['packageid'];
 			 
  $data = array(
     'userid' => $userid,
@@ -87,7 +88,7 @@ $data['home'] 			= 'Home';
 $this->load->database();
 $this->load->helper(array('date','url'));
 $this->load->view('page_view2',$data);
-
+//print_r($userid);
 			
 			$limit= 10;
 			$this->db->select('*');
@@ -133,7 +134,9 @@ $this->load->view('page_view2',$data);
 			    'sessionid' => $sessionid,
 			    'a'	=> $c,
 			    'id'   		=> $this_q_id,
-			    'modulename'   		=> $resultk
+			    'modulename' => $resultk,
+			    'packageid' => $packageid
+
 			      
 			    );
 		 	 //print_r($data);
@@ -159,6 +162,7 @@ public	function quiz_data()
 			$sessionid= $this->input->post('sessionid');
 			$userid= $this->input->post('userid');
 			$id= $this->input->post('id');
+			$packageid= $this->input->post('packageid');
 			$this->load->library( 'nativesession' );
 		    $this->load->helper('url');   
 			$userid = $this->nativesession->get( 'userid' );
@@ -215,7 +219,8 @@ public	function quiz_data()
 				    'sessionid' =>$this->input->post('sessionid'),
 				    'marks' => $marks,
 				    'userid'=> $this->input->post('userid'),
-				    'moduleid'=> $this->input->post('id')
+				    'moduleid'=> $this->input->post('id'),
+				     'packageid'=> $this->input->post('packageid')
 				     );
 					//print_r($data);
 					$this->db->insert('lms_question_user',$data);
@@ -249,6 +254,7 @@ public	function quiz_data()
 							$status='0';
 						}
 
+
 						$data = array(
 						        'result' => $m,
 						        );
@@ -258,14 +264,35 @@ public	function quiz_data()
 						    'status'=>$status,
 						    'userid'=> $userid,	
 						    'moduleid'=> $id,
+						    'packageid'=> $packageid,
 						    'sessionid'=> $sessionid,
 						    'datecreated'=> date("Y-m-d H:i:s"),	    
 						     );
+
+
+
+
+			
+
 					    //print_r($data);
-				$this->db->insert('lms_result',$data);
-				$data['id'] = $id;
-				$data['m'] = $m;
-				$data['status'] = $status;
+			$this->db->insert('lms_result',$data);
+			$data['id'] = $id;
+			$data['m'] = $m;
+			$data['status'] = $status;
+				
+			$this->db->select('site.siteID,site.siteSlug,user.userID');
+			$this->db->from('site_member');
+    		$this->db->join('site','site.siteID = site_member.siteID');
+    		$this->db->join('user','user.userID=site_member.userID');
+    		$this->db->where('user.userID',$userid); 
+    		$query = $this->db->get();
+    		$my= $query->result();
+
+    		foreach ($my as $key => $value) 
+			 {
+			 	$data['siteSlug']   = $value->siteSlug;
+			 	
+				}
 				$this->load->view('quiz/result', $data);
 					
 		}
@@ -273,7 +300,7 @@ public	function quiz_data()
 		public	function quiz_result($id) 
 	  {
 
-
+		$userid = $this->nativesession->get( 'userid' );
 		
 		   $this->load->database();
 		   $this->load->helper(array('date','url'));
@@ -283,6 +310,24 @@ public	function quiz_data()
 			$query = $this->db->get_where('lms_result', array('sessionid' => $id));
 			$result = $query->result();
 			//print_r($query->result());
+
+
+			$this->db->select('site.siteID,site.siteSlug,user.userID');
+			$this->db->from('site_member');
+    		$this->db->join('site','site.siteID = site_member.siteID');
+    		$this->db->join('user','user.userID=site_member.userID');
+    		$this->db->where('user.userID',$userid); 
+    		$query = $this->db->get();
+    		$my= $query->result();
+
+    		foreach ($my as $key => $value) 
+			 {
+			 	$data['siteSlug']   = $value->siteSlug;
+			 	
+				}
+
+
+
 
 			foreach ($result as $key => $value) {
 				$data['moduleid'] = $value->moduleid;
@@ -322,33 +367,33 @@ public function login()
 	 
 }
 
-public function verifylogin() 
-{
-	$this->load->library('form_validation');
-	$userEmail = $this->input->post('userEmail');
-	$userPassword = $this->input->post('userPassword');
-	$result = $this->users->login($userEmail, $userPassword);
+// public function verifylogin() 
+// {
+// 	$this->load->library('form_validation');
+// 	$userEmail = $this->input->post('userEmail');
+// 	$userPassword = $this->input->post('userPassword');
+// 	$result = $this->users->login($userEmail, $userPassword);
 
-	   if($result)
-	   {
-	     $sess_array = array();
-	     foreach($result as $row)
-	     {
-	       $sess_array = array(
+// 	   if($result)
+// 	   {
+// 	     $sess_array = array();
+// 	     foreach($result as $row)
+// 	     {
+// 	       $sess_array = array(
 	      
-	         'userEmail' => $row->userEmail
+// 	         'userEmail' => $row->userEmail
 	         
-	       );
-	       $this->session->set_userdata('logged_in', $sess_array);
-	     }
-	     return TRUE;
-	   }
-	   else
-	   {
-	     $this->form_validation->set_message('check_database', 'Invalid username and password or email address not verified');
-	     return false;
-	   }
-	}
+// 	       );
+// 	       $this->session->set_userdata('logged_in', $sess_array);
+// 	     }
+// 	     return TRUE;
+// 	   }
+// 	   else
+// 	   {
+// 	     $this->form_validation->set_message('check_database', 'Invalid username and password or email address not verified');
+// 	     return false;
+// 	   }
+// 	}
 
 	
 
@@ -367,16 +412,21 @@ $data = array(
 );
 
 
-if (isset($_SESSION['pop'])){
-$data['boss'] = $_SESSION['pop'];
-$say = $data['boss']['moduleid'];
-}
-else {
-	$say='';
-}
-//$says = $data['boss']['packageid']; 
+	 if (isset($_SESSION['pop'])){
+	 $data['boss'] = $_SESSION['pop'];
+
+	$mmoid= $data['boss']['moduleid'];
+	
+	//print_r($say);
+	//$data['packageid'] = $data['boss']['packageid'];
+	//print_r($data['moduleid']);
+	}
+	else {
+		$mmoid = '';
+	}
+ 
 $this->db->select('*');
-$query = $this->db->get_where('lms_module', array('id' => $say));
+$query = $this->db->get_where('lms_module', array('id' => $mmoid));
 $resultk = $query->row();
 
 if (count($resultk) < 1) {
@@ -401,7 +451,7 @@ $data = array(
 
 
 $this->db->select('q_id');
-$query = $this->db->get_where('lms_questions_bank', array('id' => $say));
+$query = $this->db->get_where('lms_questions_bank', array('id' => $mmoid));
 $result = $query->result();
 if (count($result)<1) {
 	$data['noq']=1;

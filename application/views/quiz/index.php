@@ -83,7 +83,11 @@ return false;
             data: $("#forma").serialize(),
             success: function(data) {
                 //alert('Hebakkk');
+                var seti=checkconnection();
+                if(seti!=false){
                  window.location.href = "<?php echo base_url() ?>quizs/quiz_result/"+sesion;
+               }
+
             }
     });
 
@@ -113,9 +117,9 @@ return false;
   <script type="text/javascript">window.onload = CreateTimer("timer", <?php echo $seconds;?>);</script>
   </div> -->
             <br/>
-             <div class="clock" style="margin:1em;"></div>
+             <div class="clock" style="padding-left:600px;"></div>
             <div class="message"></div>
-            <button id="reset">reset</button>
+            <!-- <button id="reset">reset</button> -->
            
 
             <form method="POST" name="form-horizontal" class="form-horizontal" id="forma" onsubmit="return checkconnection()"  action="<?php echo base_url() ?>quizs/quiz_data"  >
@@ -125,7 +129,7 @@ return false;
             <input type="hidden" name="totaly" value="<?php echo $totaly?>" />
             <input type="hidden" name="sessionid" value="<?php echo $sessionid?>" />
             <input type="hidden" name="id" id="id" value="<?php echo $id?>">
-            <input type="hidden" name="packageid" id="packageid" value="1">
+            <input type="hidden" name="packageid" id="packageid" value="<?php echo $packageid?>">
 
             <?php 
             $x = 0;
