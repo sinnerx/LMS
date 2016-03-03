@@ -249,7 +249,7 @@ public function get_list_site($q){
       if($getdata['payment']){
           if($getdata['payment'] == 1){
               //$sqlwhere .=" AND BTU.billingTransactionUserID <> '' ";
-              $sqlwhere .= "";
+              $sqlwhere .= "AND BTU.billingTransactionUserID is NOT NULL";
           }
             
           else if ($getdata['payment'] == 2)
