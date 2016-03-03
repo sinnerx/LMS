@@ -127,7 +127,7 @@ public function get_list_site($q){
       $return = array();
       $x = 0;
       if($result->num_rows() > 0) {
-        $return[''] = 'No Package';      
+        $return[''] = 'All Package';      
         foreach($result->result_array() as $row) {
           //$return[$x][$row['clusterID']] = $row['clusterName'];
           $return[$row['packageid']] = $row['name'];
@@ -242,7 +242,7 @@ public function get_list_site($q){
           if($getdata['testresult'] == 1)
             $sqlwhere .= " AND R.status = 1 ";
           else if ($getdata['testresult'] == 2)
-            $sqlwhere .='';
+            $sqlwhere .=' AND R.status <> 1';
             //$sqlwhere .= " AND R.status = 0";
       }
 
@@ -300,11 +300,11 @@ public function get_list_site($q){
 
       $sql ='
              (SELECT DISTINCT(user.userid), 
-            (SELECT userprofilefullname FROM user_profile up WHERE up.userID = user.userID) as username,
+            (SELECT CONCAT(userprofilefullname," ",userProfileLastName) FROM user_profile up WHERE up.userID = user.userID) as username,
             (SELECT S.sitename FROM site S WHERE S.siteid = SM.siteid) as Pi1M,
             (SELECT C.clustername FROM cluster C WHERE C.clusterID = CS.clusterID ) as Cluster,
             T.trainingid,
-            (SELECT M.name FROM lms_module M WHERE M.id = Tl.packageModuleID) as ModuleName, 
+            (SELECT M.name FROM lms_module M WHERE M.id = TL.packageModuleID) as ModuleName, 
             (SELECT P.name FROM lms_package P WHERE P.packageID = LP.packageid) as PackageName,
              BTU.billingTransactionUserID, R.status
             FROM user
@@ -315,7 +315,7 @@ public function get_list_site($q){
             JOIN training T ON T.activityID = au.activityID
             JOIN training_lms TL ON TL.trainingID = T.trainingID
 
-            LEFT OUTER JOIN lms_package_module  LP ON Tl.packageModuleID = LP.moduleid
+            LEFT OUTER JOIN lms_package_module  LP ON TL.packageModuleID = LP.moduleid
             LEFT OUTER JOIN lms_package P ON P.packageID = LP.packageid
 
             LEFT OUTER JOIN billing_item BI ON BI.`billingItemID` = P.billing_item_id
@@ -323,9 +323,9 @@ public function get_list_site($q){
             LEFT OUTER JOIN billing_transaction BT ON BT.billingTransactionID = BTI.billingTransactionID
             LEFT OUTER JOIN billing_transaction_user BTU ON BTU.billingTransactionID = BT.billingTransactionID AND BTU.billingTransactionUser = user.userid 
 
-            LEFT OUTER JOIN lms_result R ON R.userid = user.userid AND R.moduleid = Tl.packageModuleID  AND R.status = 1
+            LEFT OUTER JOIN lms_result R ON R.userid = user.userid AND R.moduleid = TL.packageModuleID  AND R.status = 1
             
-            ' . $sqlwhere .' ORDER BY userid, p.packageid )';
+            ' . $sqlwhere .' ORDER BY userid, P.packageid )';
 
             // '
             // (SELECT user.userid, userprofilefullname as username, S.sitename as Pi1M, C.clustername as Cluster, T.trainingid, M.name as ModuleName, P.name as PackageName, BTU.billingTransactionUserID, R.status
@@ -419,7 +419,7 @@ public function get_list_site($q){
             // JOIN cluster_site CS ON CS.siteID = SM.siteid
             // JOIN cluster C ON C.clusterID = CS.clusterid
 
-      $this->db->select('R.id,U.userid, userprofilefullname as username, S.sitename as sitename, C.clustername as Cluster, R.status, R.moduleid, R.packageid, R.datecreated, P.name as packagename, M.name as modulename, R.status ');
+      $this->db->select('R.id,U.userid, UP.userprofilefullname as username,  UP.userProfileLastName, S.sitename as sitename, C.clustername as Cluster, R.status, R.moduleid, R.packageid, R.datecreated, P.name as packagename, M.name as modulename, R.status ');
         //);
        // , P.name as packagename, M.name as modulename, R.status ');
       $this->db->join('lms_result R', 'U.userID = R.userid', 'left outer');
@@ -606,7 +606,7 @@ public function get_list_site($q){
                       //print_r($maxdate);
                       //unset($dateNew);
                       //die;                  
-                    $array_full[$x]["username"]     = $keyUser["userProfileFullName"];
+                    $array_full[$x]["username"]     = $keyUser["userProfileFullName"] . " " . $keyUser["userProfileLastName"];
                     $array_full[$x]["userIC"]       = $keyUser["userIC"];
                     $array_full[$x]["userCluster"]  = $keyUser["clusterName"];
                     $array_full[$x]["userSite"]     = $keyUser["siteName"];

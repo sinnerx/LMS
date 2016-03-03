@@ -82,8 +82,8 @@ $this->load->view('page_view',$data);
 
         //print_r($_GET);
         //die;
-        $this->load->model('reporting_model');
-        $list = $this->reporting_model->get_list_result($_GET);
+        $this->load->model('Reporting_model');
+        $list = $this->Reporting_model->get_list_result($_GET);
         //print_r($list[0]);
         //die;
         $data = array();
@@ -103,7 +103,7 @@ $this->load->view('page_view',$data);
             $key['billingTransactionUserID'] != '' ? $paid = "Paid" : $paid = "Unpaid";
             $row[] = $paid;
             
-            $key['status'] != '' ? $statusquiz = "Pass" : $statusquiz = "Failed";
+            $key['status'] != '' ? $statusquiz = "Pass" : $statusquiz = "";
             $row[] = $statusquiz;
             $data[] = $row; 
         }

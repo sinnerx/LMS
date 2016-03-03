@@ -22,8 +22,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <script type="text/javascript">
 
 $(document).ready(function() {
+//alert('oi');
 
-<?php //$query = http_build_query($_POST); ?>
+function starting(){
+  hide_all();
+  $("#region_div").show();
+}
 
 var $loading = $('#loading').hide();
 $(document)
@@ -33,7 +37,11 @@ $(document)
   .ajaxStop(function () {
     $loading.hide();
   });
-
+//$("#forpi1m").val($("#forpi1m option:first").val()); 
+//$("#forpi1m option:first").attr('selected', true);
+//$('#forpi1m option:first-child').attr("selected", "selected");
+$("#forpi1m").change(starting).trigger('change');
+// $('#forpi1m').trigger('change');
 $('#dateFrom').datepicker({ dateFormat: 'dd-mm-yy' });
     $('#dateTo').datepicker({ dateFormat: 'dd-mm-yy' });      
 
@@ -109,6 +117,7 @@ $('#dateFrom').datepicker({ dateFormat: 'dd-mm-yy' });
         if($("#modulepackage").val() == '1'){
           console.log("package div show");
           hide_modulepackage();
+          $("#package").val($("#package option:eq(1)").val());
           $("#package_div").show();
         }
         else if ($("#modulepackage").val() == '2'){
@@ -272,9 +281,9 @@ $("#submitbtn").click(function(){
                                 title: 'Data export \n',
                                 orientation: "landscape",
                                 filename: "Learning Management Report",
-                            }
+                            },
                             // 'copy', 'csv', 'excel', 'pdf', 'print'
-                            // 'copy', 'csv', 'print'
+                             'copy', 'csv', 'print'
                         ],
 
 
@@ -343,9 +352,9 @@ $("#submitbtn").click(function(){
                                 title: 'Data export \n',
                                 orientation: "landscape",
                                 filename: "Learning Management Report",
-                            }
+                            },
                             // 'copy', 'csv', 'excel', 'pdf', 'print'
-                            // 'copy', 'csv', 'print'
+                             'copy', 'csv', 'print'
                         ],
 
                     });//end datatable
@@ -357,20 +366,26 @@ $("#submitbtn").click(function(){
   $("#reporttype").change(function(){
     if($("#reporttype").val() == 1){//usm
       hideNusuara();
-
+      $("#datefrom_div").show();
+      $("#dateto_div").show();      
       $el = $("#modulepackage");
       $el.empty();
-      var dataModule = jQuery.parseJSON( '{ "0": "All Packages", "1": "Package" }' );;
+      var dataModule = jQuery.parseJSON( '{ "0": "All Packages", "1": "Choose Package" }' );;
       //$el.append($("<option></option>")
       //        .attr("value", '').text('Please Select'));
       $.each(dataModule, function(value, key) {
           $el.append($("<option></option>")
                   .attr("value", value).text(key));
-        });      
+        });
+
+      $("#modulepackage").val($("#modulepackage option:first").val());     
+      $("#package").val($("#package option:first").val());     
+      $("#forpi1m").val($("#forpi1m option:first").val());
+      starting();     
     }
     else if($("#reporttype").val() == 2){//nusuara
       hideNusuara();
-      $("#participant_div").show();
+      //$("#participant_div").show();
       $("#test_result_div").show();
       $("#pay_div").show();
 
@@ -380,14 +395,16 @@ $("#submitbtn").click(function(){
       // <option value="1">Package</option>
       // <!-- <option value="2">Module</option> -->
       //var dataModule = '{1:"For USM", 2:"For NuSuara"}';
-      var dataModule = jQuery.parseJSON( '{ "0": "All Modules/Packages", "1": "Package", "2": "Module" }' );
+      var dataModule = jQuery.parseJSON( '{ "0": "All Modules/Packages", "1": "Choose Package", "2": "Choose Module" }' );
       //$el.append($("<option></option>")
       //        .attr("value", '').text('Please Select'));
       $.each(dataModule, function(value, key) {
           $el.append($("<option></option>")
                   .attr("value", value).text(key));
         });
-
+      $("#modulepackage").val($("#modulepackage option:first").val());
+      $("#package").val($("#package option:first").val());
+      $("#forpi1m").val($("#forpi1m option:first").val()); 
     }
 
   });//reporttype onchange
@@ -396,6 +413,8 @@ $("#submitbtn").click(function(){
       $("#participant_div").hide();
       $("#test_result_div").hide();
       $("#pay_div").hide();
+      $("#datefrom_div").hide();
+      $("#dateto_div").hide();
 
   }
 });
@@ -430,8 +449,8 @@ $("#submitbtn").click(function(){
                                           <div class="col-md-2">  
                                                         <label>Type</label>
                                                       <select id="reporttype" name="reporttype" class="form-control">
-                                                        <option value="1">For USM</option>
-                                                        <option value="2">For Nusuara</option>
+                                                        <option value="1">USM Pass Report</option>
+                                                        <option value="2">General Report</option>
                                                         <!-- <option value="4">Punch Anomaly</option>                               -->
 
                                                         <!-- <option value="3">Insufficient Hours</option>
@@ -454,12 +473,12 @@ $("#submitbtn").click(function(){
                                                         <option value="6">No Attendance Problem</option> -->
                                                       </select>
                                           </div>
-                                          <div class="col-md-2" style="display:none" div="test_result_div">  
+                                          <div class="col-md-2" style="display:none" id="test_result_div">  
                                                         <label>With Test Result</label>
                                                       <select id="testresult" name="testresult" class="form-control">
                                                         <option value="">Any</option>
                                                         <option value="1">Passed</option>
-                                                        <option value="2">Failed</option>
+                                                        <!-- <option value="2">Failed/Not Taken</option> -->
                                                         <!-- <option value="4">Punch Anomaly</option>                               -->
 
                                                         <!-- <option value="3">Insufficient Hours</option>
@@ -486,7 +505,7 @@ $("#submitbtn").click(function(){
                                                         <label>For Modules/Packages</label>
                                                       <select id="modulepackage" name="modulepackage" class="form-control">
                                                         <option value="0">All Packages</option>
-                                                        <option value="1">Package</option>
+                                                        <option value="1">Choose Package</option>
                                                         <!-- <option value="2">Module</option> -->
                                                         <!-- <option value="4">Punch Anomaly</option>                               -->
 
@@ -546,7 +565,7 @@ $("#submitbtn").click(function(){
                                                         <?php if($userLevel==99){ 
                                                                 //echo "Administration Mode";
                                                                 $options = array(
-                                                                  ''  =>  'Select',
+                                                                  //''  =>  'Select',
                                                                   '3'  => 'Region',
                                                                   '4' => 'Cluster',
                                                                   '5' => 'Pi1M Site',
@@ -558,7 +577,7 @@ $("#submitbtn").click(function(){
                                                           else if($userLevel == 3 ){ 
                                                               //echo "Cluster Lead";
                                                               $options = array(
-                                                                ''  =>  'Select',
+                                                                //''  =>  'Select',
                                                                 '1'  => 'All Pi1M Managers',
                                                                 //'2'  => 'All Nusuara Staff',
                                                                 //'3'  => 'Region',
@@ -572,7 +591,7 @@ $("#submitbtn").click(function(){
                                                           else if($userLevel == 4 ){ 
                                                               //echo "Operation Manager";
                                                               $options = array(
-                                                                ''  =>  'Select',
+                                                                //''  =>  'Select',
                                                                 '1'  => 'All Pi1M Managers',
                                                                 '2'  => 'All Nusuara Staff',
                                                                 '3'  => 'Region',
@@ -678,7 +697,7 @@ $("#submitbtn").click(function(){
                                                                 ?>
                                                    
                                                           </div> 
-                                                          <div class="col-md-2" >
+                                                          <div class="col-md-2" id="datefrom_div">
                                                       <label>From</label>
                                                       <?php 
                                                         $data = array(
@@ -692,7 +711,7 @@ $("#submitbtn").click(function(){
                                                         echo form_input($data);
                                                         ?>    
                                                       </div>
-                                                      <div class="col-md-2" >
+                                                      <div class="col-md-2" id="dateto_div">
                                                       <label>Until</label>
                                                       <?php 
                                                         $data = array(
