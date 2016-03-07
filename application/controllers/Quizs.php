@@ -45,7 +45,7 @@ public function index()
 		
 			if (!isset($_SESSION['q_shuffle'])) 
 			{
-				$limit= 10;
+				$limit= 15;
 				$this->db->select('q_id');
 				$query = $this->db->get_where('lms_questions_bank', array('id' => $id),$limit);
 				$result = $query->result();
@@ -90,14 +90,14 @@ $this->load->helper(array('date','url'));
 $this->load->view('page_view2',$data);
 //print_r($userid);
 			
-			$limit= 10;
+			$limit= 15;
 			$this->db->select('*');
 			$q_details = $this->db->get_where('lms_questions_bank', array('id' => $id),$limit);
 			//return $q_details->row();
 			$q = $q_details->result();
 			shuffle($q);
 			$totaly=count($q);
-			//print_r($q);
+			//print_r($totaly);
 
 			 foreach ($q as $key => $value) 
 			 {
@@ -163,6 +163,7 @@ public	function quiz_data()
 			$userid= $this->input->post('userid');
 			$id= $this->input->post('id');
 			$packageid= $this->input->post('packageid');
+			$totaly= $this->input->post('totaly');
 			$this->load->library( 'nativesession' );
 		    $this->load->helper('url');   
 			$userid = $this->nativesession->get( 'userid' );
@@ -242,8 +243,8 @@ public	function quiz_data()
 				      $this->db->where("sessionid",$sessionid);
 					  $query = $this->db->get('lms_question_user');
 					  $count = $query->num_rows();
-					  
-						$m= ($count/10)*100;
+					 // print_r($totaly);
+						$m= ($count/$totaly)*100;
 
 						if ($m  >= 50 || $m==50){
 							$status='1';
