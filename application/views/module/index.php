@@ -1,4 +1,10 @@
-
+<?php if($_SESSION['userLevel'] != 99){
+       
+      header("location: ./");
+      //echo $userid;
+       //if ($_SERVER['PHP_SELF'] != "") header("Location: admin/");
+       //echo "Admin is here";
+  } ?>
 <html lang="en" class="app">
 
 <head>  
