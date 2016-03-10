@@ -38,6 +38,8 @@ class Reporting extends CI_Controller {
             $data['cluster_list'] = $this->reporting_model->get_cluster();
         elseif ($this->userLevel == 3)
             $data['cluster_list'] = $this->reporting_model->get_cluster($this->userid);
+        elseif ($this->userLevel == 4)
+            $data['cluster_list'] = $this->reporting_model->get_cluster($this->userid);
 
         $data['package_list'] = $this->reporting_model->get_list_package();
    /* if($this->session->userdata('logged_in'))
@@ -299,5 +301,13 @@ public function result_nusuara_list()
                 );        
         echo json_encode($data);
         //echo $list;
+    }
+
+    public function test_model()
+    {
+        $this->load->model('reporting_model');
+        $list = $this->reporting_model->getUserAttendPayment();
+
+        
     }                                
 }

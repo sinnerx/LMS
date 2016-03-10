@@ -34,8 +34,10 @@ public function get_list_site($q){
   }
 
   public function get_list_user($q){
-    $this->db->select('user.userID, userProfileFullName AS userName');
-    $this->db->like('userProfileFullName', $q);
+    $value = $this->db->escape_like_str($q);
+    $this->db->select("user.userID, CONCAT(user_profile.userProfileFullName, ' ', user_profile.userProfileLastName) AS userName");
+    $this->db->like("CONCAT(user_profile.userProfileFullName, ' ', user_profile.userProfileLastName)", $value);
+    //$this->db->or_like('userProfileLastName', $q);
     $this->db->join('user_profile', 'user.UserID = user_profile.userID');
     $this->db->where('user.userLevel', '1');
     $query = $this->db->get('user');
@@ -399,6 +401,7 @@ public function get_list_site($q){
       }      
       //print_r($test);
       //die;
+      $data = array();
       while ($row = mysqli_fetch_array($test))
           {
             $data[] = $row;
@@ -418,6 +421,45 @@ public function get_list_site($q){
             // JOIN site S ON S.siteid = SM.siteid
             // JOIN cluster_site CS ON CS.siteID = SM.siteid
             // JOIN cluster C ON C.clusterID = CS.clusterid
+
+      if($getdata['userlevel'] == 2){
+        $this->db->select("siteID");
+        $this->db->where("userID", $getdata['defaultuserid']);
+        $managerSite = $this->db->get('site_manager')->result_array();
+        
+        //print_r($managerSite[0]["siteID"]);
+        //die;
+        $getdata['siteid'] = $managerSite[0]["siteID"];
+        
+        
+      }
+
+      if($getdata['userlevel'] == 3){
+        $this->db->select("siteID");
+        $this->db->join("cluster_site CS", "CL.clusterID = CS.clusterID");
+        $this->db->where("CL.userID", $getdata['defaultuserid']);
+        $clusterSite = $this->db->get("cluster_lead CL")->result_array();
+
+        //print_r($clusterSite);
+        $groupCluster = array();
+        $in_string =  "";
+        $p = 0;
+        foreach ($clusterSite as $keyCluster) {
+          # code...
+          //print_r($keyCluster);
+         // die;
+          array_push($groupCluster, $keyCluster["siteID"]);
+          $p++;
+        }
+          $in_string .= "(" . implode(", ", $groupCluster) . ")";
+
+          if($getdata['siteid'] == '')
+            $getdata['siteid'] = $groupCluster;
+
+          //print_r($getdata['siteid'] );
+         //die;
+
+      }
 
       $this->db->select('R.id,U.userid, UP.userprofilefullname as username,  UP.userProfileLastName, S.sitename as sitename, C.clustername as Cluster, R.status, R.moduleid, R.packageid, R.datecreated, P.name as packagename, M.name as modulename, R.status ');
         //);
@@ -443,7 +485,7 @@ public function get_list_site($q){
       }      
 
       if($getdata['siteid']){
-        $this->db->where('CS.siteid', $getdata['siteid']);
+        $this->db->where_in('CS.siteid', $getdata['siteid']);
       }      
 
       if($getdata['memberid']){
@@ -479,6 +521,7 @@ public function get_list_site($q){
 
       //$query = $this->db->get()->result();
       $result_lms = $query->result_array();
+      //$result_lms = $query->result_array();
       
       //print_r($result_lms);
       //die;
@@ -507,7 +550,7 @@ public function get_list_site($q){
         }      
 
         if($getdata['siteid']){
-          $this->db->where('CS.siteid', $getdata['siteid']);
+          $this->db->where_in('CS.siteid', $getdata['siteid']);
         }      
 
         if($getdata['memberid']){
@@ -597,7 +640,10 @@ public function get_list_site($q){
 
                 //print_r($dateNew);
                 //die;
-                $maxdate = max($dateNew);
+                if($dateNew)
+                  $maxdate = max($dateNew);
+                else
+                  $maxdate = "";
                 
 
                 if ($countingModule == $rowcountFullModule){
@@ -625,6 +671,264 @@ public function get_list_site($q){
 
       return $array_full;
 
+  }
+
+  public function getUserAttendPayment(){
+      $this->db->select("AU.userid");
+      $this->db->join("training T","T.trainingID = TL.trainingID");
+      $this->db->join("activity_user AU","AU.activityID = T.activityID");
+      $this->db->join("lms_package_module LPM","TL.packageModuleID = LPM.moduleid");
+      $this->db->join("lms_package LP","LP.packageid = LPM.packageid");
+      $this->db->join("billing_transaction_item BTI","BTI.billingitemID = LP.billing_item_id");
+      $this->db->join("billing_transaction BT","BT.billingTransactionID = BTI.billingTransactionID");
+      $this->db->join("billing_transaction_user BTU","BTU.billingTransactionID = BT.billingTransactionID AND BTU.billingTransactionUser = AU.userID", "left outer");
+
+      $this->db->group_by("AU.userID");
+      $output = $this->db->get("training_lms TL")->result_array();
+      //print_r($output);
+      //die;
+      $z = 0;
+      $result = array();
+      foreach ($output as $userKey) {
+        # code...
+        //print_r($userKey["userid"]. " ");
+        $result[$z] = $this->getModuleByUser($userKey["userid"]);
+        //print_r($result);
+        //die;
+        $z++;
+      }
+      //$result = $this->getModuleByUser(180);
+      print_r($result);
+      die;
+      return $output;
+  }
+
+  public function getModuleByUser($userID)
+  {
+    // db::select("P.packageid as packageID");
+    // db::where("AU.userID", $userID);
+    // db::innerjoin("training AS TR", "TR.activityID = AU.activityID");
+    // db::innerjoin("training_lms AS L", "TR.trainingID = L.trainingid");
+    // db::innerjoin("lms_module AS M", "M.id = L.packagemoduleID");
+    // db::innerjoin("lms_package_module AS LPM", "LPM.moduleid = M.id");
+    // db::innerjoin("lms_package AS P", "P.packageid = LPM.packageid");
+    // db::group_by("packageID");
+    // $resultgroupdb = db::get("activity_user AS AU")->result();   
+
+    $this->db->select("P.packageid as packageID");
+    $this->db->where("AU.userID", $userID);
+    $this->db->join("training AS TR", "TR.activityID = AU.activityID");
+    $this->db->join("training_lms AS L", "TR.trainingID = L.trainingid");
+    $this->db->join("lms_module AS M", "M.id = L.packagemoduleID");
+    $this->db->join("lms_package_module AS LPM", "LPM.moduleid = M.id");
+    $this->db->join("lms_package AS P", "P.packageid = LPM.packageid");
+    
+
+    $this->db->group_by("packageID");
+    $resultgroupdb = $this->db->get("activity_user AS AU")->result_array();  
+    //print_r($resultgroupdb);
+    //die;
+
+    //grouping list of package and payment of user for that package
+    $arrayGroup = array();
+    $arrayPayment = array();
+    $c = 0;
+    //$in_string = "(";
+    $in_string = "";
+    foreach ($resultgroupdb as $value) {
+      # code...
+     
+      //print_r($value["packageID"]);
+      //die;
+      //$in_string .= implode(", ", $value);
+      //array_push($arrayPayment, $this->getPayment($userID, $value["packageID"]));
+      $arrayPayment[$c]['packageID'] = $value['packageID'];
+      //if($value["packageID"])[0]["billingitemID"])
+        $arrayPayment[$c]['billingItemID'] = $this->getPayment($userID, $value["packageID"]);
+        // $arrayPayment[$c]['billingItemID'] = $this->getPayment($userID, $value["packageID"])[0]["billingitemID"];
+      //else
+      //  $arrayPayment[$c]['billingItemID'] = null;
+      array_push($arrayGroup, $value["packageID"]);
+      $c++;
+    }
+    
+
+    //print_r($arrayGroup);
+    //die;
+    
+    //$in_string .= implode(", ", $arrayGroup);
+    
+    //$in_string .= ")";
+    //print_r($in_string);
+
+    $this->db->select("AU.userID, P.name as packageName, P.packageid as packageID, M.name as moduleName, M.id as moduleID, R.status, R.datecreated");
+    $this->db->where("AU.userID", $userID);
+    $this->db->join("training AS TR", "TR.activityID = AU.activityID");
+    $this->db->join("training_lms AS L", "TR.trainingID = L.trainingid");
+    $this->db->join("lms_module AS M", "M.id = L.packagemoduleID");
+    $this->db->join("lms_package_module AS LPM", "LPM.moduleid = M.id");
+    $this->db->join("lms_package AS P", "P.packageid = LPM.packageid");
+    $this->db->join("lms_result as R", "R.userid = '$userID' AND R.moduleid = M.id");
+    $this->db->order_by("R.datecreated", "ASC");       
+    $resultdb["modules"] = $this->db->get("activity_user AS AU")->result_array();
+    //print_r($resultdb);
+    //die;    
+
+
+    // db::select("P.name as packageName, P.packageid as packageID, M.name as moduleName, M.id as moduleID");
+    // db::where("AU.userID", $userID);
+    // db::innerjoin("training AS TR", "TR.activityID = AU.activityID");
+    // db::innerjoin("training_lms AS L", "TR.trainingID = L.trainingid");
+    // db::innerjoin("lms_package_module AS LPM", "LPM.id = L.packageModuleID");
+    // db::innerjoin("lms_module AS M", "M.id = LPM.moduleid");
+    // db::innerjoin("lms_package AS P", "P.packageid = LPM.packageid");    
+    // $resultdb = db::get("activity_user AS AU")->result();
+    //print_r($resultdb);
+    //die;
+
+
+    //print_r($userID);
+    //print_r($resultdb);
+    //$result = array();
+    $resultdb["packageInclude"] = $arrayGroup;
+    $resultdb["paymentInclude"] = $arrayPayment;
+    //array_push($resultdb, $in_string);
+
+    if(empty($resultgroupdb))
+      $result = null;
+    else
+      $result = $this->getModuleInPackage($resultdb, $userID);
+    //print_r($result); 
+    //return $resultdb;
+    //die;
+    return $result;
+
+  }
+
+  public function getPayment($userID, $packageID)
+  {
+    $this->db->select("BTI.billingitemID");
+    $this->db->join("billing_transaction_user AS BTU", "BTU.billingTransactionUser = AU.userID");
+    $this->db->join("billing_transaction AS BT", "BT.billingTransactionID = BTU.billingTransactionID");
+    $this->db->join("billing_transaction_item AS BTI", "BTI.billingTransactionID = BT.billingTransactionID");
+    $this->db->join("billing_item AS BI", "BI.billingitemID = BTI.billingitemID");
+    $this->db->join("lms_package AS LP", "LP.billing_item_id = BI.billingitemID");
+    $this->db->where("AU.userID", $userID);
+    $this->db->where("LP.packageid", $packageID);
+    $this->db->group_by("billingitemID");
+
+    $result = $this->db->get("activity_user AS AU")->result_array();
+    //print_r($result);
+    //die;
+    return $result;
+  }
+
+  public function getModuleInPackage($results, $userID)
+  {
+      //print_r($results["modules"][0]["userID"]);
+      //die;
+      //print_r($results["packageInclude"]);
+      //die;
+    //$x = 0;
+      $this->db->select("P.packageid, P.name as PackageName");
+      $this->db->where_in("P.packageid ", $results["packageInclude"]);
+      $resultPackage = $this->db->get("lms_package AS P")->result_array(); 
+
+      //print_r($resultPackage);
+      //die;
+      unset($results["packageInclude"]);  
+      //unset($results["paymentInclude"]);  
+      $x=0;
+      foreach ($resultPackage as $key) {
+          //print_r($key);
+          //die;
+          $resultPackage[$x]["userid"] = $userID;
+          $this->db->select("M.id, M.name");
+          //$this->db->where("M.packageid", $key["packageid"]);
+          $this->db->join("lms_package_module AS LPM", "LPM.moduleid = M.id");
+          $this->db->where("LPM.packageid", $key["packageid"]);          
+          $countModule = $this->db->get("lms_module AS M")->num_rows();
+
+          //print_r($key["packageid"]);
+          $this->db->select("M.id, M.name");
+          //$this->db->where("M.packageid", $key["packageid"]);
+          $this->db->join("lms_package_module AS LPM", "LPM.moduleid = M.id");
+          $this->db->where("LPM.packageid", $key["packageid"]);
+          $resultModule = $this->db->get("lms_module AS M")->result_array();
+
+          //$resultPackage["modules"] = array();
+            //print_r($resultModule);
+            //print_r($results);
+              $y = 0;
+              $taken = 0;
+              foreach ($resultModule as $keyModule) {
+                # code...
+                //print_r($keyModule);
+                //if(in_array())
+                    $resultModule[$y]["selected"] = 0;
+                    $resultModule[$y]["status"] = 0 ;                
+                                    
+                foreach ($results["modules"] as $keyModuleSelected) {
+
+                  # code...
+                  //print_r($keyModuleSelected);
+                  
+                  // if ($y == 1)
+                  //   die();
+                  //print_r($keyModuleSelected["status"].$y." ");
+                  //print_r($results);
+                  //print_r($keyModule["id"]);
+                  //print_r($resultPackage[$x]);
+
+                  if(($keyModuleSelected["moduleID"] == $keyModule["id"]) && ($keyModuleSelected["packageID"] == $key["packageid"])){
+                    //print_r( $key["packageid"] ." ". $keyModuleSelected["packageID"] . " ". $keyModuleSelected["moduleName"] . "selected ");
+                    //array_push($resultModule, ["selected"]);
+                    $resultModule[$y]["selected"] = 1;
+                    $resultModule[$y]["status"] = $keyModuleSelected["status"] ;
+                    //$keyModule["selected"] = 1;
+                    //print_r($resultModule[$y]);
+                    //print_r($keyModule);
+                    //[$y]["selected"] = 1;
+                    $taken++;
+                  }//if
+                  else{
+                    //$resultModule[$y]["selected"] = 0;
+                    //$resultModule[$y]["status"] = 0 ;
+                  }//else
+                  
+                  //print_r($resultModule);
+                }//foreach
+                $y++;
+              }
+              //print_r($resultModule);
+              //die;
+              //print_r($taken);
+              //print_r($countModule);
+              if ($taken == $countModule)
+                $resultPackage[$x]["complete"] = 1;
+              else
+                $resultPackage[$x]["complete"] = 0;
+
+              foreach ($results["paymentInclude"] as $keypayment) {
+                # code...
+                if ($key["packageid"] == $keypayment["packageID"])
+                  if($keypayment["billingItemID"])
+                    $resultPackage[$x]["completepayment"] = 1;
+                  else
+                    $resultPackage[$x]["completepayment"] = 0;
+
+              }//foreach
+              
+              //die;
+              //die;
+          $resultPackage[$x]["modules"] =  $resultModule;   
+          //$resultPackage[$x]["userid"] =  $resultModule[0]["userid"];   
+          
+          $x++;
+        }//foreach  
+          //print_r($resultPackage);
+        //var_dump($results);
+          return $resultPackage;
   } 
 }
 ?>

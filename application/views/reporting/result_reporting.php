@@ -25,8 +25,49 @@ $(document).ready(function() {
 //alert('oi');
 
 function starting(){
-  hide_all();
-  $("#region_div").show();
+    if($("#forpi1m").val() == '1'){
+            hide_all();
+            //$("#region_div").show();
+          }        
+          else if($("#forpi1m").val() == '2'){
+            hide_all();
+            //$("#region_div").show();
+          }             
+          else if($("#forpi1m").val() == '3'){
+            hide_all();
+            $("#region_div").show();
+            //$("#region").val('1');
+          }
+          else if ($("#forpi1m").val() == '4'){
+            hide_all();
+            $.ajax({
+                type: 'GET',
+                dataType: "json",
+                url: 'reporting/get_clusterbyuser?'+ 'userid=' + '<?php echo $userid; ?>' + '&userlevel=' + '<?php echo $userLevel; ?>',
+                
+                success: function (data){
+                    console.log(data);
+                    $el = $("#cluster");
+                    $el.empty();
+                    //$el.append($("<option></option>")
+                    //        .attr("value", '').text('Please Select'));
+                    $.each(data, function(value, key) {
+                        $el.append($("<option></option>")
+                                .attr("value", value).text(key));
+                      });
+                }
+            });
+            $("#cluster_div").show();
+          }
+          else if ($("#forpi1m").val() == '5'){
+            hide_all();
+            $("#site_div").show();
+          }
+          else if ($("#forpi1m").val() == '6'){
+            hide_all();
+            $("#member_div").show();
+          }
+  //$("#region_div").show();
 }
 
 var $loading = $('#loading').hide();
@@ -58,6 +99,12 @@ $('#dateFrom').datepicker({ dateFormat: 'dd-mm-yy' });
         }
       });
 
+      $("#sitename").change(function(){
+        if($("#sitename").val().length == 0){
+          $("#siteid").val('');
+        }
+      });
+
       $("#membername").autocomplete({
         source: "reporting/get_user", // path to the get_user method
         select: function (event, ui){
@@ -71,6 +118,12 @@ $('#dateFrom').datepicker({ dateFormat: 'dd-mm-yy' });
         }
       });
 
+      $("#membername").change(function(){
+        if($("#membername").val().length == 0){
+          $("#memberid").val('');
+        }
+      });      
+
       $("#modulename").autocomplete({
         source: "reporting/get_module", // path to the get_module method
         select: function (event, ui){
@@ -82,7 +135,13 @@ $('#dateFrom').datepicker({ dateFormat: 'dd-mm-yy' });
           //alert($("#siteid").val());
           //$("#siteid").val();
         }
-      });      
+      });     
+
+      $("#modulename").change(function(){
+        if($("#modulename").val().length == 0){
+          $("#moduleid").val('');
+        }
+      });       
 
       $("#regionTESTTTTT").change(function(){
       //$("#region").change(function(){
@@ -149,6 +208,7 @@ $('#dateFrom').datepicker({ dateFormat: 'dd-mm-yy' });
           else if($("#forpi1m").val() == '3'){
             hide_all();
             $("#region_div").show();
+            $("#region").val('1');
           }
           else if ($("#forpi1m").val() == '4'){
             hide_all();
@@ -183,10 +243,10 @@ $('#dateFrom').datepicker({ dateFormat: 'dd-mm-yy' });
   
       function hide_all(){
           $("#region_div").hide();
-          $("#region").val('1');
+          
 
           $("#cluster_div").hide();
-          $("#cluster").val('');
+          //$("#cluster").val('');
 
           $("#site_div").hide(); 
            $("#sitename").val('');
@@ -444,6 +504,8 @@ $("#submitbtn").click(function(){
                 <div class="panel-body">
                   
                                 <?php echo form_open('reporting/show_result', array('target'=>'_blank', 'id'=>'myform'))?>
+                                    <input type="hidden" name="userlevel" id="userLevel" value="<?php echo $userLevel;?>">
+                                    <input type="hidden" name="defaultuserid" id="defaultuserid" value="<?php echo $userid;?>">
                                     <div class="modal-body form">
                                       <div class='form-group' class='col-sm-12'>
                                           <div class="col-md-2">  
@@ -536,6 +598,7 @@ $("#submitbtn").click(function(){
                                                           'id'          => 'modulename',
                                                           'size'        => 50,
                                                           'class'       => 'form-control',
+                                                          'placeholder' => "Enter Module Name",
 
                                                   );
                                                 //$js = 'onclick="participants.searchByObj(this)"';
@@ -574,16 +637,30 @@ $("#submitbtn").click(function(){
                                                                 );
                                                               }
 
+                                                          else if($userLevel == 2 ){ 
+                                                              //echo "Manager";
+                                                              $options = array(
+                                                                //''  =>  'Select',
+                                                                //'1'  => 'All Pi1M Managers',
+                                                                //'2'  => 'All Nusuara Staff',
+                                                                //'3'  => 'Region',
+                                                                //'4' => 'Cluster',
+                                                                //'5' => 'Pi1M Site',
+                                                                '6' => 'Member',
+                                                                //'7' => 'Staff',
+                                                              ); 
+                                                          }                                                          
+
                                                           else if($userLevel == 3 ){ 
                                                               //echo "Cluster Lead";
                                                               $options = array(
                                                                 //''  =>  'Select',
-                                                                '1'  => 'All Pi1M Managers',
+                                                                //'1'  => 'All Pi1M Managers',
                                                                 //'2'  => 'All Nusuara Staff',
                                                                 //'3'  => 'Region',
-                                                                '4' => 'Cluster',
+                                                                //'4' => 'Cluster',
                                                                 '5' => 'Pi1M Site',
-                                                                '6' => 'Manager',
+                                                                '6' => 'Member',
                                                                 //'7' => 'Staff',
                                                               ); 
                                                           }
@@ -592,12 +669,12 @@ $("#submitbtn").click(function(){
                                                               //echo "Operation Manager";
                                                               $options = array(
                                                                 //''  =>  'Select',
-                                                                '1'  => 'All Pi1M Managers',
-                                                                '2'  => 'All Nusuara Staff',
+                                                                //'1'  => 'All Pi1M Managers',
+                                                                //'2'  => 'All Nusuara Staff',
                                                                 '3'  => 'Region',
                                                                 '4' => 'Cluster',
                                                                 '5' => 'Pi1M Site',
-                                                                '6' => 'Manager',
+                                                                '6' => 'Member',
                                                                 //'7' => 'Staff',
                                                               ); 
                                                           }
@@ -651,6 +728,7 @@ $("#submitbtn").click(function(){
                                                                           'id'          => 'sitename',
                                                                           'size'        => 50,
                                                                           'class'       => 'form-control',
+                                                                          'placeholder' => "Enter Site Name",
 
                                                                   );
                                                                 //$js = 'onclick="participants.searchByObj(this)"';
@@ -679,7 +757,8 @@ $("#submitbtn").click(function(){
                                                                           //'class'       => 'input-sm input-s datepicker-input form-control',
                                                                           'id'          => 'membername',
                                                                           'size'        => 50,
-                                                                          'class'       => 'form-control'
+                                                                          'class'       => 'form-control',
+                                                                          'placeholder' => "Enter Member Name",
 
                                                                   );
                                                                 //$js = 'onclick="participants.searchByObj(this)"';
