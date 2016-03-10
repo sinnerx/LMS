@@ -37,7 +37,7 @@ return false;
                     //store end date If it's not yet in cookies
                     if(!$.cookie('endDate')){
                         // end date = current date + 1 minutes
-                        var endDate = Date.now() + 1*30*1000; 
+                        var endDate = Date.now() + <?php echo $totaly?>*180*1000; 
 
                         // store end date in cookies
                         $.cookie('endDate', Math.round(endDate / 1000)); 

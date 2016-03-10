@@ -16,9 +16,11 @@
             <div class="form-group">
                 <div class="col-lg-6">
                 <b>Description / Instructions</b><br/>
-                1) Please Read all the question carefully.<br/>
-                2) Multiple choice-Choose only <b>ONE</b> answer<br/>
-                3) Quiz contain all 10 of questions. Please answer all the question<br/>
+                1) Check quiz title above. Make sure you are in correct quiz.<br/>
+                2) Multiple choice- Choose only <b>ONE</b> answer<br/>
+                3) Quiz contain all 10 of questions. <b>Please answer all the questions.</b><br/>
+                4) <b>Never</b> click "Back" button on the browser.<br/>
+                5) <b>Click submit</b> button to submit your answer.<br/>
             </div>
             </div>
             <div class="line line-dashed b-b line-lg pull-in"></div>
@@ -60,29 +62,6 @@
             </div>
             </div>
 
-            <!-- <div class="form-group">
-            <label class="col-sm-2 control-label">Session ID:</label>
-            <div class="col-md-2">
-            <input type="text" name="sessionid" class="form-control" value="<?php $today = date("ymdhis");echo $unique = $today ; ?>"readonly >
-            </div>
-            </div> -->
-           
-            
-            <!-- <div class="line line-dashed b-b line-lg pull-in"></div> -->
-            <!-- <div class="form-group">
-            <label class="col-sm-2 control-label">Module ID :</label>
-            <div class="col-md-2">
-            <input type="text" name="id" class="form-control" value="<?php echo $boss['moduleid'] ?>" readonly>
-            </div>
-            </div>
-            
-            <div class="line line-dashed b-b line-lg pull-in"></div>
-            <div class="form-group">
-            <label class="col-sm-2 control-label">Package ID :</label>
-            <div class="col-md-2">
-            <input type="text" name="packageid" class="form-control" value="1" readonly>
-            </div>
-            </div> -->
             
             <div class="doc-buttons">
             <center><button type="submit" <?php if ($noq==1) { echo 'disabled'; } ?> class="btn btn-s-md btn-success">Start Test</button></center></div>
