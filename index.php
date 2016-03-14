@@ -53,7 +53,7 @@
  *
  * NOTE: If you change these, also change the error_reporting() code below
  */
-if(getcwd() != '/var/www/html/pro/attendance')
+if(getcwd() != '/var/www/html/pro/lms')
 	define('ENVIRONMENT', 'development');
 else
 	define('ENVIRONMENT', 'production');
@@ -97,7 +97,7 @@ switch (ENVIRONMENT)
 		{
 			$GLOBALS['server_conf'] = array(
 				'db' => require_once '/var/www/html/.credentials/db.pro',
-				'base_url' => 'http://pro.celcom1cbc.com/lms'
+				'base_url' => 'http://www.celcom1cbc.com/lms'
 				);
 		}
 	break;
