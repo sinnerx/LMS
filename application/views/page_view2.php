@@ -3,7 +3,7 @@
 <?php
 if (!isset($_SESSION['userid'])) {
 
-  header("location: http://localhost/digitalgaia/iris/dashboard");
+  header("location: https://localhost/digitalgaia/iris/dashboard");
 }
   //echo $_SESSION['userid'];
 ?>
