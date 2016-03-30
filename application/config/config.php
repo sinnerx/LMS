@@ -24,7 +24,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 //$config['base_url'] = 'http://cloud.fulkrum.net/labs/iris/lms/';
-$config['base_url'] = 'https://localhost/digitalgaia/iris/lms/';
+$config['base_url'] = 'http://localhost/digitalgaia/iris/lms/';
 
 
 if(isset($GLOBALS['server_conf']['base_url']))

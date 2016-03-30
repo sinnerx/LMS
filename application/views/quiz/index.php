@@ -17,7 +17,7 @@ return false;
 
 
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/timer/compiled/flipclock.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/timer/compiled/jquery.cookie.js"></script>  
 <script src="<?php echo base_url(); ?>assets/timer/compiled/flipclock.js"></script>   
 </head>

@@ -5,7 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <?php
 if (!isset($_SESSION['userid'])) {
 
-	header("location: https://localhost/digitalgaia/iris/dashboard");
+	header("location: http://localhost/digitalgaia/iris/dashboard");
 }
 	//echo $_SESSION['userid'];
 ?>
