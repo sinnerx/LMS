@@ -38,7 +38,11 @@
                                  <?php 
                                  foreach($groups as $row)
                                   { 
-                                    echo '<option value="'.$row->billingItemID.'">'.$row->billingItemName.'</option>';
+                                    if($row->billingItemID == $package['billing_item_id'])
+                                      $selected = "selected";
+                                    else
+                                      $selected = "";
+                                    echo '<option value="'.$row->billingItemID.' " '. $selected.'>'.$row->billingItemName.'</option>';
                                   }
                                   ?>
                                   </select>
