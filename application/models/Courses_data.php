@@ -29,6 +29,12 @@ return false;
         //echo 'Total Results: ' . $query->num_rows();
     }
 
+public function getAllGroup()
+    {
+    $query = $this->db->query('SELECT *  FROM training_type ');
+    return $query->result();
+    }
+
   public function courses_report()
   {
       $query = $this->db->get('lms_module');

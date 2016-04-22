@@ -200,6 +200,7 @@ function index()
         'userLevel' => $userLevel,
         'message' => 'My Message'
     );
+     $data['group'] = $this->courses_data->getAllGroup();
      $data['groups'] = $this->courses_data->getAllGroups();
     $data['page_title'] = 'Learning Management System';
     $data['nav_title'] = 'Course';
@@ -350,6 +351,7 @@ function index()
         'message' => 'My Message'
     );
       // If has id and go to single view
+      $data['group'] = $this->courses_data->getAllGroup();
       $data['groups'] = $this->courses_data->getAllGroups();
       $data['course'] = $this->coursedata->id($id);
      // $data['package'] = $this->coursedata->ids($id);
@@ -474,12 +476,14 @@ function delete($id)
     $code = $this->input->post('code');
     $name = $this->input->post('name');
     $description = $this->input->post('description');
+    $typeid = $this->input->post('typeid');
     
     $data = array(
     'id' => $this->input->post('id'),
     'code' => $this->input->post('code'),
     'name' => $this->input->post('name'),
     'description' => $this->input->post('description'),
+    'typeid' => $this->input->post('typeid'),
     );
 
     $this->Update_course->update_cou($id,$data);
