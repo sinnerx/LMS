@@ -46,7 +46,7 @@
                      <div class="form-group">
                      <label class="col-sm-2 control-label">Training type</label>
                      <div class="col-md-5">
-                     <select data-required="true" style="width:260px" name="typeid" class="form-control m-b"><option value="">Select one </option>;
+                     <select data-required="true" style="width:260px" name="typeid" class="form-control m-b"/><option value="">Select one </option>;
                      <?php 
                      foreach($group as $row)
                       { 

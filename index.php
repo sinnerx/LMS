@@ -76,7 +76,7 @@ switch (ENVIRONMENT)
 		{
 			$GLOBALS['server_conf'] = array(
 				'db' => require_once '/var/www/html/.credentials/db.dev',
-				'base_url' => 'http://dev.celcom1cbc.com/lms'
+				'base_url' => 'https://dev.celcom1cbc.com/lms'
 				);
 		}
 	break;
@@ -97,7 +97,7 @@ switch (ENVIRONMENT)
 		{
 			$GLOBALS['server_conf'] = array(
 				'db' => require_once '/var/www/html/.credentials/db.pro',
-				'base_url' => 'http://www.celcom1cbc.com/lms'
+				'base_url' => 'https://www.celcom1cbc.com/lms'
 				);
 		}
 	break;
