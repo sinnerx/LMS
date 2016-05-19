@@ -4,7 +4,7 @@
 
 if (!isset($_SESSION['userid'])) {
 
-  header("location: ../dashboard");
+  header("location: ../../dashboard");
 }
   //echo $_SESSION['userid'];
 ?>
