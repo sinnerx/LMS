@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" class="app">
 <?php
+
 if (!isset($_SESSION['userid'])) {
 
-  header("location: https://localhost/digitalgaia/iris/dashboard");
+  header("location: ../dashboard");
 }
   //echo $_SESSION['userid'];
 ?>
