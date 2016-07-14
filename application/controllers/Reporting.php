@@ -226,6 +226,7 @@ public function result_member_passed_list()
             $row[] = $key["package"];
             //$row[] = $key["module"];
             $row[] = $key["date"];
+            $row[] = $key["datePayment"];
             
             $data[] = $row; 
         }

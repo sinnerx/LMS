@@ -111,7 +111,7 @@ public function get_list_site($q){
       $return = array();
       $x = 0;
       if($result->num_rows() > 0) {
-        $return[''] = 'No Cluster';
+        $return[''] = 'All Cluster';
       foreach($result->result_array() as $row) {
         //$return[$x][$row['clusterID']] = $row['clusterName'];
         $return[$row['clusterID']] = $row['clusterName'];
@@ -461,7 +461,7 @@ public function get_list_site($q){
 
       }
 
-      $this->db->select('R.id,U.userid, UP.userprofilefullname as username,  UP.userProfileLastName, S.sitename as sitename, C.clustername as Cluster, R.status, R.moduleid, R.packageid, R.datecreated, P.name as packagename, M.name as modulename, R.status ');
+      $this->db->select('R.id,U.userid, UP.userprofilefullname as username,  UP.userProfileLastName, S.sitename as sitename, C.clustername as Cluster, R.status, R.moduleid, R.packageid, R.datecreated, P.name as packagename, M.name as modulename, R.status, BT.billingTransactionDate ');
         //);
        // , P.name as packagename, M.name as modulename, R.status ');
       $this->db->join('lms_result R', 'U.userID = R.userid', 'left outer');
@@ -472,8 +472,13 @@ public function get_list_site($q){
       $this->db->join('cluster C', 'C.clusterID = CS.clusterid');
 
        $this->db->join('lms_package P', 'P.packageid = R.packageid');
-      // $this->db->join('lms_package_module LP', 'LP.packageid = P.packageid', 'left outer');
        $this->db->join('lms_module M', 'R.moduleid = M.id');
+      // $this->db->join('lms_package_module LP', 'LP.packageid = P.packageid', 'left outer');
+       $this->db->join('billing_transaction_user BTU', 'BTU.billingTransactionUser = R.userid', 'left outer');
+       $this->db->join('billing_transaction BT', 'BT.billingTransactionID = BTU.billingTransactionID');
+       $this->db->join('billing_transaction_item BTI', 'BTI.billingItemID = P.billing_item_id AND BTI.billingTransactionID = BT.billingTransactionID');
+       
+       
       $this->db->where('R.status = 1');
 
       if($getdata['package']){
@@ -581,6 +586,8 @@ public function get_list_site($q){
 
       $array_full = array();
       $dateNew = array();
+      $datePaymentNew = array();
+      
       $x = 0;
       foreach ($result_user as $keyUser) {
         # code...
@@ -628,6 +635,7 @@ public function get_list_site($q){
                     if ($keyResult['userid'] == $keyUser['userID'] && $keyResult['packageid'] == $keyPackage['packageid'] && $keyResult['moduleid'] == $keyModule['moduleid']){
                         //print_r( $keyResult['id'] ." ". $keyResult['datecreated']. " ||" );
                           $dateNew[$d] = $keyResult['datecreated'];
+                          $datePaymentNew[$d] = $keyResult['billingTransactionDate'];
                       // if ($keyResult['datecreated'] > $tempNewDate){
                       //     $tempNewDate = $keyResult['datecreated'];
                       // }//if date
@@ -639,6 +647,7 @@ public function get_list_site($q){
                 }//foreach resultlms
 
                 //print_r($dateNew);
+                //print_r($datePaymentNew);
                 //die;
                 if($dateNew)
                   $maxdate = max($dateNew);
@@ -658,6 +667,7 @@ public function get_list_site($q){
                     $array_full[$x]["userSite"]     = $keyUser["siteName"];
                     $array_full[$x]["package"]      = $keyPackage['name'];
                     $array_full[$x]["date"]         = $maxdate;
+                    $array_full[$x]["datePayment"]  = $datePaymentNew[0];
                 }//if count
 
 
