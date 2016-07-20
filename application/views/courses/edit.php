@@ -16,13 +16,56 @@
                 
               </div>
               
-                
+              <?php //var_dump($type[0]->trainingTypeID); ?>
+              <?php //var_dump($course); ?>
+              <?php //var_dump($subtype[0]['subTypeID']); ?>
               <section class="panel panel-default">
                 <header class="panel-heading font-bold">                  
                 <?php echo $nav_subtitle;?>
                 </header>
                 <div class="panel-body">
                 <form class="form-horizontal" method="post" data-validate="parsley" action="<?php echo base_url() ?>index.php/course/Update_course">
+
+                    <div class="form-group">
+                     <label class="col-sm-2 control-label">Training Type</label>
+                     <div class="col-md-5">
+                     <select data-required="true" style="width:260px" name="type_id" id="type_id" class="form-control m-b" onchange=""><option value="">Select one </option>;
+                     <?php 
+                     foreach($type as $row)
+                      { 
+                        if($course['typeid'] == $row->trainingTypeID)
+                          $selected = "selected";
+                        else
+                          $selected = '';
+
+                        echo '<option value="'.$row->trainingTypeID.'" '. $selected.' >'.$row->trainingTypeName.'</option>';
+                      }
+                      ?>
+                      </select>
+                      </div>
+                      </div>
+                    <div class="form-group">
+                 
+                     <div class="line line-dashed b-b line-lg pull-in" style="display:none"></div>
+                      <label class="col-sm-2 control-label">Sub Type</label>
+                      <div class="col-md-5">
+                        <select data-required="true" style="width:260px" name="subtype_id" id="subtype_id" class="form-control m-b"><option value="">Select one </option>;
+                     <?php 
+                     foreach($subtype as $row)
+                      //var_dump($row);
+                      { 
+                        if($course['subtype_id'] == $row['subTypeID'])
+                          $selected = "selected";
+                        else
+                          $selected = '';                        
+                        
+                        echo '<option value="'.$row['subTypeID'].'"'. $selected .'>'.$row['subTypeName'].'</option>';
+                      }
+                      ?>
+                        </select>
+                      </div>
+                    </div>
+
                   <div class="form-group">
                   <input type="hidden" name="id" id="id" value="<?php echo $course['id']; ?> ">
                   <label class="col-sm-2 control-label">Module ID</label>

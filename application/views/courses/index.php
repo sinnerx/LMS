@@ -231,7 +231,7 @@ function delete_person(id)
     }
 }
 
-// </script>
+</script>
 
 <!-- Bootstrap modal -->
 <div class="modal fade" id="modal_form" role="dialog">
