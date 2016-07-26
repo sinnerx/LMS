@@ -3,20 +3,12 @@
 Class Courses_data extends CI_Model
 {
 
- public function courses()
- {
-  $data=array(
-    'code'=>$this->input->post('code'),
-    'name'=>$this->input->post('name'),
-    'description'=>$this->input->post('description'),
-    'typeid' => $this->input->post('typeid'),
-    'subtype_id' => $this->input->post('subtype_id'),
-    'status' => $this->input->post('status'),
-  );
+ public function courses($data)
+   {
 
-  $this->db->insert('lms_module',$data);
-return false;
- }
+    $this->db->insert('lms_module',$data);
+    return false;
+   }
 
  public function getAllGroups()
     {

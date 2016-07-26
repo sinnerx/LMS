@@ -6,7 +6,7 @@ Class Module_data extends CI_Model
  public function modules()
  {
    $packageid= $this->input->post('packageid');
-   print_r($packageid);
+   //print_r($packageid);
   foreach ($_POST as $key => $value) {   
       
         if (strpos($key,'moduleid') !== false) {

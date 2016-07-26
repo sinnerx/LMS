@@ -308,9 +308,14 @@ class Course extends CI_Controller {
       'code' => $this->input->post('code'),
       'name' => $this->input->post('name'),
       'description' => $this->input->post('description'),
-      'typeid' => $this->input->post('typeid'),
+      'typeid' => $this->input->post('type_id'),
+      'subtype_id' => $this->input->post('subtype_id'),
       'status' => $this->input->post('status'),
        );
+
+      //var_dump($data);
+      //die;
+
       $this->courses_data->courses($data);
       // If has id and go to single view
         //$data['course'] = $this->coursedata->id($id);
