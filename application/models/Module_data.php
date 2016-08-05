@@ -20,8 +20,8 @@ Class Module_data extends CI_Model
             ->from('lms_package_module')
             ->where(array('packageid' => $packageid, 'moduleid' => $value))->get();
             if($q->num_rows() == 0){
-            $this->db->insert('lms_package_module', $array_mod);
-          }
+              $this->db->insert('lms_package_module', $array_mod);
+            }
         }
 
         }
