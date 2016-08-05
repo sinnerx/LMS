@@ -46,7 +46,7 @@ Class Courses_data extends CI_Model
       //var_dump($parentId);
       $this->db->select("trainingSubTypeID as subTypeID,trainingSubTypeName as subTypeName");
       $this->db->where("trainingSubTypeParent", $parentId);
-      $query = $this->db->get('training_SubType');
+      $query = $this->db->get('training_subtype');
       //var_dump($query->result_array());
       return $query->result_array();
   }
