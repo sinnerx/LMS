@@ -112,6 +112,32 @@
 
                   </ul>
                 </nav>
+                <nav class="nav-primary hidden-xs">
+                  <!--<div class="text-muted text-sm hidden-nav-xs padder m-t-sm m-b-sm">Start</div>-->
+                  <ul class="nav nav-main" data-ride="collapse">
+                  <li <?php if ( $this->uri->uri_string() == 'importcsv'):  ?> class="active"<?php endif; ?>>
+                        <a href="javascript:void(0);" class="auto">
+                        <span class="pull-right text-muted">
+                          <i class="i i-circle-sm-o text"></i>
+                          <i class="i i-circle-sm text-active"></i>
+                        </span>
+                        <!--<b class="badge bg-danger pull-right">4</b>-->
+                        <i class="i i-stack icon">
+                        </i>
+                        <span class="font-bold">Import</span>
+                      </a>
+                        <ul class="nav dk">
+                          <li>
+                          <a href="<?php echo base_url(); ?>importcsv" class="auto">                                                        
+                            <i class="i i-dot"></i>
+
+                            <span>Import CSV</span>                        
+                          </a>
+                        </ul>
+                    </li>                      
+
+                  </ul>
+                </nav>                
                  <?php } ?> 
                   <?php if ($_SESSION['userLevel'] == 2 || $_SESSION['userLevel'] == 3 || $_SESSION['userLevel'] == 4) { ?>               
                 <nav class="nav-primary hidden-xs">
@@ -139,7 +165,7 @@
                     </li>                      
 
                   </ul>
-                </nav>
+                </nav>                
                 <?php } ?>
                   
                       <!-- <li >

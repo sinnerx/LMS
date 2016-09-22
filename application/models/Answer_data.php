@@ -29,5 +29,12 @@ Class Answer_data extends CI_Model
       $query = $this->db->get('lms_answer');
       return $query->result_array();
   }
+
+  public function insert_answer($data)
+  {
+      $this->db->insert('lms_answer',$data);
+      $answerID = $this->db->insert_id();
+      return $answerID;
+  }
 }
 ?>

@@ -131,4 +131,14 @@ Class Coursedata extends CI_Model
     $this->db->delete($this->table);
   }
 
+  public function get_by_code($code)
+  {
+    $this->db->from($this->table);
+    $this->db->where('code',$code);
+    $query = $this->db->get();
+
+    return $query->row();
+
+  }
+
   } ?>
