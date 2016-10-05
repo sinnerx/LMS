@@ -139,8 +139,8 @@ class ImportCSV extends CI_Controller {
 
 			foreach ($values as $keyQuestion => $valueQuestion) {
 
-				if ($counter == 2)
-					break;
+				// if ($counter == 2)
+					// break;
 
 				# code...
 				# insert into question table
