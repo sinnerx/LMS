@@ -20,6 +20,20 @@ return false;
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/timer/compiled/jquery.cookie.js"></script>  
 <script src="<?php echo base_url(); ?>assets/timer/compiled/flipclock.js"></script>   
+<style type="text/css">
+
+.imgquiz {   
+  width: auto;
+  display: inline-block;    
+}
+
+.imgquiz img {
+  /*width: 30%; */
+  max-width: 100%;
+  /* Will shrink image to 30% of its original width */
+  height: auto;    
+}​
+</style>
 </head>
 </body>
 
@@ -139,7 +153,14 @@ return false;
             <div class="line line-dashed b-b line-lg pull-in"></div>                   
             <div class="form-group">
             <div class="col-sm-10">
-            <?php echo $j;?>) <?php echo $ques->q_text?>
+            <?php echo $j;?>) 
+            <?php echo $ques->q_text?>
+            <?php if ($ques->img_path != ''): ?>
+            <br>
+            <div class="imgquiz">
+              <img src='<?php echo base_url()."assets/uploads/".$ques->img_path; ?>'>
+            </div>
+            <?php endif; ?>
             <input type="hidden" name="q_id[<?php echo $x;?>]" id="q_id"  value="<?php echo $ques->q_id?>">
             </div>
 
@@ -150,6 +171,12 @@ return false;
                               <div class="col-sm-10">
                               
                               <input type="radio" name="a_id[<?php echo $x;?>]" id="a_id"  value="<?php echo $ans->a_id?>"><?php echo $ans->a_text?>
+                              <?php if ($ans->a_img_path != ''): ?>
+                              <br>
+                              <div class="imgquiz">
+                                <img src='<?php echo base_url()."assets/uploads/".$ans->a_img_path; ?>' width="200px" height="200px">
+                              </img>
+                              <?php endif; ?>                              
                               </div>
                               
                               <?php } endforeach; ?>

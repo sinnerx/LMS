@@ -24,11 +24,11 @@ class ImportCSV extends CI_Controller {
 	    $data['home'] = 'Home';
 
 	    // var_dump(FCPATH);
-	    // var_dump(is_dir(FCPATH.'/application/uploads/'));
+	    // var_dump(is_dir(FCPATH.'/assets/uploads/'));
 
 	    if($_SERVER['REQUEST_METHOD'] == 'POST'){
-
- 			$config['upload_path']          = FCPATH. '/application/uploads/tmp';
+	    	ini_set('memory_limit', '1024M');
+ 			$config['upload_path']          = FCPATH. '/assets/uploads/tmp';
             $config['allowed_types']        = 'gif|jpg|png|xls|xlsx';
             //$config['max_size']             = 100000;
             //$config['max_width']            = 1024;
@@ -36,9 +36,9 @@ class ImportCSV extends CI_Controller {
 
             $this->load->library('upload', $config);
 
-		    if (!is_dir(FCPATH. 'application/uploads/tmp'))
+		    if (!is_dir(FCPATH. 'assets/uploads/tmp'))
 		    {
-		        mkdir(FCPATH. 'application/uploads/tmp', 0777, true);
+		        mkdir(FCPATH. 'assets/uploads/tmp', 0777, true);
 		    }            
 
 			$files = $_FILES;
@@ -479,19 +479,15 @@ class ImportCSV extends CI_Controller {
 				
 
 				if ($imgpath != ''){
-					$filename = FCPATH. 'application/uploads/tmp/' . $imgpath;
+					//move img ans to the correct folder
+					$arrayFileRelocate = array(
+							'imgPath' 		=> $imgpath,
+							'code' 			=> $code,
+							'questID' 		=> $questID,
+							'answerID' 		=> ''
+						);
 
-					if (file_exists($filename)) {
-						$ext = pathinfo($filename, PATHINFO_EXTENSION);
-						if (!is_dir(FCPATH. 'application/uploads/'. $code))
-						    {
-						        mkdir(FCPATH. 'application/uploads/'. $code, 0777, true);
-						    }  					
-
-						$newImagePath = FCPATH . 'application/uploads/' . $code . '/' . 'Q' . $questID . '.' . $ext;
-						rename(FCPATH. 'application/uploads/tmp/'. $imgpath , $newImagePath);
-						$questImagePath = $code . '/' . 'Q' . $questID . '.' . $ext;
-					}					
+					$questImagePath = $this->relocateImageFile($arrayFileRelocate);					
 				}
 				else
 				{
@@ -512,7 +508,7 @@ class ImportCSV extends CI_Controller {
 			  //die;
 			// var_dump($arrayList);
 
-			$filesTmp = glob(FCPATH. 'application/uploads/tmp/*'); // get all file names
+			$filesTmp = glob(FCPATH. 'assets/uploads/tmp/*'); // get all file names
 			foreach($filesTmp as $file){ // iterate files
 			  if(is_file($file)){
 			  	unlink($file); // delete file
@@ -574,19 +570,19 @@ class ImportCSV extends CI_Controller {
 		$imgPath 	= $data['imgPath'];
 		$code 		= $data['code'];
 		$questID	= $data['questID'];
-		$answerID	= 'A'. $data['answerID'];
+		$data['answerID'] != '' ? $answerID	= 'A'. $data['answerID'] : $answerID = '';
 
-		$filename = FCPATH. 'application/uploads/tmp/' . $imgPath;
+		$filename = FCPATH. 'assets/uploads/tmp/' . $imgPath;
 
 		if (file_exists($filename)) {
 			$ext = pathinfo($filename, PATHINFO_EXTENSION);
-			if (!is_dir(FCPATH. 'application/uploads/'. $code))
+			if (!is_dir(FCPATH. 'assets/uploads/'. $code))
 			    {
-			        mkdir(FCPATH. 'application/uploads/'. $code, 0777, true);
+			        mkdir(FCPATH. 'assets/uploads/'. $code, 0777, true);
 			    }  					
 
-			$newImagePath = FCPATH . 'application/uploads/' . $code . '/' . 'Q' . $questID . $answerID .'.' . $ext;
-			rename(FCPATH. 'application/uploads/tmp/'. $imgPath , $newImagePath);
+			$newImagePath = FCPATH . 'assets/uploads/' . $code . '/' . 'Q' . $questID . $answerID .'.' . $ext;
+			rename(FCPATH. 'assets/uploads/tmp/'. $imgPath , $newImagePath);
 			$finalImagePath = $code . '/' . 'Q' . $questID . $answerID . '.' . $ext;
 		}
 		else {
