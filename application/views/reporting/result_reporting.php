@@ -324,7 +324,8 @@ $("#submitbtn").click(function(){
                           {title : "Pi1M" },
                           {title : "Package" },
                           //{title : "Module" },
-                          {title : "Date" },
+                          {title : "Date Pass" },
+                          {title : "Date Payment" },
                         ],
                         dom: 'Bfrtip',
                         buttons: [

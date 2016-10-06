@@ -6,7 +6,7 @@ var save_method; //for save method string
 var table;
 
 $(document).ready(function() {
-
+    //console.log('testt');
     //datatables
     table = $('#table').DataTable({ 
 
@@ -55,8 +55,8 @@ $(document).ready(function() {
     });
 
 });
-
-<script></script>
+//<script>
+</script>
 
     <script type="text/javascript" src="<?php echo base_url(); ?>assets/multi/js/jquery.min.js"></script>
   <script type="text/javascript" src="<?php echo base_url(); ?>assets/multi/js/bootstrap.min.js"></script>
@@ -263,7 +263,8 @@ $(document).ready(function(){
     var s = $('input').size() ;
     
     //$('<div id="box' + i +'"><div class="form-group"><label class="col-sm-2 control-label">Answer</label><div class="col-md-5"><input type="text" id="a_text[' + i +']" class="form-control" name="a_text1[' + i +']" /></div><img src="<?php echo base_url(); ?>assets/add/remove.png" align="top" class="add" id="remove" /></div></div></div>').appendTo(inp);
-    $('<div id="box' + i +'"><div class="form-group"><label class="col-sm-2 control-label">Module</label><div class="col-md-5"><select data-required="true"  id="moduleid'+ i +'" name="moduleid' + i +'" class="form-control"><option value="">Select one </option>;<?php foreach($group as $row){ echo '<option value="'.$row->id.'">'.$row->name.'</option>'; } ?></select></div><img src="<?php echo base_url(); ?>assets/add/remove.png" align="top" class="add" id="remove" /></div></div></div>').appendTo(inp);
+
+    $('<div id="box' + i +'"><div class="form-group"><label class="col-sm-2 control-label">Module</label><div class="col-md-5"><select data-required="true"  id="moduleid"'+ i +'" name="moduleid"' + i + '" class="form-control">' + '<option value="">Select one </option>;<?php foreach($group as $row){ echo '<option value="'.$row->id.'">'.$row->name.'</option>'; } ?></select></div><img src="<?php echo base_url(); ?>assets/add/remove.png" align="top" class="add" id="remove" /></div></div></div>').appendTo(inp);
 
     i++;
     s++;
@@ -346,5 +347,35 @@ $modal.modal('show');
 });
 
 </script>
+<script type="text/javascript">
+$( document ).ready(function() {
+    console.log( "ready!" );
+    //alert('<?php echo base_url(); ?>');
+    console.log($("#type_id").val());
+    var base_url;
+    base_url = '<?php echo base_url(); ?>';
 
+  $('#type_id').change(function() {
+      console.log(base_url+'Course/ajax_trainingSubType');
+        $.ajax({
+            url: base_url+'/Course/ajax_trainingSubType',
+            dataType: 'json',
+            type: 'GET',
+            // This is query string i.e. country_id=123
+            data: {type_id : $('#type_id').val()},
+            success: function(data) {
+              console.log(data);
+                $('#subtype_id').empty(); // clear the current elements in select box
+                for (row in data) {
+                    $('#subtype_id').append($('<option></option>').attr('value', data[row].subTypeID).text(data[row].subTypeName));
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                alert(errorThrown);
+            }
+        });
+    });
+});
+
+</script>
 </html>

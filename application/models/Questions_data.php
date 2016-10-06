@@ -87,5 +87,26 @@ public function getAllGroups()
       $query = $this->db->get('lms_questions_bank');
       return $query->result_array();
   }
+
+  public function insert_question($data)
+  {
+    $this->db->insert('lms_questions_bank',$data);
+    $questID = $this->db->insert_id();
+    return $questID;
+  }
+
+  public function update_correct_answer($data)
+  {
+    $this->db->set('correct', $data['correctAnswerID']);
+    $this->db->where('q_id', $data['questionID']);
+    $this->db->update('lms_questions_bank');
+  }
+
+  public function update_image_path($data)
+  {
+    $this->db->set('img_path', $data['imgPath']);
+    $this->db->where('q_id', $data['questionID']);
+    $this->db->update('lms_questions_bank');    
+  }
 }
 ?>

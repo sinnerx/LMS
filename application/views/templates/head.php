@@ -42,7 +42,7 @@ if (!isset($_SESSION['userid'])) {
   <script src="<?php echo base_url(); ?>assets/js/charts/flot/demo.js"></script>
 
   <script src="<?php echo base_url(); ?>assets/js/calendar/bootstrap_calendar.js"></script>
-  <script src="<?php echo base_url(); ?>assets/js/calendar/demo.js"></script>
+  <!--<script src="<?php echo base_url(); ?>assets/js/calendar/demo.js"></script>-->
 
   <script src="<?php echo base_url(); ?>assets/js/sortable/jquery.sortable.js"></script>
   <script src="<?php echo base_url(); ?>assets/js/app.plugin.js"></script>
@@ -70,7 +70,7 @@ if (!isset($_SESSION['userid'])) {
   <!-- wysiwyg -->
   <script src="<?php echo base_url(); ?>assets/js/wysiwyg/jquery.hotkeys.js"></script>
   <script src="<?php echo base_url(); ?>assets/js/wysiwyg/bootstrap-wysiwyg.js"></script>
-  <script src="<?php echo base_url(); ?>assets/js/wysiwyg/demo.js"></script>
+  <!--<script src="<?php echo base_url(); ?>assets/js/wysiwyg/demo.js"></script>-->
   <!-- markdown -->
   <script src="<?php echo base_url(); ?>assets/js/markdown/epiceditor.min.js"></script>
   <script src="<?php echo base_url(); ?>assets/js/markdown/demo.js"></script>

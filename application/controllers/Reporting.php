@@ -48,7 +48,7 @@ class Reporting extends CI_Controller {
 
      $data['username'] = $session_data['username']; */
 
-$this->load->view('page_view',$data);
+     $this->load->view('page_view',$data);
      // $this->load->view('templates/head', $data);
      // $this->load->view('templates/header', $data);
      // $this->load->view('templates/left_side', $data);
@@ -226,6 +226,7 @@ public function result_member_passed_list()
             $row[] = $key["package"];
             //$row[] = $key["module"];
             $row[] = $key["date"];
+            $row[] = $key["datePayment"];
             
             $data[] = $row; 
         }

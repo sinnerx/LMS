@@ -71,8 +71,11 @@ function index()
 
 public function ajax_list()
   {
-    $list = $this->moduledata->get_datatables();
-    //var_dump($list);
+    //$length = $_POST['length'];
+    //echo $length;
+    $list = $this->moduledata->get_datatables($_POST['length'], $_POST['start'], $_POST['search'], isset($_POST['order'])? $_POST['order'] : null);
+
+    //var_dump($this->moduledata->count_filtered());
     $data = array();
     $no = $_POST['start'];
       foreach ($list as $module) 

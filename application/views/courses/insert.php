@@ -1,4 +1,7 @@
+
+
 <section id="content">
+
           <section class="vbox">
             <section class="scrollable padder">
               <div class="m-b-md">
@@ -14,11 +17,31 @@
                   <form class="form-horizontal" method="post" data-validate="parsley" action="<?php echo base_url() ?>index.php/course/courses_data">
                     <div class="form-group">
 
-
+                    <div class="form-group">
+                     <label class="col-sm-2 control-label">Training Type</label>
+                     <div class="col-md-5">
+                     <select data-required="true" style="width:260px" name="type_id" id="type_id" class="form-control m-b" onchange=""><option value="">Select one </option>;
+                     <?php 
+                     foreach($type as $row)
+                      { 
+                        echo '<option value="'.$row->trainingTypeID.'">'.$row->trainingTypeName.'</option>';
+                      }
+                      ?>
+                      </select>
+                      </div>
+                      </div>
                     <div class="form-group">
                  
-                    
-                     <div class="line line-dashed b-b line-lg pull-in"></div>
+                     <div class="line line-dashed b-b line-lg pull-in" style="display:none"></div>
+                      <label class="col-sm-2 control-label">Sub Type</label>
+                      <div class="col-md-5">
+                        <select data-required="true" style="width:260px" name="subtype_id" id="subtype_id" class="form-control m-b"><option value="">Select one </option>;
+
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="line line-dashed b-b line-lg pull-in"></div>
                       <label class="col-sm-2 control-label">Module ID</label>
                       <div class="col-md-5">
                         <input type="text" name="code" id="code" class="form-control" data-required="true"/>
@@ -63,4 +86,6 @@
                   </form>                  
                 </div>
               </section>
+
+
              

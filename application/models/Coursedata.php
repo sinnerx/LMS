@@ -16,7 +16,7 @@ Class Coursedata extends CI_Model
   public function course()
   {
 
-    $this->db->select('lms_package.name,lms_module.name,course.id,lms_module.code,lms_module.description,course.packageid');
+    $this->db->select('lms_package.name,lms_module.name,course.id,lms_module.code,lms_module.description,course.packageid, lms.typeid, lms.subtype_id');
     $this->db->from('lms_module');
     $this->db->join('lms_package','lms_package.packageid = lms_module.packageid'); 
     $query = $this->db->get();
@@ -129,6 +129,16 @@ Class Coursedata extends CI_Model
   {
     $this->db->where('id', $id);
     $this->db->delete($this->table);
+  }
+
+  public function get_by_code($code)
+  {
+    $this->db->from($this->table);
+    $this->db->where('code',$code);
+    $query = $this->db->get();
+
+    return $query->row();
+
   }
 
   } ?>
