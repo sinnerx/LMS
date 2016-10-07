@@ -36,5 +36,12 @@ Class Answer_data extends CI_Model
       $answerID = $this->db->insert_id();
       return $answerID;
   }
+
+  public function update_image_path($data)
+  {
+    $this->db->set('a_img_path', $data['imgPath']);
+    $this->db->where('a_id', $data['answerID']);
+    $this->db->update('lms_answer');    
+  }  
 }
 ?>

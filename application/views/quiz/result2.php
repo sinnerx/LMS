@@ -10,7 +10,7 @@
                         $temp = $temp. $siteSlug . '/profile';
                    ?>
             <!-- <form action ="http://cloud.fulkrum.net/labs/iris/<?php //echo $siteSlug ?>/profile" method = "post" class="form-horizontal" data-validate="parsley"> -->
-            <form action ="<?php echo "http://" . $temp; ?>" method = "post" class="form-horizontal" data-validate="parsley">
+            <form action ="<?php echo "https://" . $temp; ?>" method = "post" class="form-horizontal" data-validate="parsley">
             <div class="form-group">
 
             <div class="form-group">
@@ -47,7 +47,7 @@
             <div class="doc-buttons">
             <center><input type="submit" class="btn btn-s-md btn-info" value="Back"></center></div>
 
- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/timer/compiled/jquery.cookie.js"></script>  
  <script>
 

@@ -63,7 +63,23 @@
                       </div>
                     </div>
                        <input type="hidden" name="status" class="form-control" value="1">
-                      <input type="hidden" name="typeid" class="form-control" value="2">
+
+
+                      <div class="line line-dashed b-b line-lg pull-in"></div>
+                     <div class="form-group">
+                     <label class="col-sm-2 control-label">Training type</label>
+                     <div class="col-md-5">
+                     <select data-required="true" style="width:260px" name="typeid" class="form-control m-b"/><option value="">Select one </option>;
+                     <?php 
+                     foreach($group as $row)
+                      { 
+                        echo '<option value="'.$row->trainingTypeID.'">'.$row->trainingTypeName.'</option>';
+                      }
+                      ?>
+                      </select>
+                      </div>
+                      </div>
+                     <!--  <input type="hidden" name="typeid" class="form-control" value="2"> -->
                      <div class="doc-buttons">
                      <button type="submit" class="btn btn-sm btn-default">Submit</button>
                     <a href="javascript:window.history.go(-1);" class="btn btn-sm btn-default">Cancel</a></div>

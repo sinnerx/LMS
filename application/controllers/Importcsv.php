@@ -24,11 +24,11 @@ class ImportCSV extends CI_Controller {
 	    $data['home'] = 'Home';
 
 	    // var_dump(FCPATH);
-	    // var_dump(is_dir(FCPATH.'/application/uploads/'));
+	    // var_dump(is_dir(FCPATH.'/assets/uploads/'));
 
 	    if($_SERVER['REQUEST_METHOD'] == 'POST'){
-
- 			$config['upload_path']          = FCPATH. '/application/uploads/tmp';
+	    	ini_set('memory_limit', '1024M');
+ 			$config['upload_path']          = FCPATH. '/assets/uploads/tmp';
             $config['allowed_types']        = 'gif|jpg|png|xls|xlsx';
             //$config['max_size']             = 100000;
             //$config['max_width']            = 1024;
@@ -36,9 +36,9 @@ class ImportCSV extends CI_Controller {
 
             $this->load->library('upload', $config);
 
-		    if (!is_dir(FCPATH. 'application/uploads/tmp'))
+		    if (!is_dir(FCPATH. 'assets/uploads/tmp'))
 		    {
-		        mkdir(FCPATH. 'application/uploads/tmp', 0777, true);
+		        mkdir(FCPATH. 'assets/uploads/tmp', 0777, true);
 		    }            
 
 			$files = $_FILES;
@@ -93,30 +93,39 @@ class ImportCSV extends CI_Controller {
 			$objPHPExcel = PHPExcel_IOFactory::load($data['upload_data']['full_path']);
 			 
 			//get only the Cell Collection
-			$cell_collection = $objPHPExcel->getActiveSheet()->getCellCollection();	
+			// $cell_collection = $objPHPExcel->getActiveSheet()->getCellCollection();	
+			$cell_collection = $objPHPExcel->getActiveSheet()->toArray(null,true,true,true);	
+			// var_dump($cell_collection);
+			// die;
 			// $cell_collection = $objPHPExcel->getActiveSheet()->getDrawingCollection();	
 
 			//extract to a PHP readable array format
-			foreach ($cell_collection as $cell) {
-			    $column = $objPHPExcel->getActiveSheet()->getCell($cell)->getColumn();
-			    $row = $objPHPExcel->getActiveSheet()->getCell($cell)->getRow();
-			    $data_value = $objPHPExcel->getActiveSheet()->getCell($cell)->getValue();
+			
+			// foreach ($cell_collection as $cell) {
+			// 	// var_dump($cell);
+			// 	// die;
+			//     $column = $objPHPExcel->getActiveSheet()->getCell($cell)->getColumn();
+			//     // var_dump($column);
+			//     $row = $objPHPExcel->getActiveSheet()->getCell($cell)->getRow();
+			//     $objPHPExcel->getActiveSheet()->getCell($cell)->getValue() ? $data_value = $objPHPExcel->getActiveSheet()->getCell($cell)->getValue() : $data_value = '';
 			 
-			    //header will/should be in row 1 only. of course this can be modified to suit your need.
-			    if ($row == 1) {
-			        $header[$row][$column] = $data_value;
-			    } else {
-			        $arr_data[$row][$column] = $data_value;
-			    }
-			}
+			//     //header will/should be in row 1 only. of course this can be modified to suit your need.
+			//     if ($row == 1) {
+			//         $header[$row][$column] = $data_value;
+			//     } else {
+			//         $arr_data[$row][$column] = $data_value;
+			//     }
+			// }
 			 
-			//send the data in an array format
-			$data['header'] = $header;
-			$data['values'] = $arr_data;   	
+			// //send the data in an array format
+			// $data['header'] = $header;
+			// $data['values'] = $arr_data;   	
 
-			//var_dump($data['values']);
+			// //var_dump($data['values']);
 
-			$values = $data['values'];
+			// $values = $data['values'];
+			array_shift($cell_collection);
+			$values = $cell_collection;
 			// var_dump($values);
 			// die;
 			$counter = 0;
@@ -130,8 +139,8 @@ class ImportCSV extends CI_Controller {
 
 			foreach ($values as $keyQuestion => $valueQuestion) {
 
-				//if ($counter == 2)
-				//	break;
+				// if ($counter == 2)
+					// break;
 
 				# code...
 				# insert into question table
@@ -160,68 +169,331 @@ class ImportCSV extends CI_Controller {
 				// die;
 				
 				$questID = $this->questions_data->insert_question($arrayQuestModel);
-
-				if ($imgpath != ''){
-					$filename = FCPATH. 'application/uploads/tmp/' . $imgpath;
-
-					if (file_exists($filename)) {
-						$ext = pathinfo($filename, PATHINFO_EXTENSION);
-						if (!is_dir(FCPATH. 'application/uploads/'. $code))
-						    {
-						        mkdir(FCPATH. 'application/uploads/'. $code, 0777, true);
-						    }  					
-
-						$newImagePath = FCPATH . 'application/uploads/' . $code . '/' . 'Q' . $questID . '.' . $ext;
-						rename(FCPATH. 'application/uploads/tmp/'. $imgpath , $newImagePath);
-						$questImagePath = $code . '/' . 'Q' . $questID . '.' . $ext;
-					}					
-				}
-				else
-				{
-					$questImagePath = '';
-				}
 				
 
 				$x = 1;
 
 				//$arrayQuestion = array();
 				$arrayAnswer = array();
-				
+				// var_dump($valueQuestion);
+				//die;
 				foreach ($valueQuestion as $keyDetails => $valueDetails) {
 					
 				// 	// var_dump($valueDetails);
 				// 	# code...
 				// 	$module = $valueQuestion;
 				// 	var_dump($module);
+
+
+					// if($keyDetails == 'E' || $keyDetails == 'F' || $keyDetails == 'G' || $keyDetails == 'H'){
+					// 	if ($valueDetails != ''){
+					// 		// var_dump($valueDetails);
+					// 		# insert into answer table with q_id 
+					// 		$arrayAnswerModel = array(
+					// 			"q_id" 		=> $questID,
+					// 			"a_text" 	=> $valueDetails,
+					// 			);
+
+					// 		$answerID = $this->answer_data->insert_answer($arrayAnswerModel);
+
+					// 		$arrayAnswer[$x] = $answerID;
+					// 		$x++;
+					// 	}
+					// }		
+
 					if($keyDetails == 'E' || $keyDetails == 'F' || $keyDetails == 'G' || $keyDetails == 'H'){
 						if ($valueDetails != ''){
-							// var_dump($valueDetails);
-							# insert into answer table with q_id 
-							$arrayAnswerModel = array(
-								"q_id" 		=> $questID,
-								"a_text" 	=> $valueDetails,
-								);
+							if($keyDetails == 'E'){
+								$arrayAnswerModel = array(
+									"q_id" 		=> $questID,
+									"a_text" 	=> $valueDetails,
+									//"a_img_path" 	=> $finalImagePathAns,
+									);
 
-							$answerID = $this->answer_data->insert_answer($arrayAnswerModel);
+									$answerID = $this->answer_data->insert_answer($arrayAnswerModel);
 
-							$arrayAnswer[$x] = $answerID;
-							$x++;
-							// array_push($arrayAnswer, $valueDetails);
-						}
-					}
-					// else {
-					// 	// array_push($arrayQuestion, $valueDetails);
-					// }					
+									$arrayAnswer[$x] = $answerID;
+									$x++;
+
+								if(isset($valueQuestion['J'])){
+									$imgPathAns = $valueQuestion['J'];
+									
+
+									//move img ans to the correct folder
+									$arrayFileRelocate = array(
+											'imgPath' 		=> $imgPathAns,
+											'code' 			=> $code,
+											'questID' 		=> $questID,
+											'answerID' 		=> $answerID
+										);
+
+									$finalImgPathAnswer = $this->relocateImageFile($arrayFileRelocate);
+									// var_dump($finalImgPathAnswer);
+									$arrayUpdateImgPathAns = array(
+										"imgPath" => $finalImgPathAnswer,
+										"answerID" => $answerID,
+										);	
+
+									$this->answer_data->update_image_path($arrayUpdateImgPathAns);									
+								} 
+																
+							}
+								
+							else if($keyDetails == 'F'){
+								$arrayAnswerModel = array(
+									"q_id" 		=> $questID,
+									"a_text" 	=> $valueDetails,
+									//"a_img_path" 	=> $finalImagePathAns,
+									);
+
+									$answerID = $this->answer_data->insert_answer($arrayAnswerModel);
+
+									$arrayAnswer[$x] = $answerID;
+									$x++;
+								if(isset($valueQuestion['K'])){
+									$imgPathAns = $valueQuestion['K'];
+									
+
+									//move img ans to the correct folder
+									$arrayFileRelocate = array(
+											'imgPath' 		=> $imgPathAns,
+											'code' 			=> $code,
+											'questID' 		=> $questID,
+											'answerID' 		=> $answerID
+										);
+
+									$finalImgPathAnswer = $this->relocateImageFile($arrayFileRelocate);
+									// var_dump($finalImgPathAnswer);
+									$arrayUpdateImgPathAns = array(
+										"imgPath" => $finalImgPathAnswer,
+										"answerID" => $answerID,
+										);	
+
+									$this->answer_data->update_image_path($arrayUpdateImgPathAns);									
+									}	
+																	
+							}
+														
+							else if($keyDetails == 'G'){
+								$arrayAnswerModel = array(
+									"q_id" 		=> $questID,
+									"a_text" 	=> $valueDetails,
+									//"a_img_path" 	=> $finalImagePathAns,
+									);
+
+									$answerID = $this->answer_data->insert_answer($arrayAnswerModel);
+
+									$arrayAnswer[$x] = $answerID;
+									$x++;
+								if(isset($valueQuestion['L'])){
+									$imgPathAns = $valueQuestion['L'];
+									
+
+									//move img ans to the correct folder
+									$arrayFileRelocate = array(
+											'imgPath' 		=> $imgPathAns,
+											'code' 			=> $code,
+											'questID' 		=> $questID,
+											'answerID' 		=> $answerID
+										);
+
+									$finalImgPathAnswer = $this->relocateImageFile($arrayFileRelocate);
+									// var_dump($finalImgPathAnswer);
+									$arrayUpdateImgPathAns = array(
+										"imgPath" => $finalImgPathAnswer,
+										"answerID" => $answerID,
+										);	
+
+									$this->answer_data->update_image_path($arrayUpdateImgPathAns);									
+									}									
+							}
+														
+							else if($keyDetails == 'H'){
+								$arrayAnswerModel = array(
+									"q_id" 		=> $questID,
+									"a_text" 	=> $valueDetails,
+									//"a_img_path" 	=> $finalImagePathAns,
+									);
+
+									$answerID = $this->answer_data->insert_answer($arrayAnswerModel);
+
+									$arrayAnswer[$x] = $answerID;
+									$x++;
+								if(isset($valueQuestion['M'])){
+									//var_dump('M field');
+									$imgPathAns = $valueQuestion['M'];
+									// var_dump($imgPathAns);
+
+									//move img ans to the correct folder
+									$arrayFileRelocate = array(
+											'imgPath' 		=> $imgPathAns,
+											'code' 			=> $code,
+											'questID' 		=> $questID,
+											'answerID' 		=> $answerID
+										);
+
+									$finalImgPathAnswer = $this->relocateImageFile($arrayFileRelocate);
+									// var_dump($finalImgPathAnswer);
+									$arrayUpdateImgPathAns = array(
+										"imgPath" => $finalImgPathAnswer,
+										"answerID" => $answerID,
+										);	
+
+									$this->answer_data->update_image_path($arrayUpdateImgPathAns);									
+								}																
+							}
+						}//valueDetails != ''
+
+						else if ($valueDetails == ''){
+							if($keyDetails == 'E'){
+								if(isset($valueQuestion['J']) && !isset($valueQuestion['E'])){
+									$imgPathAns = $valueQuestion['J'];
+
+									$answerID = $this->answer_data->insert_answer(array('q_id' => $questID, 'a_text' => ''));
+
+									$arrayAnswer[$x] = $answerID;
+									$x++;
+
+									//move img ans to the correct folder
+									$arrayFileRelocate = array(
+											'imgPath' 		=> $imgPathAns,
+											'code' 			=> $code,
+											'questID' 		=> $questID,
+											'answerID' 		=> $answerID
+										);
+
+									$finalImgPathAnswer = $this->relocateImageFile($arrayFileRelocate);
+									
+									$arrayUpdateImgPathAns = array(
+										"imgPath" => $finalImgPathAnswer,
+										"answerID" => $answerID,
+										);	
+
+									$this->answer_data->update_image_path($arrayUpdateImgPathAns);
+
+								}
+
+							}
+							else if ($keyDetails == 'F'){
+								if(isset($valueQuestion['K'])){
+
+									$imgPathAns = $valueQuestion['K'];
+
+									$answerID = $this->answer_data->insert_answer(array('q_id' => $questID, 'a_text' => ''));
+
+									$arrayAnswer[$x] = $answerID;
+									$x++;
+
+									//move img ans to the correct folder
+									$arrayFileRelocate = array(
+											'imgPath' 		=> $imgPathAns,
+											'code' 			=> $code,
+											'questID' 		=> $questID,
+											'answerID' 		=> $answerID
+										);
+
+									$finalImgPathAnswer = $this->relocateImageFile($arrayFileRelocate);
+									
+									$arrayUpdateImgPathAns = array(
+										"imgPath" => $finalImgPathAnswer,
+										"answerID" => $answerID,
+										);	
+
+									$this->answer_data->update_image_path($arrayUpdateImgPathAns);									
+
+								}								
+
+							}
+							else if ($keyDetails == 'G'){
+								if(isset($valueQuestion['L'])){
+
+									$imgPathAns = $valueQuestion['L'];
+
+									$answerID = $this->answer_data->insert_answer(array('q_id' => $questID, 'a_text' => ''));
+
+									$arrayAnswer[$x] = $answerID;
+									$x++;
+
+									//move img ans to the correct folder
+									$arrayFileRelocate = array(
+											'imgPath' 		=> $imgPathAns,
+											'code' 			=> $code,
+											'questID' 		=> $questID,
+											'answerID' 		=> $answerID
+										);
+
+									$finalImgPathAnswer = $this->relocateImageFile($arrayFileRelocate);
+									
+									$arrayUpdateImgPathAns = array(
+										"imgPath" => $finalImgPathAnswer,
+										"answerID" => $answerID,
+										);	
+
+									$this->answer_data->update_image_path($arrayUpdateImgPathAns);									
+
+								}								
+								
+							}
+							else if ($keyDetails == 'H'){
+								if(isset($valueQuestion['M'])){
+
+									$imgPathAns = $valueQuestion['M'];
+
+									$answerID = $this->answer_data->insert_answer(array('q_id' => $questID, 'a_text' => ''));
+
+									$arrayAnswer[$x] = $answerID;
+									$x++;
+
+									//move img ans to the correct folder
+									$arrayFileRelocate = array(
+											'imgPath' 		=> $imgPathAns,
+											'code' 			=> $code,
+											'questID' 		=> $questID,
+											'answerID' 		=> $answerID
+										);
+
+									$finalImgPathAnswer = $this->relocateImageFile($arrayFileRelocate);
+									
+									$arrayUpdateImgPathAns = array(
+										"imgPath" => $finalImgPathAnswer,
+										"answerID" => $answerID,
+										);	
+
+									$this->answer_data->update_image_path($arrayUpdateImgPathAns);									
+
+								}								
+								
+							}														
+						}//valueDetails == ''
+					}							
 					
 					
 				}//end foreach answer
-				//var_dump($arrayAnswer);
+				// var_dump($arrayAnswer);
 
 				$arrayUpdateCorrectAnswer = array(
 					"correctAnswerID" => $arrayAnswer[$valueQuestion['I']],
 					"questionID" => $questID,
 					);
 
+				
+
+				if ($imgpath != ''){
+					//move img ans to the correct folder
+					$arrayFileRelocate = array(
+							'imgPath' 		=> $imgpath,
+							'code' 			=> $code,
+							'questID' 		=> $questID,
+							'answerID' 		=> ''
+						);
+
+					$questImagePath = $this->relocateImageFile($arrayFileRelocate);					
+				}
+				else
+				{
+					$questImagePath = '';
+				}
+				//var_dump($questImagePath);
 				$arrayUpdateImgPath = array(
 					"imgPath" => $questImagePath,
 					"questionID" => $questID,
@@ -233,13 +505,15 @@ class ImportCSV extends CI_Controller {
 				// die;
 				$counter++;
 			}//end foreach question
-			 // die;
+			  //die;
 			// var_dump($arrayList);
 
-			$filesTmp = glob(FCPATH. 'application/uploads/tmp/*'); // get all file names
+			$filesTmp = glob(FCPATH. 'assets/uploads/tmp/*'); // get all file names
 			foreach($filesTmp as $file){ // iterate files
-			  if(is_file($file))
-			    unlink($file); // delete file
+			  if(is_file($file)){
+			  	unlink($file); // delete file
+			  }
+			   
 			}
 	    }//END IF POST
 		
@@ -291,5 +565,31 @@ class ImportCSV extends CI_Controller {
 	    return $file_ary;
 	}
 
+	private function relocateImageFile($data){
 
+		$imgPath 	= $data['imgPath'];
+		$code 		= $data['code'];
+		$questID	= $data['questID'];
+		$data['answerID'] != '' ? $answerID	= 'A'. $data['answerID'] : $answerID = '';
+
+		$filename = FCPATH. 'assets/uploads/tmp/' . $imgPath;
+
+		if (file_exists($filename)) {
+			$ext = pathinfo($filename, PATHINFO_EXTENSION);
+			if (!is_dir(FCPATH. 'assets/uploads/'. $code))
+			    {
+			        mkdir(FCPATH. 'assets/uploads/'. $code, 0777, true);
+			    }  					
+
+			$newImagePath = FCPATH . 'assets/uploads/' . $code . '/' . 'Q' . $questID . $answerID .'.' . $ext;
+			rename(FCPATH. 'assets/uploads/tmp/'. $imgPath , $newImagePath);
+			$finalImagePath = $code . '/' . 'Q' . $questID . $answerID . '.' . $ext;
+		}
+		else {
+			$finalImagePath = "";
+		}
+
+		return $finalImagePath;
+
+	}
 }

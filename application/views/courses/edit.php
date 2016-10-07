@@ -93,6 +93,27 @@
                         
                       </div>
                     </div>
+
+
+                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                  <div class="form-group">
+                                  <label class="col-sm-2 control-label">Training Type</label>
+                                  <div class="col-md-5">
+                                   
+                                  <select data-required="true" style="width:260px" name="typeid" class="form-control m-b">
+                                 <?php 
+                                 foreach($group as $row)
+                                  { 
+                                    if($row->trainingTypeID == $course['typeid'])
+                                      $selected = "selected";
+                                    else
+                                      $selected = "";
+                                    echo '<option value="'.$row->trainingTypeID.' " '. $selected.'>'.$row->trainingTypeName.'</option>';
+                                  }
+                                  ?>
+                                  </select>
+                                  </div>
+                                  </div>
                   <!--   <div class="line line-dashed b-b line-lg pull-in"></div>
                     <div class="form-group">
                       <label class="col-sm-2 control-label">Package</label>

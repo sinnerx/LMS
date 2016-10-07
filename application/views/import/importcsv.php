@@ -4,10 +4,11 @@
 </header>
 <div class="panel-body">
 	<?php echo form_open_multipart('importcsv',array('method' => 'post'));?>
-
+	Choose multiple images and only ONE excel file at a time.
+	<br><br>
 	<input type="file" name="importfile[]" multiple/>
 
-	<br /><br />
+	<br />
 
 	<input type="submit" value="upload" class="btn btn-primary "/>
 
