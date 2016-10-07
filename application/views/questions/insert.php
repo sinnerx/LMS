@@ -7,13 +7,23 @@
                 <h3 class="m-b-none"></h3>
               </div> -->
               
+              <style type="text/css">
+              .imgCover {
+  object-fit: cover;
+  width: 300px;
+  height: 200px;
+}
+
+              </style>
                 
               <section class="panel panel-default">
                 <header class="panel-heading font-bold">  <?php echo $nav_subtitle; ?>   
                 </header>
                   
                      <div class="panel-body">
-                    <form class="form-horizontal" data-validate="parsley" method="post" action="<?php echo base_url() ?>question/questions_data">
+                    
+                    <?php echo form_open_multipart('question/questions_data');?>
+
                     <div class="form-group">
            
                             <label class="col-sm-2 control-label">Module name</label>
@@ -44,6 +54,16 @@
                             <option value="Intermidiate">Intermidiate</option>
                             <option value="Hard">Hard</option>
                             </select>
+                            </div>
+                            </div>
+
+                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                            <div class="form-group">
+                            <label class="col-sm-2 control-label">Image</label>
+                            <div class="col-md-5">
+                            <img id="previewImg" class="imgCover" src="<?php echo base_url(); ?>assets/images/noimage.png" />
+                            <input type='file' id="inputImg" name="inputImg" accept="image/*"/>
+
                             </div>
                             </div>
 
@@ -96,4 +116,20 @@
             </div><!-- /.box -->
         </section><!-- /.content -->
 
-   
+<script type="text/javascript">
+  function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            
+            reader.onload = function (e) {
+                $('#previewImg').attr('src', e.target.result);
+            }
+            
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    
+    $("#inputImg").change(function(){
+        readURL(this);
+    });
+</script>

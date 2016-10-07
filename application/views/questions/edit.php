@@ -12,7 +12,14 @@
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/font-awesome.min.css" type="text/css" />
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/icon.css" type="text/css" />
 
+<style type="text/css">
+              .imgCover {
+  object-fit: cover;
+  width: 300px;
+  height: 200px;
+}
 
+</style>
 
                 <!-- Main content -->
     
@@ -44,6 +51,24 @@
                                <input type="text" name="id" class="form-control" value="<?php echo $question['code']; ?>-<?php echo $question['name']; ?>"disabled>
                                </div>
                                </div>
+
+                               <div class="line line-dashed b-b line-lg pull-in"></div>
+                               <div class="form-group">
+                               <label class="col-sm-2 control-label">Image</label>
+                               <div class="col-md-5">
+                               <img id="previewImg" class="imgCover" src="
+                               <?php if(!$question['img_path'])
+                               {
+                                echo base_url().'assets/images/noimage.png';
+                              }
+                               else{
+
+                                echo base_url().$question['img_path'];
+
+                                }; ?>" />
+                               <input type='file' id="inputImg" name="inputImg" accept="image/*"/>
+                               </div>
+                               </div> 
                                
                                <div class="line line-dashed b-b line-lg pull-in"></div>
                                <div class="form-group">
@@ -90,6 +115,24 @@
                             </form>
 
                 </section><!-- /.content -->
+
+                <script type="text/javascript">
+  function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            
+            reader.onload = function (e) {
+                $('#previewImg').attr('src', e.target.result);
+            }
+            
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    
+    $("#inputImg").change(function(){
+        readURL(this);
+    });
+</script>
 
             </aside><!-- /.right-side -->
         </div><!-- ./wrapper -->

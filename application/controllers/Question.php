@@ -6,7 +6,8 @@ class Question extends CI_Controller {
   public function __construct()
   {
     parent::__construct();
-
+  $this->load->helper('url'); 
+  $this->load->helper('form');
   $this->load->model('questiondata');
   $this->load->model('questions_data');
   $this->load->model('Update_question');
@@ -31,7 +32,7 @@ function index()
 
     $data['page_title'] = 'Monte Carlo';
     $data['nav_title'] = 'Questions';
-    $data['nav_subtitle'] = 'Questions List';
+    $data['nav_subtitle'] = 'Questions Listsssss';
     $data['home'] = 'Home';
 
     $this->load->helper('url');
@@ -62,7 +63,8 @@ function index()
 
  public function ajax_list()
   {
-    $this->load->model('template_model');
+
+    //$this->load->model('template_model');
     $list = $this->questiondata->get_datatables();
     $data = array();
     $no = $_POST['start'];
@@ -300,17 +302,38 @@ function questions_data()
         'userLevel' => $userLevel,
         'message' => 'My Message'
     );
-     
+
+  $imgPath = 'assets/uploads';
+
+  $config['upload_path'] = FCPATH. '/assets/uploads';
+         $config['allowed_types'] = 'gif|jpg|png|jpeg';
+         $this->load->library('upload', $config);
+        
+        $this->load->library('upload', $config);
+
+        if (!is_dir(FCPATH. 'assets/uploads'))
+        {
+            mkdir(FCPATH. 'assets/uploads', 0777, true);
+        }     
+
+         $this->upload->do_upload('inputImg');
+         $data_upload_files = $this->upload->data();
+
+         //$image = $data_upload_files[full_path];
+
+         $image = $imgPath.'/'.$data_upload_files[file_name];
+
+
     $data = array(
     'q_id' => $this->input->post('q_id'),
     'id' => $this->input->post('id'),
     'type' => $this->input->post('type'),
     'q_text' => $this->input->post('q_text'),
-    'correct' => $this->input->post('correct')
+    'correct' => $this->input->post('correct'),
+    'img_path' => $image
      );
 
-   
- 
+     
      $caca= $this->questions_data->questions($data);
      print_r($caca);
      $data['page_title'] = 'Monte Carlo';
