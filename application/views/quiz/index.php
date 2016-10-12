@@ -24,14 +24,16 @@ return false;
 
 .imgquiz {   
   width: auto;
-  display: inline-block;    
+  display: inline-block; 
+  height: 200px;   
 }
 
 .imgquiz img {
   /*width: 30%; */
   max-width: 100%;
   /* Will shrink image to 30% of its original width */
-  height: auto;    
+  /*height: 500px;    */
+  height: 100%;
 }​
 </style>
 </head>
