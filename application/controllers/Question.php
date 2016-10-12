@@ -33,7 +33,7 @@ function index()
 
     $data['page_title'] = 'Monte Carlo';
     $data['nav_title'] = 'Questions';
-    $data['nav_subtitle'] = 'Questions Listsssss';
+    $data['nav_subtitle'] = 'Questions Lists';
     $data['home'] = 'Home';
 
     $this->load->helper('url');
