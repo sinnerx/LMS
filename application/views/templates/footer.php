@@ -216,7 +216,8 @@ $(document).ready(function() {
 
 $(document).ready(function(){
   
-  $('#add').click(function(){
+  //$('#add').click(function(){
+  $(document).on('click', '#add', function(){
     
     var inp = $('#box');
     
@@ -225,7 +226,7 @@ $(document).ready(function(){
     var s = $('input').size() ;
     
     //$('<div id="box' + i +'"><div class="form-group"><label class="col-sm-2 control-label">Answer</label><div class="col-md-5"><input type="text" id="a_text[' + i +']" class="form-control" name="a_text1[' + i +']" /></div><img src="<?php echo base_url(); ?>assets/add/remove.png" align="top" class="add" id="remove" /></div></div></div>').appendTo(inp);
-    $('<div id="box' + i +'"><div class="form-group"><label class="col-sm-2 control-label">Answer</label><div class="col-md-5"><input type="text" id="a_text'+ i +'" class="form-control" name="a_text' + i +'" /></div><img src="<?php echo base_url(); ?>assets/add/remove.png" align="top" class="add" id="remove" /></div></div></div>').appendTo(inp);
+    $('<div id="box' + i +'"><div class="form-group"><label class="col-sm-2 control-label">Answer</label><div class="col-md-5"><input type="text" id="a_text'+ i +'" class="form-control" name="a_text' + i +'" /><br><img id="preview_a_img'+ i +'" class="thumbCover" src="<?php echo base_url(); ?>assets/images/noimage.png" /><input type="file" id="input_a_img'+ i +'" name="input_a_img'+ i +'" accept="image/*"/></div><img src="<?php echo base_url(); ?>assets/add/remove.png" align="top" class="add" id="remove" /><img src="<?php echo base_url(); ?>assets/add/add.png" width="32" height="32" border="0" align="top" class="add" id="add" /></div></div></div>').appendTo(inp);
 
     i++;
     s++;
@@ -237,7 +238,8 @@ $(document).ready(function(){
   
   $('body').on('click','#remove',function(){
     
-    $(this).parent('div').remove();
+    //$(this).parent('div').remove();
+    $(this).parent('div').fadeOut(400, function(){ $(this).parent('div').remove(); });
 
     
   });

@@ -19,6 +19,12 @@
   height: 200px;
 }
 
+.thumbCover {
+  object-fit: cover;
+  width: 250px;
+  height: 150px;
+}
+
 </style>
 
                 <!-- Main content -->
@@ -31,10 +37,12 @@
                 </header>
                  <div class="panel-body">
 
-                <form method="post" class="form-horizontal" action="<?php echo base_url() ?>index.php/question/Update_question">
+                <!-- <form method="post" class="form-horizontal" action="<?php //echo base_url() ?>index.php/question/Update_question"> -->
+                <?php echo form_open_multipart('question/Update_question','class="form-horizontal"');?>
                      <div class="form-group">
                            
                                <input type="hidden" name="q_id" id="q_id" value="<?php echo $question['q_id']; ?> ">
+                               <input type="hidden" name="q_code" id="q_code" value="<?php echo $question['code']; ?> ">
                             <!--    <input type="hidden" name="no_pictures" id="no_pictures" value="<?php echo $dd_report['no_pictures']; ?>" />-->
                               <!--     <input type="submit" class="btn btn-info btn-sm fa fa-floppy-o" value="Submit" />
                          
@@ -56,17 +64,17 @@
                                <div class="form-group">
                                <label class="col-sm-2 control-label">Image</label>
                                <div class="col-md-5">
-                               <img id="previewImg" class="imgCover" src="
+                               <img id="preview_q_img1" class="imgCover" src="
                                <?php if(!$question['img_path'])
                                {
                                 echo base_url().'assets/images/noimage.png';
                               }
                                else{
 
-                                echo base_url().$question['img_path'];
+                                echo base_url().'assets/uploads/'.$question['img_path'];
 
                                 }; ?>" />
-                               <input type='file' id="inputImg" name="inputImg" accept="image/*"/>
+                               <input type='file' id="input_q_img1" name="input_q_img1" accept="image/*"/>
                                </div>
                                </div> 
                                
@@ -104,10 +112,28 @@
                                <div class="form-group">
                                <label for= "Answer" class="col-sm-2 control-label">Answer :</label>
                                <div class="col-md-5">
-                               <input name="a_text[]" type="text" id="a_text" class="form-control" value="<?php echo $y['a_text']; ?>"><input name="a_id[]" type="hidden" id="a_id" class="form-control" value="<?php echo $y['a_id']; ?>"></div><input type="radio" value="<?php echo $y['a_id']; ?>" id="correct"  name="correct" <?php if($y['a_id'] == $question['correct']) echo "checked='checked'"; ?>>&nbsp; &nbsp;&nbsp;<a href="<?php echo base_url().'question/deletes/'.$y['a_id'] ;?>"><i class="fa fa-trash-o "></i></a><br/>
+                               <input name="a_text[]" type="text" id="a_text" class="form-control" value="<?php echo $y['a_text']; ?>">
 
+                               <br>
+                            <img id="preview_a_img<?php echo $y['a_id']; ?>" class="thumbCover" src="
+                            <?php if(!$y['a_img_path'])
+                               {
+                                echo base_url().'assets/images/noimage.png';
+                              }
+                               else{
+
+                                echo base_url().'assets/uploads/'.$y['a_img_path'];
+
+                                }; ?>
+                            " />
+                            <input type="file" id="input_a_img<?php echo $y['a_id']; ?>" name="input_a_img<?php echo $y['a_id']; ?>" accept="image/*"/>
+
+                               <input name="a_id[]" type="hidden" id="a_id" class="form-control" value="<?php echo $y['a_id']; ?>"></div><input type="radio" value="<?php echo $y['a_id']; ?>" id="correct"  name="correct" <?php if($y['a_id'] == $question['correct']) echo "checked='checked'"; ?>>&nbsp; &nbsp;&nbsp;<a href="<?php echo base_url().'question/deletes/'.$y['a_id'] ;?>"><i class="fa fa-trash-o "></i></a><br/>
+
+                               
+                               </div>
                                <?php } endforeach ?>
-                             </div></div></div>
+                             </div></div>
                         
                             <div class="doc-buttons">
                             <button type="submit" class="btn btn-sm btn-default">Submit</button>
@@ -117,21 +143,29 @@
                 </section><!-- /.content -->
 
                 <script type="text/javascript">
-  function readURL(input) {
+  function readURL(input, id) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
             
             reader.onload = function (e) {
-                $('#previewImg').attr('src', e.target.result);
+                $('#preview_'+id).attr('src', e.target.result);
             }
             
             reader.readAsDataURL(input.files[0]);
         }
     }
     
-    $("#inputImg").change(function(){
-        readURL(this);
-    });
+
+    $(document).on('change', 'input:file', function(){
+     str = $(this).attr('id');
+      str = str.substring(str.indexOf("_") + 1);
+      //alert(str);
+
+      readURL(this,str);
+  });
+
+
+
 </script>
 
             </aside><!-- /.right-side -->

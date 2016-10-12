@@ -14,6 +14,7 @@ class Question extends CI_Controller {
   $this->load->model('delete_question');
   $this->load->model('delete_answer');
   $this->load->model('template_model');
+  $this->load->model('coursedata');
   }
 
 function index()
@@ -303,39 +304,23 @@ function questions_data()
         'message' => 'My Message'
     );
 
-  $imgPath = 'assets/uploads';
 
-  $config['upload_path'] = FCPATH. '/assets/uploads';
-         $config['allowed_types'] = 'gif|jpg|png|jpeg';
-         $this->load->library('upload', $config);
-        
-        $this->load->library('upload', $config);
-
-        if (!is_dir(FCPATH. 'assets/uploads'))
-        {
-            mkdir(FCPATH. 'assets/uploads', 0777, true);
-        }     
-
-         $this->upload->do_upload('inputImg');
-         $data_upload_files = $this->upload->data();
-
-         //$image = $data_upload_files[full_path];
-
-         $image = $imgPath.'/'.$data_upload_files[file_name];
-
-
+    $code = $this->coursedata->id($this->input->post('id'));
+   
     $data = array(
     'q_id' => $this->input->post('q_id'),
     'id' => $this->input->post('id'),
     'type' => $this->input->post('type'),
     'q_text' => $this->input->post('q_text'),
     'correct' => $this->input->post('correct'),
-    'img_path' => $image
-     );
+    'code' => $code['code']
+    );
+     
+     //upload q and a images
+     $this->questions_data->questions($data);
+
 
      
-     $caca= $this->questions_data->questions($data);
-     print_r($caca);
      $data['page_title'] = 'Monte Carlo';
       $data['nav_title'] = 'Question';
       $data['nav_subtitle'] = 'Question Details';
@@ -357,6 +342,7 @@ function questions_data()
        //$this->load->view('templates/footer');
     
     }
+
 
     function correct()
     {
@@ -614,16 +600,14 @@ $userLevel = $this->nativesession->get( 'userLevel' );
   function Update_question() 
   {
 
-
-
-    $q_id = $this->input->post('q_id');
+    $q_id = trim($this->input->post('q_id'));
     $a_text = $this->input->post('a_text');
     $q_text = $this->input->post('q_text');
     $type = $this->input->post('type');
     $a_text = $this->input->post('a_text');
     $a_id = $this->input->post('a_id');
     $correct = $this->input->post('correct');
-
+    $code = trim($this->input->post('q_code')); 
 
     $row_count = count($a_text);
     $row_count = count($a_id);
@@ -648,6 +632,103 @@ $userLevel = $this->nativesession->get( 'userLevel' );
 
       $this->db->query($query_update);
     }
+
+
+    //upload image ad update path
+
+    $config['upload_path'] = FCPATH. '/assets/uploads/tmp';
+    $config['allowed_types'] = 'gif|jpg|png|jpeg';
+    $this->load->library('upload', $config);
+
+    //upload question image
+
+    $q_img_empty = $_FILES['input_q_img1']['name'];
+    // var_dump($q_img_empty);
+    // die();
+
+    if($q_img_empty!==""){
+
+    //start uploading
+      if (!is_dir(FCPATH. 'assets/uploads'))
+        {
+            mkdir(FCPATH. 'assets/uploads', 0777, true);
+        }     
+
+         if (!$this->upload->do_upload('input_q_img1')):
+            $error = array('error' => $this->upload->display_errors());
+            var_dump($error);
+            else:
+              //var_dump("success!");
+          endif;
+
+    $q_img_upload = $this->upload->data();
+
+        //relocate image file
+    $q_img_relocate = array(
+              'imgPath'     => $q_img_upload['file_name'],
+              'code'      => $code,
+              'questID'     => $q_id,
+              'answerID'    => ''
+            );
+
+    $qImagePath = $this->questions_data->relocateImageFile($q_img_relocate); 
+    //update question with new img path
+    $q_imgData = array(
+                'imgPath' => $qImagePath,
+                'questionID' => $q_id
+              );
+    $this->questions_data->update_image_path($q_imgData);
+    //end upload question image
+    }
+
+    //upload answer image
+    foreach ($a_id as $key => $val) {
+      # code...
+      $a_file ='input_a_img'.$val;
+
+      $a_img_empty = $_FILES[$a_file]['name'];
+
+      if($a_img_empty!==""){
+      //start uploading
+      if (!is_dir(FCPATH. 'assets/uploads'))
+        {
+            mkdir(FCPATH. 'assets/uploads', 0777, true);
+        }     
+
+         if (!$this->upload->do_upload($a_file)):
+            $error = array('error' => $this->upload->display_errors());
+            var_dump($error);
+            else:
+              //var_dump("success!");
+          endif;
+
+        $a_img_upload = $this->upload->data();
+
+        //relocate image file
+    $a_img_relocate = array(
+              'imgPath'     => $a_img_upload['file_name'],
+              'code'      => $code,
+              'questID'     => $q_id,
+              'answerID'    => $val
+            );
+
+    $ansImagePath = $this->questions_data->relocateImageFile($a_img_relocate); 
+    //update question with new img path
+    $a_imgData = array(
+                'img_path' => $ansImagePath,
+                'answerID' => $val
+              );
+    $this->questions_data->update_a_image_path($a_imgData);
+      }
+    }
+    //END OF answer image upload
+
+
+
+
+
+
+
       //print_r($query_update);
       // $data['page_title'] = 'Monte Carlo';
       // $data['nav_title'] = 'Answer';
@@ -668,11 +749,6 @@ $userLevel = $this->nativesession->get( 'userLevel' );
       
    }
  }
-     
-
-
-
-
     function delete_question($q_id)
     {
       $this->load->library( 'nativesession' );
