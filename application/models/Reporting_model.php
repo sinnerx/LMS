@@ -248,16 +248,6 @@ public function get_list_site($q){
             //$sqlwhere .= " AND R.status = 0";
       }
 
-      if($getdata['payment']){
-          if($getdata['payment'] == 1){
-              //$sqlwhere .=" AND BTU.billingTransactionUserID <> '' ";
-              $sqlwhere .= "AND BTU.billingTransactionUserID is NOT NULL";
-          }
-            
-          else if ($getdata['payment'] == 2)
-            $sqlwhere .=" AND BTU.billingTransactionUserID is NULL ";
-      }
-
       if($getdata['package']){
           $sqlwhere .= " AND LP.packageid = ". $getdata['package'] ." ";
       }      
@@ -299,14 +289,23 @@ public function get_list_site($q){
           //$sqlwhere .= " AND LP.packageid = 1 ";
       //}
       
+      if($getdata['payment']){
+          if($getdata['payment'] == 1){
+              // //$sqlwhere .=" AND BTU.billingTransactionUserID <> '' ";
+              $sqlwhere .= "HAVING BTU.billingTransactionUserID is NOT NULL";
+          }
+            
+          else if ($getdata['payment'] == 2)
+            $sqlwhere .=" AND BTU.billingTransactionUserID is NULL ";
+      }
 
       $sql ='
              (SELECT DISTINCT(user.userid), 
             (SELECT CONCAT(userprofilefullname," ",userProfileLastName) FROM user_profile up WHERE up.userID = user.userID) as username,
             (SELECT S.sitename FROM site S WHERE S.siteid = SM.siteid) as Pi1M,
-            (SELECT C.clustername FROM cluster C WHERE C.clusterID = CS.clusterID ) as Cluster,
-            T.trainingid,
-            (SELECT M.name FROM lms_module M WHERE M.id = TL.packageModuleID) as ModuleName, 
+            (SELECT C.clustername FROM cluster C WHERE C.clusterID = CS.clusterID ) as Cluster,';
+      //T.trainingid,      
+      $sql .= ' (SELECT M.name FROM lms_module M WHERE M.id = TL.packageModuleID) as ModuleName, 
             (SELECT P.name FROM lms_package P WHERE P.packageID = LP.packageid) as PackageName,
              BTU.billingTransactionUserID, R.status
             FROM user
@@ -380,8 +379,8 @@ public function get_list_site($q){
             // ' . $sqlwhere . '
             // )';
 
-      //print_r($sql);
-      //die;
+      // print_r($sql);
+      // die;
       //$ci=& get_instance();
 
       //print($db['default']['hostname']);

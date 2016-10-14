@@ -474,8 +474,8 @@ $("#submitbtn").click(function(){
       $("#participant_div").hide();
       $("#test_result_div").hide();
       $("#pay_div").hide();
-      $("#datefrom_div").hide();
-      $("#dateto_div").hide();
+      // $("#datefrom_div").hide();
+      // $("#dateto_div").hide();
 
   }
 });
@@ -784,7 +784,7 @@ $("#submitbtn").click(function(){
                                                                   'name'        => 'dateFrom',
                                                                   'value'       => "".date('d-m-Y', strtotime(date('d-m-Y')))."",
                                                                   // 'class'       => 'input-sm input-s datepicker-input form-control',
-                                                                  'class'       => 'datepicker-input form-control',
+                                                                  'class'       => 'form-control',
                                                                   'id'          => 'dateFrom',
                                                                   'data-date-format'    => 'dd-mm-yyyy'
                                                           );
