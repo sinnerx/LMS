@@ -474,8 +474,8 @@ $("#submitbtn").click(function(){
       $("#participant_div").hide();
       $("#test_result_div").hide();
       $("#pay_div").hide();
-      // $("#datefrom_div").hide();
-      // $("#dateto_div").hide();
+      $("#datefrom_div").hide();
+      $("#dateto_div").hide();
 
   }
 });
