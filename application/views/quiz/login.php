@@ -13,6 +13,9 @@
             <div class="panel-body">
                    
             <form action ="<?php echo base_url() ?>Loginexam" method ="post" class="form-horizontal" data-validate="parsley">
+                <input type="hidden" name="moduleid" value="<?php echo $_GET['moduleid'];?>">
+                <input type="hidden" name="packageid" value="<?php echo $_GET['packageid'];?>">
+                <input type="hidden" name="userid" value="<?php echo $_GET['userid'];?>">
             <div class="form-group">
 
             <div class="form-group">

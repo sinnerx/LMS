@@ -417,6 +417,7 @@ $data = array(
 	 $data['boss'] = $_SESSION['pop'];
 
 	$mmoid= $data['boss']['moduleid'];
+	$packageid= $data['boss']['packageid'];
 	
 	//print_r($say);
 	//$data['packageid'] = $data['boss']['packageid'];
@@ -441,12 +442,15 @@ $data = array(
 else{
 
  //print_r($resultk->name);
-
+$this->db->select("LP.name");
+$queryPackage = $this->db->get_where('lms_package LP', array('packageid' => $packageid));
+$resultPackage = $queryPackage->row();
 $data = array(
     'userid' => $userid,
     'userLevel' => $userLevel,
     'message' => 'My Message',
-    'modulename' => $resultk->name
+    'modulename' => $resultk->name,
+    'packagename' => $resultPackage->name,
 );
 }
 

@@ -19,6 +19,11 @@ function index()
 {
    
     $userEmail = $this->input->post('userEmail');
+    $userid = $this->input->post('userid');
+    $packageid = $this->input->post('packageid');
+    $moduleid = $this->input->post('moduleid');
+    // var_dump($userid . $packageid);
+    // die;
     //$userPassword = $this->input->post('userPassword');
    //$post_password = md5($this->input->post('userPassword', TRUE));
     $post_password = $this->hashPassword($this->input->post('userPassword', TRUE));
@@ -28,7 +33,8 @@ function index()
       $this->db->where('userEmail', $this->input->post('userEmail'));
       $this->db->where('userPassword', $post_password);
       $result = $this->db->get('user');
-      
+      // var_dump($_SESSION['pop']['moduleid']);
+      // die;
       // If we find a user output correct, else output wrong.
       if($result->num_rows() != 0)
       {
@@ -37,7 +43,14 @@ function index()
       }
       else
       {
-         header('location:login');  
+         // header('location:login?'.'moduleid='.$moduleid.'&packageid='.$packageid.'&userid='.$userid ); 
+         $location =  'login?'.'moduleid='.$moduleid.'&packageid='.$packageid.'&userid='.$userid;
+        $message = 'You have entered incorrect email or password of the manager ';
+
+        echo "<SCRIPT type='text/javascript'> //not showing me this
+        alert('$message');
+        window.location.replace(\"$location\");
+        </SCRIPT>";         
         
       }
 

@@ -36,18 +36,18 @@
             <div class="line line-dashed b-b line-lg pull-in"></div>
             <div class="form-group">
             <div class="col-lg-2">
-            <b>Module ID:</b><br/></div>
+            <b>Module :</b><br/></div>
             <div class="col-md-2">
-             <input type="text" name="id" class="form-control" value="<?php echo $_SESSION['pop']['moduleid']; ?>" readonly>
+             <input type="text" name="id" class="form-control" value="<?php echo $modulename; ?>" readonly>
             </div>
             </div>
 
             <div class="line line-dashed b-b line-lg pull-in"></div>
             <div class="form-group">
             <div class="col-lg-2">
-            <b>Package ID:</b><br/></div>
+            <b>Package :</b><br/></div>
             <div class="col-md-2">
-              <input type="text" name="packageid" class="form-control" value="<?php echo $_SESSION['pop']['packageid'] ?>" readonly>
+              <input type="text" name="packageid" class="form-control" value="<?php echo $packagename; ?>" readonly>
             </div>
             </div>
 
