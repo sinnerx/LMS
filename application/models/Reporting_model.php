@@ -292,7 +292,7 @@ public function get_list_site($q){
       if($getdata['payment']){
           if($getdata['payment'] == 1){
               // //$sqlwhere .=" AND BTU.billingTransactionUserID <> '' ";
-              $sqlwhere .= "HAVING BTU.billingTransactionUserID is NOT NULL";
+              $sqlwhere .= " HAVING BTU.billingTransactionUserID is NOT NULL";
           }
             
           else if ($getdata['payment'] == 2)
@@ -305,9 +305,9 @@ public function get_list_site($q){
             (SELECT S.sitename FROM site S WHERE S.siteid = SM.siteid) as Pi1M,
             (SELECT C.clustername FROM cluster C WHERE C.clusterID = CS.clusterID ) as Cluster,';
       //T.trainingid,      
-      $sql .= ' (SELECT M.name FROM lms_module M WHERE M.id = TL.packageModuleID) as ModuleName, 
+      $sql .= ' (SELECT M.name FROM lms_module M WHERE M.id = LP.moduleid) as ModuleName, 
             (SELECT P.name FROM lms_package P WHERE P.packageID = LP.packageid) as PackageName,
-             BTU.billingTransactionUserID, R.status
+             BTU.billingTransactionUserID, R.status 
             FROM user
             JOIN site_member SM ON SM.userID = user.userid              
             JOIN cluster_site CS ON CS.siteID = SM.siteid
@@ -316,7 +316,7 @@ public function get_list_site($q){
             JOIN training T ON T.activityID = au.activityID
             JOIN training_lms TL ON TL.trainingID = T.trainingID
 
-            LEFT OUTER JOIN lms_package_module  LP ON TL.packageModuleID = LP.moduleid
+            LEFT OUTER JOIN lms_package_module  LP ON TL.packageModuleID = LP.id
             LEFT OUTER JOIN lms_package P ON P.packageID = LP.packageid
 
             LEFT OUTER JOIN billing_item BI ON BI.`billingItemID` = P.billing_item_id
