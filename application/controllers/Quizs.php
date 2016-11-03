@@ -13,8 +13,11 @@ public function __construct()
 public function index()
 {
  $this->load->database();
- $data['id'] = $this->input->post('id'); 
- $data['packageid'] = $this->input->post('packageid');
+ // var_dump($_SESSION['pop']);
+ $data['id'] =  $_SESSION['pop']['moduleid'];
+ $data['packageid'] = $_SESSION['pop']['packageid'];
+ // $data['id'] = $this->input->post('id'); 
+ // $data['packageid'] = $this->input->post('packageid');
  $userid 	 = $this->nativesession->get( 'userid' );
  $userLevel  = $this->nativesession->get( 'userLevel' );
 
@@ -84,7 +87,9 @@ $data['page_title'] 	= 'Monte Carlo';
 $data['nav_title'] 		= 'Quiz';
 $data['nav_subtitle'] 	= 'Quiz List';
 $data['home'] 			= 'Home';
+// var_dump($id);
 
+// die;
 $this->load->database();
 $this->load->helper(array('date','url'));
 $this->load->view('page_view2',$data);
